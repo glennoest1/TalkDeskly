@@ -32,3 +32,15 @@ Visit [talkdeskly.com](https://talkdeskly.com) for more info. Check out the [**L
   Automated responses for customers contacting support outside business hours.
 - **Pre-Chat Form**  
   Customizable forms to collect customer information before starting a chat session.
+
+## 🚀 Deployment & Guides
+
+TalkDeskly's deployment documentation is split into modular guides:
+
+* **[Local Development Setup](docs/deploy/development.md)**: Run PostgreSQL, Redis, Mailhog, Go server, React dashboard, and chat widget locally.
+* **[Docker Compose Deployment Guide](docs/deploy/deployment_docker.md)**: Guide on pulling images, managing persistent mounts, and starting compose stacks.
+* **[Single Binary & VM Deployment Guide](docs/deploy/deployment_binary.md)**: Compile React packages and bundle Go binary to run with Linux Systemd scripts.
+* **[Configuration Settings Reference](docs/deploy/configuration.md)**: List of all environmental parameters and configurations resolution flow.
+* **[Nginx Reverse Proxy & WebSocket Guide](docs/deploy/nginx_proxy.md)**: Config for Nginx ssl certifications, security headers, rate limiting, and websocket upgrades.
+* **[Maintenance, Backups & Troubleshooting](docs/deploy/maintenance.md)**: Database migrations CLI, backup cron scripts, health monitoring, and error resolution guide.
+
