@@ -83,12 +83,12 @@ When running in development mode, some connection URLs are hardcoded in the sour
 
 | Component | File | Line | Default Value | What to Change |
 | :--- | :--- | :---: | :--- | :--- |
-| Chat Widget | [chat-bubble/app/sdk.tsx](../../../chat-bubble/app/sdk.tsx) | 44-55 | `ws://localhost:6721` | `baseUrl` in the `import.meta.env.DEV` block |
-| Chat Widget | [chat-bubble/app/lib/api/client.ts](../../../chat-bubble/app/lib/api/client.ts) | 8 | `http://localhost:6721/api` | Axios `baseURL` dev fallback |
-| Agent Console | [frontend/src/lib/api/client.ts](../../../frontend/src/lib/api/client.ts) | 14 | `http://localhost:6721/api` | Axios `baseURL` dev fallback |
-| Agent Console | [frontend/src/context/websocket-context.tsx](../../../frontend/src/context/websocket-context.tsx) | 13 | `ws://localhost:6721/ws` | WebSocket URL dev fallback |
+| Chat Widget | [chat-bubble/app/sdk.tsx](../../../chat-bubble/app/sdk.tsx) | 44-55 | `ws://localhost:8080` (falls back to `VITE_WS_URL`) | `baseUrl` in the `import.meta.env.DEV` block |
+| Chat Widget | [chat-bubble/app/lib/api/client.ts](../../../chat-bubble/app/lib/api/client.ts) | 8 | `http://localhost:8080/api` (falls back to `VITE_API_URL`) | Axios `baseURL` dev fallback |
+| Agent Console | [frontend/src/lib/api/client.ts](../../../frontend/src/lib/api/client.ts) | 14 | `http://localhost:8080/api` (falls back to `VITE_API_URL`) | Axios `baseURL` dev fallback |
+| Agent Console | [frontend/src/context/websocket-context.tsx](../../../frontend/src/context/websocket-context.tsx) | 13 | `ws://localhost:8080/ws` (falls back to `VITE_WS_URL`) | WebSocket URL dev fallback |
 
-> **Note:** These files only affect **local development** mode. In production, the frontend and widget automatically resolve URLs from the server they are served from.
+> **Note:** These files only affect **local development** mode. They dynamically read `VITE_API_URL` and `VITE_WS_URL` env variables from your `.env` files. In production, the frontend and widget automatically resolve URLs relatively from the server they are served from.
 
 ---
 
