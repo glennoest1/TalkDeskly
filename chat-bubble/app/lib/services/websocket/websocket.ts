@@ -67,7 +67,7 @@ export class WebSocketService {
     this.eventDispatcher.registerHandler(
       "connection_error",
       (message: WebSocketMessage) => {
-        console.log(`Connection error: ${message.payload}`);
+        console.log(`Connection error: ${JSON.stringify(message.payload)}`);
 
         this.disconnect();
       }

@@ -44,11 +44,11 @@ if (typeof window !== "undefined") {
   // Auto-initialize in development
   if (import.meta.env.DEV) {
     init({
-      inboxId: "c0377c01-c2dc-4e79-80ee-98c914d22cd4",
+      inboxId: "c8fdb0f7-c261-4ce6-a77a-fbe64bd21e0d",
       position: "bottom-right",
       primaryColor: "#dc0462",
       zIndex: 9999,
-      baseUrl: "ws://localhost:6721",
+      baseUrl: "http://localhost:6721",
     });
   }
 }

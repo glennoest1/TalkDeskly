@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import SettingsContent from "../../settings-content";
+import { useTranslation } from "react-i18next";
 
 export interface WizardStep {
   id: string;
@@ -25,8 +26,13 @@ export function BaseWizard({
   title,
   children,
 }: BaseWizardProps) {
+  const { t } = useTranslation();
+
   return (
-    <SettingsContent title={title} description={"Create your new inbox"}>
+    <SettingsContent
+      title={title}
+      description={t("inbox.wizard.base.description")}
+    >
       {/* Progress Steps */}
       <div className="grid grid-cols-1 md:grid-cols-[240px,1fr] gap-6 md:gap-8">
         <nav aria-label="Progress" className="mb-6 md:mb-0">

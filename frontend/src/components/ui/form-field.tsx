@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Control } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 type BaseFieldProps = {
   name: string;
@@ -153,6 +154,8 @@ export function SelectField({
   options,
   placeholder,
 }: SelectFieldProps) {
+  const { t } = useTranslation();
+
   return (
     <FormFieldBase
       control={control}
@@ -168,7 +171,12 @@ export function SelectField({
             <FormControl>
               <SelectTrigger>
                 <SelectValue
-                  placeholder={placeholder || `Select ${label.toLowerCase()}`}
+                  placeholder={
+                    placeholder ||
+                    t("ui.common.selectField", {
+                      field: label.toLowerCase(),
+                    })
+                  }
                 />
               </SelectTrigger>
             </FormControl>

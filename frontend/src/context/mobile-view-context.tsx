@@ -26,7 +26,7 @@ export const MobileViewProvider: React.FC<{ children: ReactNode }> = ({
 export const useMobileView = () => {
   const context = useContext(MobileViewContext);
   if (!context) {
-    throw new Error("useMobileView must be used within a MobileViewProvider");
+    throw new Error("errors.mobileViewProvider");
   }
   return context;
 };

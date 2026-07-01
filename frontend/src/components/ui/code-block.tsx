@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Highlight, themes } from "prism-react-renderer";
+import { useTranslation } from "react-i18next";
 
 interface CodeBlockProps {
   code: string;
@@ -17,6 +18,7 @@ export function CodeBlock({
   className = "",
 }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
+  const { t } = useTranslation();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
@@ -53,12 +55,12 @@ export function CodeBlock({
         >
           {copied ? (
             <>
-              Copied!
+              {t("ui.common.copied")}
               <Check className="ml-2 h-3 w-3" />
             </>
           ) : (
             <>
-              Copy
+              {t("ui.common.copy")}
               <Copy className="ml-2 h-3 w-3" />
             </>
           )}

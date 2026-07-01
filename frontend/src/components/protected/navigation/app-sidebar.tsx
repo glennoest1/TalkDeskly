@@ -32,6 +32,7 @@ import { useMiscStore } from "@/stores/misc";
 import { useAuthStore } from "@/stores/auth";
 import { authService } from "@/lib/api/services/auth";
 import { useNavigate } from "react-router-dom";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 export function AppSidebar() {
   const { theme, sidebarCollapsed, toggleTheme, toggleSidebar } =
@@ -120,6 +121,20 @@ export function AppSidebar() {
               onClick={toggleTheme}
               collapsed={sidebarCollapsed}
             />
+            <div
+              className={cn(
+                "flex px-1",
+                sidebarCollapsed ? "justify-center" : "justify-start"
+              )}
+            >
+              <LanguageSwitcher
+                className={cn(
+                  "w-full justify-start text-muted-foreground hover:text-foreground",
+                  sidebarCollapsed && "w-10 justify-center px-0"
+                )}
+                showLabel={!sidebarCollapsed}
+              />
+            </div>
           </nav>
         </div>
 

@@ -26,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTranslation } from "react-i18next";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -45,13 +46,15 @@ interface DataTableProps<TData, TValue> {
 }
 
 const TableLoader = ({ columns }: { columns: number }) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <TableRow>
         <TableCell colSpan={columns} className="h-24 text-center">
           <div className="flex items-center justify-center">
             <div className="h-6 w-6 animate-spin rounded-full border-b-2 border-primary"></div>
-            <span className="ml-2">Loading...</span>
+            <span className="ml-2">{t("ui.common.loading")}</span>
           </div>
         </TableCell>
       </TableRow>
@@ -75,6 +78,7 @@ export function DataTable<TData, TValue>({
   pageSizeOptions = [10, 20, 50, 100],
   showAdvancedPagination = false,
 }: DataTableProps<TData, TValue>) {
+  const { t } = useTranslation();
   const isServerSide = pageCount !== undefined && onPageChange !== undefined;
 
   const table = useReactTable({
@@ -177,7 +181,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  {t("ui.common.noResults")}
                 </TableCell>
               </TableRow>
             )}
@@ -192,30 +196,33 @@ export function DataTable<TData, TValue>({
             {/* Pagination Info */}
             {isServerSide && totalItems ? (
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Showing {(currentPage - 1) * pageSize + 1} to{" "}
-                {Math.min(currentPage * pageSize, totalItems)} of {totalItems}{" "}
-                items
+                {t("ui.pagination.showingItems", {
+                  from: (currentPage - 1) * pageSize + 1,
+                  to: Math.min(currentPage * pageSize, totalItems),
+                  total: totalItems,
+                })}
               </p>
             ) : (
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Showing{" "}
-                {table.getState().pagination.pageIndex *
-                  table.getState().pagination.pageSize +
-                  1}{" "}
-                to{" "}
-                {Math.min(
-                  (table.getState().pagination.pageIndex + 1) *
-                    table.getState().pagination.pageSize,
-                  table.getRowCount()
-                )}{" "}
-                of {table.getRowCount()} items
+                {t("ui.pagination.showingItems", {
+                  from:
+                    table.getState().pagination.pageIndex *
+                      table.getState().pagination.pageSize +
+                    1,
+                  to: Math.min(
+                    (table.getState().pagination.pageIndex + 1) *
+                      table.getState().pagination.pageSize,
+                    table.getRowCount()
+                  ),
+                  total: table.getRowCount(),
+                })}
               </p>
             )}
 
             {/* Page Size Selector */}
             <div className="flex items-center gap-2">
               <Label htmlFor="pageSize" className="text-sm">
-                Show:
+                {t("ui.pagination.show")}
               </Label>
               <Select
                 value={getPageSize().toString()}
@@ -244,7 +251,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => handlePageChange(1)}
                 disabled={!getCanPreviousPage()}
               >
-                First
+                {t("ui.pagination.first")}
               </Button>
               <Button
                 variant="outline"
@@ -252,11 +259,11 @@ export function DataTable<TData, TValue>({
                 onClick={() => handlePageChange(getCurrentPage() - 1)}
                 disabled={!getCanPreviousPage()}
               >
-                Previous
+                {t("ui.common.previous")}
               </Button>
 
               <div className="flex items-center gap-1">
-                <span className="text-sm">Page</span>
+                <span className="text-sm">{t("ui.pagination.page")}</span>
                 <Input
                   type="number"
                   min="1"
@@ -270,7 +277,9 @@ export function DataTable<TData, TValue>({
                   }}
                   className="w-16 text-center"
                 />
-                <span className="text-sm">of {getTotalPages()}</span>
+                <span className="text-sm">
+                  {t("ui.pagination.of", { total: getTotalPages() })}
+                </span>
               </div>
 
               <Button
@@ -279,7 +288,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => handlePageChange(getCurrentPage() + 1)}
                 disabled={!getCanNextPage()}
               >
-                Next
+                {t("ui.common.next")}
               </Button>
               <Button
                 variant="outline"
@@ -287,7 +296,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => handlePageChange(getTotalPages())}
                 disabled={!getCanNextPage()}
               >
-                Last
+                {t("ui.pagination.last")}
               </Button>
             </div>
           ) : (
@@ -298,7 +307,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => handlePageChange(getCurrentPage() - 1)}
                 disabled={!getCanPreviousPage()}
               >
-                Previous
+                {t("ui.common.previous")}
               </Button>
               <Button
                 variant="outline"
@@ -306,7 +315,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => handlePageChange(getCurrentPage() + 1)}
                 disabled={!getCanNextPage()}
               >
-                Next
+                {t("ui.common.next")}
               </Button>
             </div>
           )}

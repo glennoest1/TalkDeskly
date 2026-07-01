@@ -60,8 +60,8 @@ export default function PasswordTab({ profile }: PasswordTabProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Password</CardTitle>
-        <CardDescription>Change your password</CardDescription>
+        <CardTitle>{t("profile.password.title")}</CardTitle>
+        <CardDescription>{t("profile.password.description")}</CardDescription>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -69,7 +69,7 @@ export default function PasswordTab({ profile }: PasswordTabProps) {
             <div className="space-y-2 mb-2">
               <InputField
                 name="oldPassword"
-                label="Current Password"
+                label={t("profile.password.currentPassword")}
                 control={form.control}
                 type="password"
                 disabled={isLoading}
@@ -79,7 +79,7 @@ export default function PasswordTab({ profile }: PasswordTabProps) {
               <div className="space-y-2">
                 <InputField
                   name="newPassword"
-                  label="New Password"
+                  label={t("profile.password.newPassword")}
                   control={form.control}
                   type="password"
                   disabled={isLoading}
@@ -88,7 +88,7 @@ export default function PasswordTab({ profile }: PasswordTabProps) {
               <div className="space-y-2">
                 <InputField
                   name="confirmPassword"
-                  label="Confirm New Password"
+                  label={t("profile.password.confirmNewPassword")}
                   control={form.control}
                   type="password"
                   disabled={isLoading}
@@ -97,11 +97,11 @@ export default function PasswordTab({ profile }: PasswordTabProps) {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col-reverse sm:flex-row gap-2 sm:justify-end">
-            <Button variant="outline" className="w-full sm:w-auto">
-              Cancel
+            <Button variant="outline" className="w-full sm:w-auto" type="button">
+              {t("common.cancel")}
             </Button>
             <Button className="w-full sm:w-auto" disabled={isLoading}>
-              Save changes
+              {isLoading ? t("common.saving") : t("common.saveChanges")}
             </Button>
           </CardFooter>
         </form>

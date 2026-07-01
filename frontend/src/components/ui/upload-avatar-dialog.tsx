@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useTranslation } from "react-i18next";
 
 const ASPECT_RATIOS = {
   "1:1": { width: 1, height: 1, label: "Square (1:1)" },
@@ -42,6 +43,7 @@ export function UploadAvatarDialog({
   maxSize?: number;
   aspectRatio?: keyof typeof ASPECT_RATIOS;
 }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState<string | null>(null);
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
@@ -65,11 +67,11 @@ export function UploadAvatarDialog({
       if (rejectedFiles.length > 0) {
         const rejection = rejectedFiles[0];
         if (rejection.errors[0]?.code === "file-too-large") {
-          setError(`File is too large. Maximum size is ${maxSize}MB`);
+          setError(t("ui.uploadAvatar.errors.fileTooLarge", { maxSize }));
           return;
         }
         if (rejection.errors[0]?.code === "file-invalid-type") {
-          setError("Invalid file type. Please upload an image file.");
+          setError(t("ui.uploadAvatar.errors.invalidFileType"));
           return;
         }
       }
@@ -156,25 +158,27 @@ export function UploadAvatarDialog({
       <DialogTrigger asChild>
         <Button className={cn("w-full", className)} size="sm" variant="outline">
           <Upload className="mr-2 h-4 w-4" />
-          Upload Picture
+          {t("ui.uploadAvatar.trigger")}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Upload and edit image</DialogTitle>
+          <DialogTitle>{t("ui.uploadAvatar.title")}</DialogTitle>
           <DialogDescription>
-            Upload, crop, and resize your image
+            {t("ui.uploadAvatar.description")}
           </DialogDescription>
         </DialogHeader>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="upload">Upload</TabsTrigger>
+            <TabsTrigger value="upload">
+              {t("ui.uploadAvatar.tabs.upload")}
+            </TabsTrigger>
             <TabsTrigger value="edit" disabled={!image}>
-              Edit
+              {t("ui.uploadAvatar.tabs.edit")}
             </TabsTrigger>
             <TabsTrigger value="preview" disabled={!croppedImage}>
-              Preview
+              {t("ui.uploadAvatar.tabs.preview")}
             </TabsTrigger>
           </TabsList>
 
@@ -192,11 +196,13 @@ export function UploadAvatarDialog({
               <div className="flex flex-col items-center justify-center space-y-2">
                 <ImageIcon className="h-10 w-10 text-muted-foreground" />
                 <div className="text-sm text-muted-foreground">
-                  <span className="font-semibold">Click to upload</span> or drag
-                  and drop
+                  <span className="font-semibold">
+                    {t("ui.uploadAvatar.dropzone.clickToUpload")}
+                  </span>{" "}
+                  {t("ui.uploadAvatar.dropzone.orDragAndDrop")}
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  JPG, PNG, GIF (max {maxSize}MB)
+                  {t("ui.uploadAvatar.dropzone.fileHint", { maxSize })}
                 </div>
                 {error && (
                   <div className="text-sm text-destructive">{error}</div>
@@ -229,7 +235,9 @@ export function UploadAvatarDialog({
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-sm">Zoom</span>
+                      <span className="text-sm">
+                        {t("ui.uploadAvatar.controls.zoom")}
+                      </span>
                       <span className="text-sm text-muted-foreground">
                         {Math.round(zoom * 100)}%
                       </span>
@@ -245,7 +253,9 @@ export function UploadAvatarDialog({
 
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-sm">Rotation</span>
+                      <span className="text-sm">
+                        {t("ui.uploadAvatar.controls.rotation")}
+                      </span>
                       <span className="text-sm text-muted-foreground">
                         {rotation}°
                       </span>
@@ -260,7 +270,7 @@ export function UploadAvatarDialog({
                   </div>
 
                   <Button className="w-full" onClick={createCroppedImage}>
-                    Crop Image
+                    {t("ui.uploadAvatar.controls.cropImage")}
                   </Button>
                 </div>
               </div>
@@ -274,7 +284,7 @@ export function UploadAvatarDialog({
                   <div className="flex items-center justify-center p-2">
                     <img
                       src={croppedImage || "/placeholder.svg"}
-                      alt="Cropped Preview"
+                      alt={t("ui.uploadAvatar.controls.croppedPreviewAlt")}
                       className="max-h-[300px] rounded-md object-contain"
                       style={{ width: `${width}px`, height: `${height}px` }}
                     />
@@ -287,7 +297,7 @@ export function UploadAvatarDialog({
 
         <DialogFooter className="flex flex-col sm:flex-row sm:justify-between sm:space-x-2">
           <Button type="button" variant="outline" onClick={handleReset}>
-            Reset
+            {t("ui.uploadAvatar.controls.reset")}
           </Button>
           <Button
             type="button"
@@ -302,7 +312,7 @@ export function UploadAvatarDialog({
               }
             }}
           >
-            Save changes
+            {t("ui.uploadAvatar.controls.saveChanges")}
           </Button>
         </DialogFooter>
       </DialogContent>

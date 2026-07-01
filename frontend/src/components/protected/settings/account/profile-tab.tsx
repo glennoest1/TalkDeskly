@@ -105,7 +105,7 @@ export default function ProfileTab({
                   aspectRatio="4:3"
                 />
                 <p className="text-xs text-muted-foreground">
-                  JPG, GIF or PNG. Max size of 2MB
+                  {t("profile.form.avatarHint", { maxSize: 2 })}
                 </p>
               </div>
             </div>
@@ -133,7 +133,7 @@ export default function ProfileTab({
               />
 
               <div className="space-y-2">
-                <Label htmlFor="role">Role</Label>
+                <Label htmlFor="role">{t("profile.form.role")}</Label>
                 <Input id="role" value={profile.role} disabled />
                 <p className="text-xs text-muted-foreground">
                   {t("profile.form.roleDescription")}

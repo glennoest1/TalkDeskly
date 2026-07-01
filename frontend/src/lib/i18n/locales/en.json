@@ -125,7 +125,12 @@
         "returnToHome": "Return to Home",
         "inviteFound": "You've been invited to join {{companyName}}",
         "inviteFoundDescription": "You've been invited to join {{companyName}}. Please enter your details to continue."
-      }
+      },
+      "title": "Create an account",
+      "personalDescription": "Enter your personal information",
+      "companyDescription": "Tell us about your company",
+      "personalInfo": "Personal Info",
+      "companyInfo": "Company Info"
     },
     "registration": {
       "disabled": {
@@ -138,14 +143,24 @@
     }
   },
   "contacts": {
+    "title": "Contacts",
     "name": "Name",
     "email": "Email",
     "phone": "Phone",
     "company": "Company",
+    "actions": {
+      "label": "Actions",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
     "create": {
       "description": "Create a new contact. Click save when you're done.",
       "title": "Create Contact",
       "save": "Save Contact"
+    },
+    "delete": {
+      "title": "Are you sure?",
+      "description": "This will permanently delete {{name}}'s contact information. This action cannot be undone."
     },
     "searchContacts": "Search contacts...",
     "notes": {
@@ -177,6 +192,33 @@
     }
   },
   "team": {
+    "title": "Team Members",
+    "description": "Manage your team members and their access",
+    "searchPlaceholder": "Search members...",
+    "invite": "Invite",
+    "allMembers": "All Members",
+    "invited": "Invited",
+    "active": "Active",
+    "empty": "No team members found",
+    "columns": {
+      "name": "Name",
+      "role": "Role",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "actions": {
+      "label": "Actions",
+      "changeRole": "Change Role",
+      "resendInvite": "Resend Invite",
+      "remove": "Remove"
+    },
+    "remove": {
+      "title": "Are you sure?",
+      "description": "This will permanently remove {{name}} from your team. This action cannot be undone.",
+      "success": "Member removed",
+      "successDescription": "{{name}} has been removed from your team.",
+      "fallbackName": "Team member"
+    },
     "member": {
       "added": "Member added",
       "added.description": "Team member has been successfully added",
@@ -254,7 +296,8 @@
             },
             "button": "Take me there"
           }
-        }
+        },
+        "inboxTitle": "Website Inbox"
       },
       "createInbox": {
         "title": "Create Inbox",
@@ -266,11 +309,27 @@
           "welcomeMessagePlaceholder": "Enter the message visitors will see when they open the chat",
           "welcomeMessageDefault": "👋 Hi there! How can we help you today?"
         }
+      },
+      "base": {
+        "description": "Create your new inbox"
+      },
+      "channelSelect": {
+        "title": "Choose a channel",
+        "description": "Choose a channel to integrate with your inbox. Currently, we only support website live-chat widget.",
+        "website": {
+          "title": "Website",
+          "description": "Add live chat to your website"
+        }
       }
     },
     "edit": {
       "title": "Edit Inbox",
       "description": "Edit the details of this inbox",
+      "notFound": {
+        "title": "Inbox not found",
+        "description": "The inbox you're looking for doesn't exist or you don't have access to it.",
+        "back": "Back to Inboxes"
+      },
       "inboxUpdated": "Inbox updated successfully",
       "inboxUpdateFailed": "Failed to update inbox",
       "inboxUpdateFailedDescription": "Please check the form for errors and try again.",
@@ -322,11 +381,22 @@
               "label": "Working Hours",
               "description": "Set your working hours and automatic responses outside of those hours",
               "startTime": "Start Time",
-              "endTime": "End Time"
+              "endTime": "End Time",
+              "to": "to",
+              "days": {
+                "monday": "Monday",
+                "tuesday": "Tuesday",
+                "wednesday": "Wednesday",
+                "thursday": "Thursday",
+                "friday": "Friday",
+                "saturday": "Saturday",
+                "sunday": "Sunday"
+              }
             }
           }
         },
         "widgetCustomization": {
+          "shortTitle": "Widget",
           "title": "Widget Customization",
           "description": "Customize the appearance of your chat widget",
           "form": {
@@ -340,8 +410,112 @@
               "topLeft": "Top Left"
             }
           }
+        },
+        "team": {
+          "title": "Team Members",
+          "description": "Manage who has access to this inbox"
+        },
+        "preChatForm": {
+          "title": "Pre-Chat Form",
+          "description": "Configure a form for visitors to fill out before starting a chat",
+          "enable": "Enable pre-chat form",
+          "formTitle": "Form Title",
+          "formTitlePlaceholder": "Enter form title",
+          "formDescription": "Form Description",
+          "formDescriptionPlaceholder": "Enter form description",
+          "fields": "Form Fields",
+          "addField": "Add Field",
+          "noFields": {
+            "title": "No fields added",
+            "description": "Add at least one field to your pre-chat form."
+          },
+          "fieldType": "Field Type",
+          "selectType": "Select type",
+          "types": {
+            "text": "Text",
+            "email": "Email",
+            "phone": "Phone",
+            "select": "Dropdown",
+            "textarea": "Text Area"
+          },
+          "label": "Label",
+          "placeholder": "Placeholder",
+          "mapsToContactProperty": "Maps to Contact Property",
+          "selectContactProperty": "Select contact property",
+          "none": "None",
+          "mappingDescription": "This field will be used to populate the contact property when the form is submitted.",
+          "options": "Options",
+          "optionPlaceholder": "Option {{number}}",
+          "addOption": "Add Option",
+          "requiredField": "Required field",
+          "saveSettings": "Save Form Settings",
+          "saved": "Saved",
+          "preview": {
+            "title": "Form Preview",
+            "description": "This is how your pre-chat form will appear to visitors",
+            "startChat": "Start Chat",
+            "disabled": "Enable the pre-chat form to see a preview"
+          },
+          "defaults": {
+            "title": "Before we chat...",
+            "description": "Please fill out this short form to help us serve you better.",
+            "name": "Name",
+            "namePlaceholder": "Enter your name",
+            "newField": "New Field",
+            "enterValue": "Enter value",
+            "newOption": "New Option"
+          }
         }
       }
+    },
+    "list": {
+      "title": "Inboxes",
+      "description": "Create and manage inboxes for your customer support channels.",
+      "newInbox": "New Inbox",
+      "emptyTitle": "No inboxes yet",
+      "emptyDescription": "Create your first inbox to start managing customer conversations",
+      "created": "Created {{date}}",
+      "members": "{{count}} members",
+      "missingId": "No id provided",
+      "allInboxes": "All Inboxes"
+    }
+  },
+  "liveChat": {
+    "inboxSidebar": {
+      "title": "Inboxes",
+      "sectionTitle": "Inbox",
+      "searchPlaceholder": "Search inboxes...",
+      "myInbox": "My inbox",
+      "unassigned": "Unassigned",
+      "all": "All",
+      "teamInboxes": "Team inboxes",
+      "empty": "No inboxes found"
+    },
+    "filter": {
+      "searchPlaceholder": "Search conversations...",
+      "tabs": {
+        "all": "All",
+        "unassigned": "Unassigned",
+        "active": "Active",
+        "closed": "Closed"
+      },
+      "title": "Conversations"
+    },
+    "emptyChatState": {
+      "description": "Select a conversation to start chatting",
+      "viewConversations": "View Conversations"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage your account and workspace",
+    "navigation": {
+      "account": "Account",
+      "inboxes": "Inboxes",
+      "team": "Team Members",
+      "cannedResponses": "Canned Responses",
+      "analytics": "Analytics",
+      "company": "Company"
     }
   },
   "agents": {
@@ -367,7 +541,8 @@
       "lastName": "Last Name",
       "email": "Email",
       "role": "Role",
-      "roleDescription": "Your role determines your permissions within the system"
+      "roleDescription": "Your role determines your permissions within the system",
+      "avatarHint": "JPG, GIF or PNG. Max size of {{maxSize}}MB"
     },
     "notifications": {
       "title": "Notifications",
@@ -382,6 +557,22 @@
       "browserNotifications": "Browser Notifications",
       "browserEnabled": "Enable browser notifications",
       "browserEnabledDescription": "Receive notifications directly in your browser when you're online"
+    },
+    "accountSettings": {
+      "title": "Account Settings",
+      "description": "Manage your account settings and preferences",
+      "tabs": {
+        "profile": "Profile",
+        "password": "Password",
+        "notifications": "Notifications"
+      }
+    },
+    "password": {
+      "title": "Password",
+      "description": "Change your password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password"
     }
   },
   "common": {
@@ -390,7 +581,75 @@
     "saveChanges": "Save Changes",
     "saving": "Saving...",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "language": "Language"
+  },
+  "ui": {
+    "common": {
+      "close": "Close",
+      "more": "More",
+      "morePages": "More pages",
+      "previous": "Previous",
+      "next": "Next",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "loading": "Loading...",
+      "noResults": "No results.",
+      "search": "Search...",
+      "noOptionsFound": "No options found.",
+      "selectOptions": "Select options",
+      "selectItems": "Select items...",
+      "selectField": "Select {{field}}",
+      "toggleSidebar": "Toggle Sidebar"
+    },
+    "pagination": {
+      "navigation": "pagination",
+      "goToPreviousPage": "Go to previous page",
+      "goToNextPage": "Go to next page",
+      "first": "First",
+      "last": "Last",
+      "page": "Page",
+      "of": "of {{total}}",
+      "show": "Show:",
+      "showingItems": "Showing {{from}} to {{to}} of {{total}} items"
+    },
+    "carousel": {
+      "previousSlide": "Previous slide",
+      "nextSlide": "Next slide"
+    },
+    "uploadAvatar": {
+      "trigger": "Upload Picture",
+      "title": "Upload and edit image",
+      "description": "Upload, crop, and resize your image",
+      "tabs": {
+        "upload": "Upload",
+        "edit": "Edit",
+        "preview": "Preview"
+      },
+      "dropzone": {
+        "clickToUpload": "Click to upload",
+        "orDragAndDrop": "or drag and drop",
+        "fileHint": "JPG, PNG, GIF (max {{maxSize}}MB)"
+      },
+      "errors": {
+        "fileTooLarge": "File is too large. Maximum size is {{maxSize}}MB",
+        "invalidFileType": "Invalid file type. Please upload an image file."
+      },
+      "controls": {
+        "zoom": "Zoom",
+        "rotation": "Rotation",
+        "cropImage": "Crop Image",
+        "reset": "Reset",
+        "saveChanges": "Save changes",
+        "croppedPreviewAlt": "Cropped Preview"
+      }
+    },
+    "userRoles": {
+      "superadmin": "Super Admin",
+      "admin": "Admin",
+      "agent": "Agent",
+      "user": "User"
+    }
   },
   "errors": {
     "413": {
@@ -813,8 +1072,8 @@
         "enableRegistration": "Enable Registration",
         "namePlaceholder": "TalkDeskly",
         "defaultLanguagePlaceholder": "en",
-        "supportedLanguagesPlaceholder": "en, es, fr, de",
-        "supportedLanguagesDescription": "Enter language codes separated by commas (e.g., en, es, fr)",
+        "supportedLanguagesPlaceholder": "vi, en, zh",
+        "supportedLanguagesDescription": "Enter language codes separated by commas (e.g., vi, en, zh)",
         "registrationDescription": "Enable or disable user registration. This is ideal when you don't want people signing up to create their own accounts and company."
       },
       "toast": {
@@ -916,6 +1175,55 @@
       "previous": "Previous",
       "confirm": "Confirm",
       "tryAgain": "Try Again"
+    }
+  },
+  "analytics": {
+    "title": "Analytics Dashboard",
+    "subtitle": "Analytics for {{range}}",
+    "empty": "No analytics data available",
+    "errors": {
+      "title": "Error",
+      "unexpectedData": "Received unexpected data format",
+      "fetchFailed": "Failed to fetch analytics data",
+      "invalidDateRange": "Invalid Date Range",
+      "selectBothDates": "Please select both start and end dates"
+    },
+    "dateRange": {
+      "lastDays": "Last {{count}} days",
+      "to": "{{start}} to {{end}}",
+      "selectTimeRange": "Select time range",
+      "last7Days": "Last 7 days",
+      "last14Days": "Last 14 days",
+      "last30Days": "Last 30 days",
+      "customRange": "Custom range",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "pickDate": "Pick a date",
+      "apply": "Apply"
+    },
+    "metrics": {
+      "totalConversations": "Total Conversations",
+      "newConversations": "{{count}} new conversations",
+      "totalMessages": "Total Messages",
+      "averagePerConversation": "{{count}} avg per conversation",
+      "agentMessages": "Agent Messages",
+      "fromContacts": "{{count}} from contacts",
+      "activeConversations": "Active Conversations",
+      "pending": "{{count}} pending"
+    },
+    "status": {
+      "title": "Conversation Status Breakdown",
+      "description": "Distribution of conversation statuses",
+      "active": "Active",
+      "pending": "Pending",
+      "resolved": "Resolved",
+      "closed": "Closed"
+    },
+    "agents": {
+      "title": "Agent Performance",
+      "description": "Conversations assigned by agent",
+      "empty": "No agent data available",
+      "assignments": "{{count}} total assignments"
     }
   }
 }

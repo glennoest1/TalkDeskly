@@ -84,23 +84,17 @@ export default function TeamSettings() {
         variant: "destructive",
       });
     }
-
-    toast({
-      title: "Invitations sent",
-      description: `Invitations have been sent to ${emails.length} email${
-        emails.length > 1 ? "s" : ""
-      }.`,
-    });
   };
 
   const handleDeleteMember = (id: string) => {
     const memberToDelete = teamMembers.find((member) => member.id === id);
+    const memberName = memberToDelete?.name || t("team.remove.fallbackName");
     setTeamMembers(teamMembers.filter((member) => member.id !== id));
     toast({
-      title: "Member removed",
-      description: `${
-        memberToDelete?.name || "Team member"
-      } has been removed from your team.`,
+      title: t("team.remove.success"),
+      description: t("team.remove.successDescription", {
+        name: memberName,
+      }),
     });
   };
 
@@ -123,8 +117,8 @@ export default function TeamSettings() {
 
   return (
     <SettingsContent
-      title="Team Members"
-      description="Manage your team members and their access"
+      title={t("team.title")}
+      description={t("team.description")}
       showBackButton={false}
     >
       <TeamSettingsHeader

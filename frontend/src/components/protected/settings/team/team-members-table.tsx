@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/table";
 import { TeamMember } from "@/lib/interfaces";
 import { TeamMemberRow } from "./team-member-row";
+import { useTranslation } from "react-i18next";
 
 interface TeamMembersTableProps {
   members: TeamMember[];
@@ -23,6 +24,7 @@ export function TeamMembersTable({
   onUpdateRole,
   onResendInvite,
 }: TeamMembersTableProps) {
+  const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -38,14 +40,16 @@ export function TeamMembersTable({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
+              <TableHead>{t("team.columns.name")}</TableHead>
               <TableHead className={isMobile ? "hidden md:table-cell" : ""}>
-                Role
+                {t("team.columns.role")}
               </TableHead>
               <TableHead className={isMobile ? "hidden md:table-cell" : ""}>
-                Status
+                {t("team.columns.status")}
               </TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead className="text-right">
+                {t("team.columns.actions")}
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -55,7 +59,7 @@ export function TeamMembersTable({
                   colSpan={5}
                   className="text-center py-8 text-muted-foreground"
                 >
-                  No team members found
+                  {t("team.empty")}
                 </TableCell>
               </TableRow>
             ) : (

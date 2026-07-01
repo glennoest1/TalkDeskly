@@ -12,19 +12,22 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { Contact } from "@/lib/interfaces";
 import { DeleteContactDialog } from "@/components/protected/contacts/dialogs/delete-contact-dialog";
+import type { TFunction } from "i18next";
 
 type ContactsColumnProps = {
   onEdit: (contact: Contact) => void;
   onDelete: (contactId: string) => void;
+  t: TFunction;
 };
 
 export const createColumns = ({
   onEdit,
   onDelete,
+  t,
 }: ContactsColumnProps): ColumnDef<Contact>[] => [
   {
     accessorKey: "name",
-    header: "Name",
+    header: t("contacts.name"),
     cell: ({ row }) => {
       const contact = row.original;
       return (
@@ -42,15 +45,15 @@ export const createColumns = ({
   },
   {
     accessorKey: "email",
-    header: "Email",
+    header: t("contacts.email"),
   },
   {
     accessorKey: "phone",
-    header: "Phone",
+    header: t("contacts.phone"),
   },
   {
     accessorKey: "company",
-    header: "Company",
+    header: t("contacts.company"),
   },
   {
     id: "actions",
@@ -67,11 +70,11 @@ export const createColumns = ({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuLabel>{t("contacts.actions.label")}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => onEdit(contact)}>
                 <Edit className="h-4 w-4 mr-2" />
-                Edit
+                {t("contacts.actions.edit")}
               </DropdownMenuItem>
               {/* <DeleteContactDialog
                 contact={contact}
@@ -79,7 +82,7 @@ export const createColumns = ({
                 trigger={
                   <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                     <Trash2 className="h-4 w-4 mr-2" />
-                    Delete
+                    {t("contacts.actions.delete")}
                   </DropdownMenuItem>
                 }
               /> */}

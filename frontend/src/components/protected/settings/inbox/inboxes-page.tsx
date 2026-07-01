@@ -21,8 +21,10 @@ import {
 import { Link } from "react-router-dom";
 import SettingsContent from "@/components/protected/settings/settings-content";
 import { useInboxesStore } from "@/stores/inboxes";
+import { useTranslation } from "react-i18next";
 
 export default function InboxesPage() {
+  const { t } = useTranslation();
   const { inboxes, fetchInboxes } = useInboxesStore();
 
   useEffect(() => {
@@ -31,8 +33,8 @@ export default function InboxesPage() {
 
   return (
     <SettingsContent
-      title="Inboxes"
-      description="Create and manage inboxes for your customer support channels."
+      title={t("inbox.list.title")}
+      description={t("inbox.list.description")}
       showBackButton={false}
     >
       <div>
@@ -40,7 +42,7 @@ export default function InboxesPage() {
           <Link to="new">
             <Button className="w-full sm:w-auto">
               <Plus className="h-4 w-4 mr-2" />
-              New Inbox
+              {t("inbox.list.newInbox")}
             </Button>
           </Link>
         </div>
@@ -52,10 +54,11 @@ export default function InboxesPage() {
                 <Inbox className="h-8 w-8 text-primary" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold mb-2">No inboxes yet</h3>
+                <h3 className="text-lg font-semibold mb-2">
+                  {t("inbox.list.emptyTitle")}
+                </h3>
                 <p className="text-muted-foreground">
-                  Create your first inbox to start managing customer
-                  conversations
+                  {t("inbox.list.emptyDescription")}
                 </p>
               </div>
             </CardContent>
@@ -72,7 +75,7 @@ export default function InboxesPage() {
                     <div>
                       <CardTitle className="text-xl">{inbox.name}</CardTitle>
                       <CardDescription>
-                        Created {inbox.createdAt}
+                        {t("inbox.list.created", { date: inbox.createdAt })}
                       </CardDescription>
                     </div>
                   </CardHeader>
@@ -81,7 +84,11 @@ export default function InboxesPage() {
                       {inbox.welcomeMessage}
                     </p>
                     <div className="flex items-center justify-between text-sm">
-                      <span>{inbox.users.length} members</span>
+                      <span>
+                        {t("inbox.list.members", {
+                          count: inbox.users.length,
+                        })}
+                      </span>
                     </div>
                   </CardContent>
                 </Card>

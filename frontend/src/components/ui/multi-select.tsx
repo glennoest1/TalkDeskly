@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
 import { Command as CommandPrimitive } from "cmdk";
+import { useTranslation } from "react-i18next";
 
 interface MultiSelectProps {
   items: { label: string; value: string }[];
@@ -16,7 +17,7 @@ interface MultiSelectProps {
 
 export function MultiSelect({
   items,
-  placeholder = "Select items...",
+  placeholder,
   selected,
   onChange,
   className,
@@ -24,6 +25,7 @@ export function MultiSelect({
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");
+  const { t } = useTranslation();
 
   const handleUnselect = (item: string) => {
     onChange(selected.filter((i) => i !== item));
@@ -90,7 +92,11 @@ export function MultiSelect({
             }}
             onFocus={() => setOpen(true)}
             onClick={() => setOpen(true)}
-            placeholder={selected.length === 0 ? placeholder : undefined}
+            placeholder={
+              selected.length === 0
+                ? placeholder ?? t("ui.common.selectItems")
+                : undefined
+            }
             className="ml-2 bg-transparent outline-none placeholder:text-muted-foreground flex-1"
           />
         </div>

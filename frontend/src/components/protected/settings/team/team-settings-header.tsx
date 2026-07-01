@@ -6,6 +6,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { InviteMembersDialog } from "./invite-members-dialog";
 import { AddMemberDialog } from "./add-member-dialog";
 import { TeamMember } from "@/lib/interfaces";
+import { useTranslation } from "react-i18next";
 
 interface TeamSettingsHeaderProps {
   searchQuery: string;
@@ -24,6 +25,7 @@ export function TeamSettingsHeader({
   selectedTab = "all",
   onTabChange,
 }: TeamSettingsHeaderProps) {
+  const { t } = useTranslation();
   const [isInviteDialogOpen, setIsInviteDialogOpen] = useState(false);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
@@ -37,7 +39,7 @@ export function TeamSettingsHeader({
         />
         <Button variant="outline" onClick={() => setIsInviteDialogOpen(true)}>
           <Mail className="h-4 w-4 mr-2" />
-          Invite
+          {t("team.invite")}
         </Button>
 
         <AddMemberDialog
@@ -47,21 +49,21 @@ export function TeamSettingsHeader({
         />
         <Button onClick={() => setIsAddDialogOpen(true)}>
           <UserPlus className="h-4 w-4 mr-2" />
-          Add Member
+          {t("team.member.add")}
         </Button>
       </div>
 
       <Tabs value={selectedTab} onValueChange={onTabChange}>
         <div className="flex md:items-center md:justify-between justify-start mb-4 sm:flex-row flex-col items-start gap-2">
           <TabsList className="w-full sm:w-auto inline-flex">
-            <TabsTrigger value="all">All Members</TabsTrigger>
-            <TabsTrigger value="invited">Invited</TabsTrigger>
+            <TabsTrigger value="all">{t("team.allMembers")}</TabsTrigger>
+            <TabsTrigger value="invited">{t("team.invited")}</TabsTrigger>
           </TabsList>
           <div className="relative w-64">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search members..."
+              placeholder={t("team.searchPlaceholder")}
               className="pl-8"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
