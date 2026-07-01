@@ -24,7 +24,7 @@ server {
     listen 443 ssl http2;
     server_name chat.yourdomain.com;
 
-    # SSL / TLS Certificate paths (Managed by Certbot)
+    # SSL / TLS Certificate paths (Managed by Let's Encrypt)
     ssl_certificate /etc/letsencrypt/live/chat.yourdomain.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/chat.yourdomain.com/privkey.pem;
 

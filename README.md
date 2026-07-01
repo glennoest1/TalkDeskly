@@ -35,12 +35,19 @@ Visit [talkdeskly.com](https://talkdeskly.com) for more info. Check out the [**L
 
 ## 🚀 Deployment & Guides
 
-TalkDeskly's deployment documentation is split into modular guides:
+TalkDeskly's deployment documentation is split into modular environment workflows and component domain folders:
 
-* **[Local Development Setup](docs/deploy/development.md)**: Run PostgreSQL, Redis, Mailhog, Go server, React dashboard, and chat widget locally.
-* **[Docker Compose Deployment Guide](docs/deploy/deployment_docker.md)**: Guide on pulling images, managing persistent mounts, and starting compose stacks.
-* **[Single Binary & VM Deployment Guide](docs/deploy/deployment_binary.md)**: Compile React packages and bundle Go binary to run with Linux Systemd scripts.
-* **[Configuration Settings Reference](docs/deploy/configuration.md)**: List of all environmental parameters and configurations resolution flow.
-* **[Nginx Reverse Proxy & WebSocket Guide](docs/deploy/nginx_proxy.md)**: Config for Nginx ssl certifications, security headers, rate limiting, and websocket upgrades.
-* **[Maintenance, Backups & Troubleshooting](docs/deploy/maintenance.md)**: Database migrations CLI, backup cron scripts, health monitoring, and error resolution guide.
+### 🗺️ Environment Workflows
+* **[Local Development Setup](docs/development/README.md)**: Instructions on running Postgres, Redis, Mailhog, Go server (`air`), React dashboard, and chat widget on localhost.
+* **[Production Docker Compose Guide](docs/deployment_docker/README.md)**: Guide on pulling containers, configuring persistent mounts, and starting the production stack.
+
+### 🏛️ Component Domain Guides
+* **[Backend Go API Domain](docs/backend/README.md)**: Compiling Go, production folder structure, systemd configuration, migrations CLI, and monitoring.
+* **[Frontend Dashboard React Domain](docs/frontend/README.md)**: Compiling Vite bundles, static hosting options (Go server vs CDN), and endpoint resolution flow.
+* **[Chat Bubble SDK Widget Domain](docs/chat_bubble/README.md)**: Compiling, Edge CDN hosting, HTML integration snippet, configuration variables, and CORS.
+
+### 🔧 Global Server References
+* **[Configuration reference guide](docs/configuration/README.md)**: Templates for `.env` and `storage/config.json`.
+* **[Nginx Reverse Proxy block](docs/nginx_proxy/README.md)**: Production settings for SSL, rate-limiting, and WebSockets.
+* **[System Maintenance guide](docs/maintenance/README.md)**: CLI database commands, database backup cron tasks, and troubleshooting.
 
