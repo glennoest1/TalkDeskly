@@ -43,12 +43,16 @@ if (typeof window !== "undefined") {
 
   // Auto-initialize in development
   if (import.meta.env.DEV) {
+    const defaultUrl = import.meta.env.VITE_WS_URL
+      ? import.meta.env.VITE_WS_URL.replace("/ws", "")
+      : "ws://localhost:6721";
+
     init({
-      inboxId: "c0377c01-c2dc-4e79-80ee-98c914d22cd4",
+      inboxId: "0831c7a7-bd57-4b05-a108-8b250f9abd6f",
       position: "bottom-right",
       primaryColor: "#dc0462",
       zIndex: 9999,
-      baseUrl: "ws://localhost:6721",
+      baseUrl: defaultUrl,
     });
   }
 }
