@@ -32,3 +32,14 @@ Visit [talkdeskly.com](https://talkdeskly.com) for more info. Check out the [**L
   Automated responses for customers contacting support outside business hours.
 - **Pre-Chat Form**  
   Customizable forms to collect customer information before starting a chat session.
+
+## Docker Compose Deployment
+
+Deployment guides are in [docs/deploy](docs/deploy/README.md).
+
+| Mode | Guide | Compose file |
+| --- | --- | --- |
+| Development | [Development deployment](docs/deploy/dev/development-deployment.md) | `docker-compose.dev.yml` |
+| Production | [Production deployment](docs/deploy/prod/production-deployment.md) | `docker-compose.prod.yml` |
+
+Use development mode for local work with hot reload, MailHog, and separate frontend/widget containers. Use production mode when testing the compiled backend image that serves the admin frontend and widget SDK.
