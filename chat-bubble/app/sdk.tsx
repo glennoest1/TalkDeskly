@@ -43,6 +43,10 @@ if (typeof window !== "undefined") {
 
   // Auto-initialize in development
   if (import.meta.env.DEV) {
+    const defaultUrl = import.meta.env.VITE_WS_URL
+      ? import.meta.env.VITE_WS_URL.replace("/ws", "")
+      : "ws://localhost:8080";
+
     init({
       inboxId: "c8fdb0f7-c261-4ce6-a77a-fbe64bd21e0d",
       position: "bottom-right",

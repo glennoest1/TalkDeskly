@@ -1,0 +1,51 @@
+# OS files
+.DS_Store
+Thumbs.db
+db.crypt
+
+# Agent and tool specific directories
+.claude/
+.omc/
+frontend/.omc/
+backend/.omc/
+chat-bubble/.omc/
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.classpath
+.settings/
+
+# Node / JS dependencies and builds (if any at root)
+node_modules/
+dist/
+build/
+.npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+
+# Go binaries and build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+backend/bin/
+backend/dist/
+chat-bubble/dist/
+
+# Local Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+docker-compose.override.yml
