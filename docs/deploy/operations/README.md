@@ -36,8 +36,8 @@ TalkDeskly reads configuration at startup in this priority order:
 **File to edit:** [backend/.env](../../../backend/.env)
 
 ```ini
-PORT=6721
-BASE_URL=http://localhost:6721
+PORT=8080
+BASE_URL=http://localhost:8080
 GO_ENV=development
 JWT_SECRET=secret
 DATABASE_URL=postgres://postgres:postgres@localhost:5433/talkdeskly

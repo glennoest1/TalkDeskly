@@ -13,7 +13,7 @@ TalkDeskly consists of the following components:
 | **PostgreSQL** | Primary database | `5433` (host) → `5432` (container) |
 | **Redis** | Cache & pub/sub | `6379` |
 | **Mailhog** | Development email server | SMTP: `1025`, Web UI: `8025` |
-| **Go Backend** | API server + WebSocket | Hybrid: `6721`, Docker: `8080` |
+| **Go Backend** | API server + WebSocket | Hybrid: `8080`, Docker: `8080` |
 | **Frontend** | Agent Console dashboard (React) | `3001` |
 | **Chat Bubble** | Embeddable chat widget (React) | `3000` |
 
@@ -60,8 +60,8 @@ docker compose -f docker-compose.dev.yml up -d postgres redis mailhog
 
 Create or edit the `.env` file inside the `backend/` folder with these values:
 ```ini
-PORT=6721
-BASE_URL=http://localhost:6721
+PORT=8080
+BASE_URL=http://localhost:8080
 GO_ENV=development
 JWT_SECRET=secret
 DATABASE_URL=postgres://postgres:postgres@localhost:5433/talkdeskly
@@ -103,9 +103,9 @@ From the `backend/` folder, start the Go server with hot-reloading:
 air
 ```
 
-**Expected result:** Server starts on `http://localhost:6721`, Delve debugger on port `2345`.
+**Expected result:** Server starts on `http://localhost:8080`, Delve debugger on port `2345`.
 
-**Verify:** Open `http://localhost:6721/health` in your browser — you should see `"status": "OK"`.
+**Verify:** Open `http://localhost:8080/health` in your browser — you should see `"status": "OK"`.
 
 ---
 
@@ -123,8 +123,8 @@ npm run dev
 **Verify:** Open `http://localhost:3001` → login with `admin@talkdeskly.com` / `password123`.
 
 **Files with hardcoded dev URLs (edit if you change the backend port):**
-- API base URL: [frontend/src/lib/api/client.ts](../../../frontend/src/lib/api/client.ts) (Line 14, default: `http://localhost:6721/api`)
-- WebSocket URL: [frontend/src/context/websocket-context.tsx](../../../frontend/src/context/websocket-context.tsx) (Line 13, default: `ws://localhost:6721/ws`)
+- API base URL: [frontend/src/lib/api/client.ts](../../../frontend/src/lib/api/client.ts) (Line 14, default: `http://localhost:8080/api`)
+- WebSocket URL: [frontend/src/context/websocket-context.tsx](../../../frontend/src/context/websocket-context.tsx) (Line 13, default: `ws://localhost:8080/ws`)
 
 ---
 
@@ -140,8 +140,8 @@ npm run dev
 **Expected result:** Chat widget demo page runs at `http://localhost:3000`.
 
 **Files with hardcoded dev URLs (edit if you change the backend port):**
-- Auto-init config: [chat-bubble/app/sdk.tsx](../../../chat-bubble/app/sdk.tsx) (Lines 44-55, default: `ws://localhost:6721`)
-- API base URL: [chat-bubble/app/lib/api/client.ts](../../../chat-bubble/app/lib/api/client.ts) (Line 8, default: `http://localhost:6721/api`)
+- Auto-init config: [chat-bubble/app/sdk.tsx](../../../chat-bubble/app/sdk.tsx) (Lines 44-55, default: `ws://localhost:8080`)
+- API base URL: [chat-bubble/app/lib/api/client.ts](../../../chat-bubble/app/lib/api/client.ts) (Line 8, default: `http://localhost:8080/api`)
 
 ---
 
@@ -242,8 +242,8 @@ Both approaches use **Mailhog** as the development email server.
 
 | What | Hybrid (Approach A) | Full Docker (Approach B) |
 | :--- | :--- | :--- |
-| Backend API | `http://localhost:6721` | `http://localhost:8080` |
-| Backend Health | `http://localhost:6721/health` | `http://localhost:8080/health` |
+| Backend API | `http://localhost:8080` | `http://localhost:8080` |
+| Backend Health | `http://localhost:8080/health` | `http://localhost:8080/health` |
 | Agent Console | `http://localhost:3001` | `http://localhost:3001` |
 | Chat Widget | `http://localhost:3000` | `http://localhost:3000` |
 | Mailhog UI | `http://localhost:8025` | `http://localhost:8025` |

@@ -52,7 +52,7 @@ if (typeof window !== "undefined") {
       position: "bottom-right",
       primaryColor: "#dc0462",
       zIndex: 9999,
-      baseUrl: "http://localhost:6721",
+      baseUrl: "http://localhost:8080",
     });
   }
 }
