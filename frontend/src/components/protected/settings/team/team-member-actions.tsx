@@ -1,11 +1,9 @@
 import {
-  Edit,
   Trash2,
   RefreshCw,
   Shield,
   ShieldAlert,
   ShieldCheck,
-  ShieldX,
   MoreHorizontal,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,6 +31,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { TeamMember } from "@/lib/interfaces";
+import { useTranslation } from "react-i18next";
 
 interface TeamMemberActionsProps {
   member: TeamMember;
@@ -47,6 +46,8 @@ export function TeamMemberActions({
   onResendInvite,
   onUpdateRole,
 }: TeamMemberActionsProps) {
+  const { t } = useTranslation();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -56,12 +57,12 @@ export function TeamMemberActions({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("team.actions.label")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>
             <Shield className="h-4 w-4 mr-2" />
-            Change Role
+            {t("team.actions.changeRole")}
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent>
@@ -69,13 +70,13 @@ export function TeamMemberActions({
                 onClick={() => onUpdateRole(member.id, "admin")}
               >
                 <ShieldAlert className="h-4 w-4 mr-2" />
-                Admin
+                {t("team.roles.admin")}
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => onUpdateRole(member.id, "agent")}
               >
                 <ShieldCheck className="h-4 w-4 mr-2" />
-                Agent
+                {t("team.roles.agent")}
               </DropdownMenuItem>
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
@@ -83,7 +84,7 @@ export function TeamMemberActions({
         {member.status === "Invited" && (
           <DropdownMenuItem onClick={() => onResendInvite(member.id)}>
             <RefreshCw className="h-4 w-4 mr-2" />
-            Resend Invite
+            {t("team.actions.resendInvite")}
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
@@ -94,24 +95,23 @@ export function TeamMemberActions({
               className="text-destructive focus:text-destructive"
             >
               <Trash2 className="h-4 w-4 mr-2" />
-              Remove
+              {t("team.actions.remove")}
             </DropdownMenuItem>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogTitle>{t("team.remove.title")}</AlertDialogTitle>
               <AlertDialogDescription>
-                This will permanently remove {member.name} from your team. This
-                action cannot be undone.
+                {t("team.remove.description", { name: member.name })}
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
               <AlertDialogAction
                 onClick={() => onDelete(member.id)}
                 className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
               >
-                Remove
+                {t("team.actions.remove")}
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

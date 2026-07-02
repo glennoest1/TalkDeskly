@@ -11,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import type { Contact } from "@/types/chat";
+import { useTranslation } from "react-i18next";
 
 interface DeleteContactDialogProps {
   contact: Contact;
@@ -23,24 +24,25 @@ export function DeleteContactDialog({
   onDelete,
   trigger,
 }: DeleteContactDialogProps) {
+  const { t } = useTranslation();
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogTitle>{t("contacts.delete.title")}</AlertDialogTitle>
           <AlertDialogDescription>
-            This will permanently delete {contact.name}'s contact information.
-            This action cannot be undone.
+            {t("contacts.delete.description", { name: contact.name })}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
           <AlertDialogAction
             onClick={() => onDelete(contact.id)}
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
-            Delete
+            {t("contacts.actions.delete")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

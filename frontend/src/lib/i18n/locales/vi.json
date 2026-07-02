@@ -1,0 +1,1230 @@
+{
+  "validation": {
+    "required": "Trường này là bắt buộc",
+    "min": "Phải có ít nhất {{param}}",
+    "max": "Phải nhỏ hơn {{param}}",
+    "email": "Vui lòng nhập địa chỉ email hợp lệ",
+    "emailAlreadyTaken": "Email đã được sử dụng",
+    "confirmPassword": {
+      "mismatch": "Mật khẩu không khớp"
+    },
+    "invalidType": "Loại không hợp lệ",
+    "companyAlreadyExists": "Công ty đã tồn tại",
+    "passwordMatch": "Mật khẩu không khớp",
+    "url": "Vui lòng nhập URL hợp lệ"
+  },
+  "auth": {
+    "leftColumn": {
+      "brandName": "TalkDeskly",
+      "tagline": "Kết nối. Cộng tác. Giao tiếp.",
+      "heroTitle": "Nơi đội nhóm",
+      "heroTitleAccent": "kết nối",
+      "description": "Nền tảng trò chuyện mã nguồn mở hiện đại, được thiết kế để tối ưu giao tiếp, tăng năng suất và giữ cho đội nhóm luôn kết nối dù làm việc ở bất cứ đâu.",
+      "features": {
+        "realTimeMessaging": {
+          "title": "Nhắn tin thời gian thực",
+          "description": "Giao tiếp tức thì với tốc độ gửi cực nhanh"
+        },
+        "teamCollaboration": {
+          "title": "Cộng tác nhóm",
+          "description": "Tổ chức cuộc trò chuyện bằng kênh và nhóm"
+        },
+        "openSource": {
+          "title": "Mã nguồn mở",
+          "description": "Mã nguồn minh bạch, bạn có thể tin tưởng và tùy chỉnh"
+        },
+        "easyIntegration": {
+          "title": "Tích hợp dễ dàng",
+          "description": "Thiết lập và triển khai đơn giản cho mọi quy mô đội nhóm"
+        }
+      },
+      "trustBadge": "100% mã nguồn mở và miễn phí mãi mãi"
+    },
+    "login": {
+      "success": "Đăng nhập thành công",
+      "successDescription": "Bạn đã đăng nhập thành công",
+      "error": "Đăng nhập thất bại",
+      "errorDescription": "Email hoặc mật khẩu không hợp lệ",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "forgotPassword": "Quên mật khẩu?",
+      "rememberMe": "Ghi nhớ tôi",
+      "loading": "Đang đăng nhập...",
+      "submit": "Đăng nhập",
+      "noAccount": "Chưa có tài khoản?",
+      "signUp": "Đăng ký"
+    },
+    "forgotPassword": {
+      "title": "Đặt lại mật khẩu",
+      "description": "Nhập địa chỉ email của bạn, chúng tôi sẽ gửi liên kết để đặt lại mật khẩu.",
+      "emailLabel": "Địa chỉ email",
+      "emailPlaceholder": "Nhập địa chỉ email của bạn",
+      "submit": "Gửi liên kết đặt lại",
+      "sending": "Đang gửi...",
+      "backToLogin": "Quay lại đăng nhập",
+      "success": "Đã gửi liên kết đặt lại",
+      "successDescription": "Nếu tài khoản với email đó tồn tại, chúng tôi đã gửi liên kết đặt lại mật khẩu.",
+      "error": "Không thể gửi liên kết đặt lại",
+      "errorDescription": "Đã xảy ra lỗi. Vui lòng thử lại.",
+      "emailSent": "Kiểm tra email của bạn",
+      "checkEmail": "Chúng tôi đã gửi liên kết đặt lại mật khẩu đến email của bạn.",
+      "emailInstructions": "Hướng dẫn quan trọng:",
+      "checkSpam": "Kiểm tra thư mục spam nếu bạn không thấy email",
+      "linkExpiry": "Liên kết đặt lại sẽ hết hạn sau 1 giờ",
+      "requestNew": "Bạn có thể yêu cầu liên kết mới nếu cần",
+      "sendAgain": "Gửi email khác"
+    },
+    "resetPassword": {
+      "title": "Đặt mật khẩu mới",
+      "description": "Nhập mật khẩu mới bên dưới. Hãy đảm bảo mật khẩu đủ mạnh và an toàn.",
+      "newPassword": "Mật khẩu mới",
+      "newPasswordPlaceholder": "Nhập mật khẩu mới",
+      "confirmPassword": "Xác nhận mật khẩu mới",
+      "confirmPasswordPlaceholder": "Xác nhận mật khẩu mới của bạn",
+      "submit": "Cập nhật mật khẩu",
+      "updating": "Đang cập nhật...",
+      "backToLogin": "Quay lại đăng nhập",
+      "success": "Đã cập nhật mật khẩu",
+      "successDescription": "Mật khẩu của bạn đã được cập nhật thành công.",
+      "error": "Không thể đặt lại mật khẩu",
+      "errorDescription": "Liên kết đặt lại có thể không hợp lệ hoặc đã hết hạn. Vui lòng thử lại.",
+      "invalidToken": "Liên kết đặt lại không hợp lệ",
+      "invalidTokenDescription": "Liên kết đặt lại mật khẩu không hợp lệ hoặc bị thiếu. Vui lòng yêu cầu liên kết mới.",
+      "passwordChanged": "Đổi mật khẩu thành công",
+      "passwordChangedDescription": "Mật khẩu của bạn đã được cập nhật. Bây giờ bạn có thể đăng nhập bằng mật khẩu mới.",
+      "redirectingToLogin": "Đang chuyển đến trang đăng nhập sau 3 giây...",
+      "goToLogin": "Đi đến đăng nhập",
+      "passwordRequirements": "Yêu cầu mật khẩu",
+      "minLength": "Dài ít nhất 8 ký tự",
+      "strongPassword": "Bao gồm chữ cái, số và ký tự đặc biệt để bảo mật tốt hơn"
+    },
+    "onboarding": {
+      "loading": "Đang tải...",
+      "next": "Tiếp theo",
+      "haveAccount": "Đã có tài khoản?",
+      "login": "Đăng nhập",
+      "continue": "Tiếp tục",
+      "user": {
+        "firstName": "Tên",
+        "lastName": "Họ",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "confirmPassword": "Xác nhận mật khẩu"
+      },
+      "company": {
+        "name": "Tên công ty",
+        "email": "Email công ty",
+        "website": "Website",
+        "phone": "Số điện thoại",
+        "address": "Địa chỉ"
+      },
+      "invite": {
+        "somethingWentWrong": "Rất tiếc! Đã xảy ra lỗi",
+        "inviteNotFound": "Không tìm thấy lời mời",
+        "inviteNotFoundDescription": "Liên kết lời mời bạn cung cấp không hợp lệ. Vui lòng kiểm tra và thử lại.",
+        "returnToHome": "Quay về trang chủ",
+        "inviteFound": "Bạn đã được mời tham gia {{companyName}}",
+        "inviteFoundDescription": "Bạn đã được mời tham gia {{companyName}}. Vui lòng nhập thông tin để tiếp tục."
+      },
+      "title": "Tạo tài khoản",
+      "personalDescription": "Nhập thông tin cá nhân của bạn",
+      "companyDescription": "Cho chúng tôi biết về công ty của bạn",
+      "personalInfo": "Thông tin cá nhân",
+      "companyInfo": "Thông tin công ty"
+    },
+    "registration": {
+      "disabled": {
+        "title": "Không thể đăng ký",
+        "description": "Đăng ký tài khoản mới hiện đang bị tắt. Vui lòng liên hệ quản trị viên để được cấp quyền truy cập hoặc thử lại sau.",
+        "helpTitle": "Cần tài khoản?",
+        "helpDescription": "Liên hệ bộ phận hỗ trợ để được trợ giúp tạo tài khoản.",
+        "backToLogin": "Quay lại đăng nhập"
+      }
+    }
+  },
+  "contacts": {
+    "title": "Liên hệ",
+    "name": "Tên",
+    "email": "Email",
+    "phone": "Điện thoại",
+    "company": "Công ty",
+    "actions": {
+      "label": "Hành động",
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa"
+    },
+    "create": {
+      "addContact": "Tạo liên hệ",
+      "description": "Tạo liên hệ mới. Nhấn lưu khi hoàn tất.",
+      "title": "Tạo liên hệ",
+      "save": "Lưu liên hệ"
+    },
+    "delete": {
+      "title": "Bạn có chắc chắn?",
+      "description": "Thao tác này sẽ xóa vĩnh viễn thông tin liên hệ của {{name}}. Hành động này không thể hoàn tác."
+    },
+    "searchContacts": "Tìm kiếm liên hệ...",
+    "notes": {
+      "placeholder": "Nhập ghi chú của bạn tại đây...",
+      "addNote": "Thêm ghi chú",
+      "noNotes": "Chưa có ghi chú",
+      "noteAdded": "Đã thêm ghi chú thành công",
+      "noteAddedFailed": "Không thể thêm ghi chú",
+      "cancel": "Hủy",
+      "save": "Lưu"
+    },
+    "previous": {
+      "title": "Cuộc trò chuyện trước đó",
+      "noConversations": "Không có cuộc trò chuyện trước đó"
+    }
+  },
+  "company": {
+    "title": "Công ty",
+    "description": "Quản lý thông tin và cài đặt công ty của bạn",
+    "contactInformation": "Thông tin liên hệ",
+    "updateSuccess": "Đã cập nhật công ty",
+    "updateSuccessDescription": "Thông tin công ty của bạn đã được cập nhật thành công",
+    "form": {
+      "name": "Tên công ty",
+      "email": "Email công ty",
+      "website": "Website",
+      "phone": "Số điện thoại",
+      "address": "Địa chỉ"
+    }
+  },
+  "team": {
+    "title": "Thành viên nhóm",
+    "description": "Quản lý thành viên nhóm và quyền truy cập của họ",
+    "searchPlaceholder": "Tìm kiếm thành viên...",
+    "invite": "Mời",
+    "allMembers": "Tất cả thành viên",
+    "invited": "Đã mời",
+    "active": "Hoạt động",
+    "empty": "Không tìm thấy thành viên nhóm",
+    "columns": {
+      "name": "Tên",
+      "role": "Vai trò",
+      "status": "Trạng thái",
+      "actions": "Hành động"
+    },
+    "actions": {
+      "label": "Hành động",
+      "changeRole": "Đổi vai trò",
+      "resendInvite": "Gửi lại lời mời",
+      "remove": "Xóa"
+    },
+    "remove": {
+      "title": "Bạn có chắc chắn?",
+      "description": "Thao tác này sẽ xóa vĩnh viễn {{name}} khỏi nhóm của bạn. Hành động này không thể hoàn tác.",
+      "success": "Đã xóa thành viên",
+      "successDescription": "{{name}} đã được xóa khỏi nhóm của bạn.",
+      "fallbackName": "Thành viên nhóm"
+    },
+    "member": {
+      "added": "Đã thêm thành viên",
+      "added.description": "Thành viên nhóm đã được thêm thành công",
+      "firstName": "Tên",
+      "lastName": "Họ",
+      "email": "Email",
+      "role": "Vai trò",
+      "adding": "Đang thêm...",
+      "add": "Thêm thành viên",
+      "firstNamePlaceholder": "Nguyễn",
+      "lastNamePlaceholder": "Văn A",
+      "emailPlaceholder": "john@example.com",
+      "selectRole": "Chọn vai trò",
+      "roleDescription": "Quản trị viên có thể quản lý tất cả cài đặt, còn nhân viên hỗ trợ có thể trả lời cuộc trò chuyện"
+    },
+    "addMember": {
+      "title": "Thêm thành viên nhóm",
+      "description": "Thêm thành viên mới vào workspace của bạn. Họ sẽ có quyền truy cập dựa trên vai trò."
+    },
+    "roles": {
+      "admin": "Quản trị viên",
+      "agent": "Nhân viên hỗ trợ"
+    }
+  },
+  "invite": {
+    "title": "Mời thành viên nhóm",
+    "description": "Mời thành viên nhóm qua email. Họ sẽ nhận được lời mời tham gia workspace của bạn.",
+    "placeholder": "Nhập địa chỉ email, phân tách bằng dấu phẩy hoặc khoảng trắng",
+    "send": "Gửi lời mời",
+    "emails": "Địa chỉ email",
+    "inviteHelperText": "Theo mặc định, thành viên nhóm sẽ được mời với vai trò Nhân viên hỗ trợ. Bạn có thể thay đổi vai trò của họ sau.",
+    "errors": {
+      "noEmails": {
+        "title": "Chưa nhập email",
+        "description": "Vui lòng nhập ít nhất một địa chỉ email để gửi lời mời."
+      },
+      "invalidEmails": {
+        "title": "Định dạng email không hợp lệ",
+        "description": "Các email sau không hợp lệ: {{emails}}"
+      },
+      "inviteFailed": {
+        "title": "Không thể mời thành viên nhóm",
+        "description": "Vui lòng thử lại."
+      }
+    },
+    "success": {
+      "title": "Đã gửi lời mời",
+      "description": "Lời mời đã được gửi đến các thành viên sau: {{emails}}"
+    },
+    "resend": {
+      "title": "Đã gửi lại lời mời",
+      "description": "Lời mời mới đã được gửi đến thành viên đã chọn."
+    }
+  },
+  "inbox": {
+    "wizard": {
+      "website": {
+        "title": "Tạo hộp thư",
+        "description": "Thiết lập hộp thư website và tùy chỉnh tin nhắn chào mừng.",
+        "steps": {
+          "create": {
+            "name": "Tạo hộp thư",
+            "description": "Thiết lập hộp thư website và tùy chỉnh tin nhắn chào mừng."
+          },
+          "addAgents": {
+            "name": "Thêm nhân viên hỗ trợ",
+            "description": "Thêm nhân viên hỗ trợ vào hộp thư đã tạo."
+          },
+          "complete": {
+            "name": "Hoàn tất!",
+            "description": "Bạn đã sẵn sàng!",
+            "content": {
+              "title": "Hộp thư của bạn đã sẵn sàng!",
+              "description": "Bạn đã tạo kênh website thành công. Sao chép đoạn mã bên dưới và dán vào website của bạn. Lần tới khi khách hàng sử dụng live chat, cuộc trò chuyện sẽ tự động xuất hiện trong hộp thư của bạn."
+            },
+            "button": "Đưa tôi đến đó"
+          }
+        },
+        "inboxTitle": "Hộp thư website"
+      },
+      "createInbox": {
+        "title": "Tạo hộp thư",
+        "description": "Thiết lập hộp thư website và tùy chỉnh tin nhắn chào mừng.",
+        "form": {
+          "inboxName": "Tên hộp thư",
+          "inboxNamePlaceholder": "ví dụ: Hỗ trợ website",
+          "welcomeMessage": "Tin nhắn chào mừng",
+          "welcomeMessagePlaceholder": "Nhập tin nhắn khách truy cập sẽ thấy khi mở chat",
+          "welcomeMessageDefault": "👋 Xin chào! Hôm nay chúng tôi có thể giúp gì cho bạn?"
+        }
+      },
+      "base": {
+        "description": "Tạo hộp thư mới của bạn"
+      },
+      "channelSelect": {
+        "title": "Chọn kênh",
+        "description": "Chọn kênh để tích hợp với hộp thư của bạn. Hiện tại, chúng tôi chỉ hỗ trợ widget live chat trên website.",
+        "website": {
+          "title": "Website",
+          "description": "Thêm live chat vào website của bạn"
+        }
+      }
+    },
+    "edit": {
+      "title": "Chỉnh sửa hộp thư",
+      "description": "Chỉnh sửa thông tin chi tiết của hộp thư này",
+      "notFound": {
+        "title": "Không tìm thấy hộp thư",
+        "description": "Hộp thư bạn đang tìm không tồn tại hoặc bạn không có quyền truy cập.",
+        "back": "Quay lại Hộp thư"
+      },
+      "inboxUpdated": "Hộp thư đã được cập nhật thành công",
+      "inboxUpdateFailed": "Không thể cập nhật hộp thư",
+      "inboxUpdateFailedDescription": "Vui lòng kiểm tra lỗi trong biểu mẫu và thử lại.",
+      "tabs": {
+        "general": {
+          "title": "Chung",
+          "description": "Thông tin cơ bản về hộp thư này",
+          "form": {
+            "inboxName": "Tên hộp thư",
+            "inboxNamePlaceholder": "Nhập tên cho hộp thư này",
+            "description": "Mô tả",
+            "descriptionPlaceholder": "Nhập mô tả cho hộp thư này",
+            "inboxStatus": "Trạng thái hộp thư",
+            "welcomeMessage": "Tin nhắn chào mừng",
+            "welcomeMessageDescription": "Tin nhắn này sẽ hiển thị cho khách truy cập khi họ mở chat",
+            "welcomeMessagePlaceholder": "Nhập tin nhắn khách truy cập sẽ thấy khi mở chat",
+            "welcomeMessageDefault": "👋 Xin chào! Hôm nay chúng tôi có thể giúp gì cho bạn?",
+            "inboxIcon": "Biểu tượng hộp thư"
+          }
+        },
+        "automation": {
+          "title": "Tự động hóa",
+          "description": "Cấu hình cài đặt tự động hóa cho hộp thư này.",
+          "form": {
+            "autoAssignmentEnabled": {
+              "label": "Tự động phân công",
+              "description": "Tự động phân công cuộc trò chuyện cho nhân viên hỗ trợ đang sẵn sàng"
+            },
+            "maxAutoAssignments": {
+              "label": "Số lần tự động phân công tối đa",
+              "description": "Số cuộc trò chuyện tối đa có thể phân công cho một nhân viên hỗ trợ cùng lúc",
+              "placeholder": "Nhập số cuộc trò chuyện tối đa có thể phân công cho một nhân viên hỗ trợ cùng lúc"
+            },
+            "autoResponderEnabled": {
+              "label": "Tự động phản hồi",
+              "description": "Tự động phản hồi các cuộc trò chuyện mới"
+            },
+            "autoResponderMessage": {
+              "label": "Tin nhắn tự động phản hồi",
+              "description": "Tin nhắn sẽ được gửi cho khách truy cập khi họ mở chat",
+              "placeholder": "Nhập tin nhắn sẽ được gửi cho khách truy cập khi họ mở chat"
+            },
+            "outsideHoursMessage": {
+              "label": "Tin nhắn ngoài giờ làm việc",
+              "description": "Tin nhắn sẽ được gửi cho khách truy cập khi hộp thư không khả dụng",
+              "placeholder": "Nhập tin nhắn sẽ được gửi cho khách truy cập khi hộp thư không khả dụng"
+            },
+            "workingHours": {
+              "label": "Giờ làm việc",
+              "description": "Thiết lập giờ làm việc và phản hồi tự động ngoài khung giờ đó",
+              "startTime": "Giờ bắt đầu",
+              "endTime": "Giờ kết thúc",
+              "to": "đến",
+              "days": {
+                "monday": "Thứ Hai",
+                "tuesday": "Thứ Ba",
+                "wednesday": "Thứ Tư",
+                "thursday": "Thứ Năm",
+                "friday": "Thứ Sáu",
+                "saturday": "Thứ Bảy",
+                "sunday": "Chủ Nhật"
+              }
+            }
+          }
+        },
+        "widgetCustomization": {
+          "shortTitle": "Widget",
+          "title": "Tùy chỉnh widget",
+          "description": "Tùy chỉnh giao diện widget chat của bạn",
+          "form": {
+            "widgetColor": "Màu widget",
+            "installationCode": "Mã cài đặt",
+            "widgetPosition": {
+              "label": "Vị trí widget",
+              "bottomRight": "Góc dưới bên phải",
+              "bottomLeft": "Góc dưới bên trái",
+              "topRight": "Góc trên bên phải",
+              "topLeft": "Góc trên bên trái"
+            }
+          }
+        },
+        "team": {
+          "title": "Thành viên nhóm",
+          "description": "Quản lý những ai có quyền truy cập hộp thư này"
+        },
+        "preChatForm": {
+          "title": "Biểu mẫu trước chat",
+          "description": "Cấu hình biểu mẫu để khách truy cập điền trước khi bắt đầu chat",
+          "enable": "Bật biểu mẫu trước chat",
+          "formTitle": "Tiêu đề biểu mẫu",
+          "formTitlePlaceholder": "Nhập tiêu đề biểu mẫu",
+          "formDescription": "Mô tả biểu mẫu",
+          "formDescriptionPlaceholder": "Nhập mô tả biểu mẫu",
+          "fields": "Trường biểu mẫu",
+          "addField": "Thêm trường",
+          "noFields": {
+            "title": "Chưa thêm trường",
+            "description": "Thêm ít nhất một trường vào biểu mẫu trước chat."
+          },
+          "fieldType": "Loại trường",
+          "selectType": "Chọn loại",
+          "types": {
+            "text": "Văn bản",
+            "email": "Email",
+            "phone": "Điện thoại",
+            "select": "Danh sách chọn",
+            "textarea": "Vùng văn bản"
+          },
+          "label": "Nhãn",
+          "placeholder": "Placeholder",
+          "mapsToContactProperty": "Ánh xạ tới thuộc tính liên hệ",
+          "selectContactProperty": "Chọn thuộc tính liên hệ",
+          "none": "Không",
+          "mappingDescription": "Trường này sẽ được dùng để điền thuộc tính liên hệ khi biểu mẫu được gửi.",
+          "options": "Tùy chọn",
+          "optionPlaceholder": "Tùy chọn {{number}}",
+          "addOption": "Thêm tùy chọn",
+          "requiredField": "Trường bắt buộc",
+          "saveSettings": "Lưu cài đặt biểu mẫu",
+          "saved": "Đã lưu",
+          "preview": {
+            "title": "Xem trước biểu mẫu",
+            "description": "Đây là cách biểu mẫu trước chat hiển thị với khách truy cập",
+            "startChat": "Bắt đầu chat",
+            "disabled": "Bật biểu mẫu trước chat để xem trước"
+          },
+          "defaults": {
+            "title": "Trước khi chúng ta chat...",
+            "description": "Vui lòng điền biểu mẫu ngắn này để chúng tôi hỗ trợ bạn tốt hơn.",
+            "name": "Tên",
+            "namePlaceholder": "Nhập tên của bạn",
+            "newField": "Trường mới",
+            "enterValue": "Nhập giá trị",
+            "newOption": "Tùy chọn mới"
+          }
+        }
+      }
+    },
+    "list": {
+      "title": "Hộp thư",
+      "description": "Tạo và quản lý hộp thư cho các kênh hỗ trợ khách hàng.",
+      "newInbox": "Hộp thư mới",
+      "emptyTitle": "Chưa có hộp thư",
+      "emptyDescription": "Tạo hộp thư đầu tiên để bắt đầu quản lý cuộc trò chuyện với khách hàng",
+      "created": "Đã tạo {{date}}",
+      "members": "{{count}} thành viên",
+      "missingId": "Chưa có id",
+      "allInboxes": "Tất cả hộp thư"
+    }
+  },
+  "liveChat": {
+    "inboxSidebar": {
+      "title": "Hộp thư",
+      "sectionTitle": "Hộp thư",
+      "searchPlaceholder": "Tìm kiếm hộp thư...",
+      "myInbox": "Hộp thư của tôi",
+      "unassigned": "Chưa phân công",
+      "all": "Tất cả",
+      "teamInboxes": "Hộp thư nhóm",
+      "empty": "Không tìm thấy hộp thư"
+    },
+    "filter": {
+      "searchPlaceholder": "Tìm kiếm cuộc trò chuyện...",
+      "tabs": {
+        "all": "Tất cả",
+        "unassigned": "Chưa phân công",
+        "active": "Đang hoạt động",
+        "closed": "Đã đóng"
+      },
+      "title": "Cuộc trò chuyện"
+    },
+    "emptyChatState": {
+      "description": "Chọn một cuộc trò chuyện để bắt đầu chat",
+      "viewConversations": "Xem cuộc trò chuyện"
+    }
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "description": "Quản lý tài khoản và workspace của bạn",
+    "navigation": {
+      "account": "Tài khoản",
+      "inboxes": "Hộp thư",
+      "team": "Thành viên nhóm",
+      "cannedResponses": "Câu trả lời mẫu",
+      "analytics": "Phân tích",
+      "company": "Công ty"
+    }
+  },
+  "agents": {
+    "title": "Thêm nhân viên hỗ trợ",
+    "description": "Thêm thành viên nhóm sẽ phản hồi các cuộc trò chuyện trong hộp thư này.",
+    "select": {
+      "label": "Chọn nhân viên hỗ trợ",
+      "placeholder": "Tìm kiếm và chọn nhân viên hỗ trợ...",
+      "help": "Nhân viên hỗ trợ được chọn sẽ có quyền truy cập hộp thư này và nhận thông báo khi có cuộc trò chuyện mới."
+    },
+    "selected": {
+      "title": "Nhân viên hỗ trợ đã chọn ({{count}})"
+    },
+    "submit": "Hoàn tất thiết lập"
+  },
+  "profile": {
+    "title": "Hồ sơ",
+    "description": "Cập nhật thông tin cá nhân và ảnh đại diện của bạn",
+    "updateSuccess": "Hồ sơ đã được cập nhật thành công",
+    "updateSuccessDescription": "Hồ sơ của bạn đã được cập nhật thành công",
+    "form": {
+      "firstName": "Tên",
+      "lastName": "Họ",
+      "email": "Email",
+      "role": "Vai trò",
+      "roleDescription": "Vai trò của bạn quyết định quyền hạn của bạn trong hệ thống",
+      "avatarHint": "JPG, GIF hoặc PNG. Kích thước tối đa {{maxSize}}MB"
+    },
+    "notifications": {
+      "title": "Thông báo",
+      "description": "Cấu hình cách bạn nhận thông báo",
+      "emailNotifications": "Thông báo qua email",
+      "newConversation": "Cuộc trò chuyện mới",
+      "newConversationDescription": "Nhận thông báo khi có cuộc trò chuyện mới được phân công cho bạn",
+      "newMessage": "Tin nhắn mới",
+      "newMessageDescription": "Nhận thông báo khi bạn nhận được tin nhắn mới trong cuộc trò chuyện",
+      "mentions": "Lượt nhắc đến",
+      "mentionsDescription": "Nhận thông báo khi ai đó nhắc đến bạn trong cuộc trò chuyện",
+      "browserNotifications": "Thông báo trình duyệt",
+      "browserEnabled": "Bật thông báo trình duyệt",
+      "browserEnabledDescription": "Nhận thông báo trực tiếp trong trình duyệt khi bạn đang online"
+    },
+    "accountSettings": {
+      "title": "Cài đặt tài khoản",
+      "description": "Quản lý cài đặt và tùy chọn tài khoản của bạn",
+      "tabs": {
+        "profile": "Hồ sơ",
+        "password": "Mật khẩu",
+        "notifications": "Thông báo"
+      }
+    },
+    "password": {
+      "title": "Mật khẩu",
+      "description": "Thay đổi mật khẩu của bạn",
+      "currentPassword": "Mật khẩu hiện tại",
+      "newPassword": "Mật khẩu mới",
+      "confirmNewPassword": "Xác nhận mật khẩu mới"
+    }
+  },
+  "common": {
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "saveChanges": "Lưu thay đổi",
+    "saving": "Đang lưu...",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "language": "Ngôn ngữ"
+  },
+  "ui": {
+    "common": {
+      "close": "Đóng",
+      "more": "Thêm",
+      "morePages": "Thêm trang",
+      "previous": "Trước",
+      "next": "Tiếp",
+      "copy": "Sao chép",
+      "copied": "Đã sao chép!",
+      "loading": "Đang tải...",
+      "noResults": "Không có kết quả.",
+      "search": "Tìm kiếm...",
+      "noOptionsFound": "Không tìm thấy tùy chọn.",
+      "selectOptions": "Chọn tùy chọn",
+      "selectItems": "Chọn mục...",
+      "selectField": "Chọn {{field}}",
+      "toggleSidebar": "Thu gọn/mở thanh bên"
+    },
+    "pagination": {
+      "navigation": "phân trang",
+      "goToPreviousPage": "Đi tới trang trước",
+      "goToNextPage": "Đi tới trang tiếp theo",
+      "first": "Đầu",
+      "last": "Cuối",
+      "page": "Trang",
+      "of": "trên {{total}}",
+      "show": "Hiển thị:",
+      "showingItems": "Đang hiển thị {{from}} đến {{to}} trong {{total}} mục"
+    },
+    "carousel": {
+      "previousSlide": "Slide trước",
+      "nextSlide": "Slide tiếp theo"
+    },
+    "uploadAvatar": {
+      "trigger": "Tải ảnh lên",
+      "title": "Tải lên và chỉnh sửa ảnh",
+      "description": "Tải lên, cắt và đổi kích thước ảnh của bạn",
+      "tabs": {
+        "upload": "Tải lên",
+        "edit": "Chỉnh sửa",
+        "preview": "Xem trước"
+      },
+      "dropzone": {
+        "clickToUpload": "Nhấp để tải lên",
+        "orDragAndDrop": "hoặc kéo và thả",
+        "fileHint": "JPG, PNG, GIF (tối đa {{maxSize}}MB)"
+      },
+      "errors": {
+        "fileTooLarge": "Tệp quá lớn. Kích thước tối đa là {{maxSize}}MB",
+        "invalidFileType": "Loại tệp không hợp lệ. Vui lòng tải lên tệp hình ảnh."
+      },
+      "controls": {
+        "zoom": "Thu phóng",
+        "rotation": "Xoay",
+        "cropImage": "Cắt ảnh",
+        "reset": "Đặt lại",
+        "saveChanges": "Lưu thay đổi",
+        "croppedPreviewAlt": "Ảnh xem trước đã cắt"
+      }
+    },
+    "userRoles": {
+      "superadmin": "Siêu quản trị",
+      "admin": "Quản trị viên",
+      "agent": "Nhân viên hỗ trợ",
+      "user": "Người dùng"
+    }
+  },
+  "errors": {
+    "413": {
+      "title": "Tệp quá lớn",
+      "description": "Tệp bạn đang cố tải lên quá lớn. Vui lòng thử lại với tệp nhỏ hơn."
+    },
+    "unknown": "Rất tiếc! Đã xảy ra lỗi. Vui lòng thử lại sau.",
+    "toast": {
+      "error": {
+        "title": "Lỗi"
+      }
+    }
+  },
+  "cannedResponses": {
+    "title": "Câu trả lời mẫu",
+    "description": "Tạo và quản lý các tin nhắn soạn sẵn để trả lời nhanh các câu hỏi thường gặp",
+    "search": "Tìm kiếm câu trả lời mẫu...",
+    "addResponse": "Thêm câu trả lời",
+    "createResponse": "Tạo câu trả lời mẫu",
+    "copied": "Đã sao chép",
+    "updated": "Đã cập nhật {{time}}",
+    "empty": {
+      "title": "Không tìm thấy câu trả lời mẫu",
+      "description": "Bạn chưa tạo câu trả lời mẫu nào. Hãy tạo câu đầu tiên để bắt đầu.",
+      "searchDescription": "Không có câu trả lời nào khớp với tìm kiếm. Hãy thử từ khóa khác hoặc xóa tìm kiếm."
+    },
+    "copy": {
+      "title": "Đã sao chép vào clipboard",
+      "description": "Câu trả lời mẫu đã được sao chép vào clipboard."
+    },
+    "create": {
+      "success": "Đã tạo câu trả lời mẫu thành công",
+      "error": "Không thể tạo câu trả lời mẫu"
+    },
+    "update": {
+      "success": "Đã cập nhật câu trả lời mẫu thành công",
+      "error": "Không thể cập nhật câu trả lời mẫu"
+    },
+    "delete": {
+      "success": "Đã xóa câu trả lời mẫu thành công",
+      "error": "Không thể xóa câu trả lời mẫu",
+      "confirmTitle": "Bạn chắc chắn chứ?",
+      "confirmDescription": "Thao tác này sẽ xóa vĩnh viễn câu trả lời mẫu này. Hành động này không thể hoàn tác."
+    },
+    "errors": {
+      "loadFailed": "Không thể tải câu trả lời mẫu"
+    },
+    "modal": {
+      "createTitle": "Tạo câu trả lời mẫu",
+      "editTitle": "Chỉnh sửa câu trả lời mẫu",
+      "createDescription": "Tạo tin nhắn soạn sẵn có thể chèn nhanh trong cuộc trò chuyện.",
+      "editDescription": "Cập nhật tin nhắn soạn sẵn để trả lời nhanh.",
+      "createButton": "Tạo câu trả lời",
+      "saveButton": "Lưu thay đổi"
+    },
+    "form": {
+      "title": "Tiêu đề",
+      "titlePlaceholder": "Ví dụ: Chào hỏi, Cảm ơn, Theo dõi",
+      "message": "Tin nhắn",
+      "messagePlaceholder": "Nhập tin nhắn soạn sẵn tại đây...",
+      "tag": "Thẻ",
+      "tagPlaceholder": "Ví dụ: chào hỏi, hỗ trợ, kỹ thuật"
+    },
+    "actions": {
+      "copy": "Sao chép",
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa"
+    }
+  },
+  "sidebar": {
+    "conversations": "Cuộc trò chuyện",
+    "contacts": "Liên hệ",
+    "notifications": "Thông báo",
+    "settings": "Cài đặt",
+    "lightMode": "Chế độ sáng",
+    "darkMode": "Chế độ tối",
+    "myAccount": "Tài khoản của tôi",
+    "accountSettings": "Cài đặt tài khoản",
+    "logOut": "Đăng xuất",
+    "online": "Online",
+    "expandSidebar": "Mở rộng thanh bên",
+    "collapseSidebar": "Thu gọn thanh bên",
+    "superAdmin": "Siêu quản trị"
+  },
+  "notifications": {
+    "title": "Thông báo",
+    "description": "Luôn cập nhật tin nhắn, cảnh báo và thông báo hệ thống",
+    "filter": "Lọc",
+    "markAllAsRead": "Đánh dấu tất cả là đã đọc",
+    "clearAll": "Xóa tất cả thông báo",
+    "tabs": {
+      "all": "Tất cả",
+      "unread": "Chưa đọc",
+      "messages": "Tin nhắn",
+      "assignments": "Phân công",
+      "mentions": "Lượt nhắc đến"
+    },
+    "empty": {
+      "title": "Không có thông báo",
+      "all": "Bạn chưa có thông báo nào",
+      "unread": "Bạn không có thông báo chưa đọc nào",
+      "new_message": "Bạn không có thông báo tin nhắn nào",
+      "assigned_conversation": "Bạn không có thông báo phân công nào",
+      "mention": "Bạn không có thông báo nhắc đến nào"
+    },
+    "error": {
+      "title": "Lỗi khi tải thông báo",
+      "tryAgain": "Thử lại"
+    },
+    "actions": {
+      "markAsRead": "Đánh dấu là đã đọc",
+      "delete": "Xóa"
+    },
+    "footer": {
+      "showing": "Đang hiển thị {{count}} trên {{total}} thông báo",
+      "markAllAsRead": "Đánh dấu tất cả là đã đọc"
+    },
+    "toast": {
+      "markedAsRead": "Đã đánh dấu thông báo là đã đọc",
+      "allMarkedAsRead": "Tất cả thông báo đã được đánh dấu là đã đọc",
+      "deleted": "Đã xóa thông báo",
+      "allCleared": "Đã xóa tất cả thông báo",
+      "markAsReadFailed": "Không thể đánh dấu thông báo là đã đọc",
+      "markAllAsReadFailed": "Không thể đánh dấu tất cả thông báo là đã đọc",
+      "deleteFailed": "Không thể xóa thông báo",
+      "clearAllFailed": "Không thể xóa tất cả thông báo",
+      "loadFailed": "Không thể lấy thông báo"
+    },
+    "types": {
+      "assigned_conversation": "Cuộc trò chuyện mới được phân công cho bạn",
+      "new_message": "Tin nhắn mới trong cuộc trò chuyện của bạn",
+      "mention": "Có người đã nhắc đến bạn trong cuộc trò chuyện"
+    },
+    "badges": {
+      "new_message": "Tin nhắn",
+      "assigned_conversation": "Phân công",
+      "mention": "Nhắc đến"
+    },
+    "time": {
+      "justNow": "Vừa xong",
+      "minutesAgo": "{{count}} phút trước",
+      "hoursAgo": "{{count}} giờ trước",
+      "daysAgo": "{{count}} ngày trước"
+    }
+  },
+  "superadmin": {
+    "title": "SuperAdmin",
+    "systemManagement": "Quản lý hệ thống",
+    "navigation": {
+      "backToPortal": "Quay lại Portal",
+      "backToPortalDescription": "Quay lại ứng dụng chính",
+      "dashboard": "Bảng điều khiển",
+      "dashboardDescription": "Tổng quan và thống kê hệ thống",
+      "users": "Người dùng",
+      "usersDescription": "Quản lý tất cả người dùng hệ thống",
+      "companies": "Công ty",
+      "companiesDescription": "Quản lý tất cả công ty",
+      "configuration": "Cấu hình",
+      "configurationDescription": "Cài đặt cấu hình hệ thống",
+      "systemHealth": "Tình trạng hệ thống",
+      "systemHealthDescription": "Theo dõi hiệu năng hệ thống"
+    },
+    "dashboard": {
+      "title": "Bảng phân tích",
+      "description": "Thông tin phân tích toàn diện về nền tảng TalkDeskly của bạn",
+      "metrics": {
+        "totalUsers": "Tổng người dùng",
+        "companies": "Công ty",
+        "activeUsers": "Người dùng hoạt động",
+        "totalConversations": "Tổng cuộc trò chuyện",
+        "userGrowthRate": "+{{rate}}% tuần này",
+        "companyGrowthRate": "+{{rate}}% tháng này",
+        "activeUsersDescription": "{{count}} người dùng hoạt động trong 24 giờ qua",
+        "conversationGrowthRate": "+{{rate}}% tháng này",
+        "averageResponseTime": "Thời gian phản hồi TB",
+        "responseTimeValue": "{{time}} phút",
+        "responseTimeImprovement": "Nhanh hơn {{percent}}% so với tuần trước",
+        "customerSatisfaction": "Mức độ hài lòng của khách hàng",
+        "satisfactionScore": "{{score}}/5",
+        "satisfactionTrend": "+{{percent}}% so với tháng trước"
+      },
+      "charts": {
+        "userGrowth": "Tăng trưởng người dùng",
+        "companyGrowth": "Tăng trưởng công ty",
+        "conversationVolume": "Số lượng cuộc trò chuyện",
+        "systemHealth": "Tình trạng hệ thống",
+        "userDistribution": "Phân bổ người dùng theo vai trò",
+        "companySize": "Phân bổ quy mô công ty"
+      },
+      "systemHealth": {
+        "title": "Tình trạng hệ thống",
+        "cpu": "Mức sử dụng CPU",
+        "memory": "Mức sử dụng bộ nhớ",
+        "disk": "Mức sử dụng ổ đĩa",
+        "database": "Cơ sở dữ liệu",
+        "redis": "Redis",
+        "healthy": "Khỏe mạnh",
+        "warning": "Cảnh báo",
+        "critical": "Nghiêm trọng",
+        "uptime": "Thời gian hoạt động hệ thống",
+        "uptimeValue": "{{days}} ngày, {{hours}} giờ"
+      },
+      "recentActivity": {
+        "title": "Hoạt động gần đây",
+        "userRegistered": "Người dùng mới đã đăng ký",
+        "companyCreated": "Công ty mới đã được tạo",
+        "conversationStarted": "Cuộc trò chuyện đã bắt đầu",
+        "userUpdated": "Hồ sơ người dùng đã được cập nhật",
+        "systemConfigChanged": "Cấu hình hệ thống đã thay đổi"
+      },
+      "errors": {
+        "loadFailed": "Không thể tải thống kê bảng điều khiển",
+        "error": "Lỗi"
+      }
+    },
+    "users": {
+      "title": "Người dùng",
+      "description": "Quản lý tất cả người dùng hệ thống trên mọi công ty",
+      "searchPlaceholder": "Tìm kiếm người dùng...",
+      "addUser": "Thêm người dùng",
+      "editUser": "Chỉnh sửa người dùng",
+      "createUser": "Tạo người dùng",
+      "userDetails": "Chi tiết người dùng",
+      "totalUsers": "{{count}} người dùng",
+      "columns": {
+        "name": "Tên",
+        "email": "Email",
+        "role": "Vai trò",
+        "company": "Công ty",
+        "status": "Trạng thái",
+        "lastActive": "Hoạt động lần cuối",
+        "actions": "Hành động"
+      },
+      "roles": {
+        "superadmin": "Siêu quản trị",
+        "admin": "Quản trị viên",
+        "agent": "Nhân viên hỗ trợ",
+        "superadminDescription": "Toàn quyền truy cập hệ thống, có thể quản lý mọi người dùng, công ty và cài đặt hệ thống trên toàn bộ nền tảng.",
+        "adminDescription": "Quản trị viên cấp công ty có thể quản lý người dùng, cài đặt và cuộc trò chuyện trong tổ chức.",
+        "agentDescription": "Nhân viên hỗ trợ có thể xử lý cuộc trò chuyện với khách hàng và truy cập các tính năng cơ bản trong công ty."
+      },
+      "status": {
+        "active": "Hoạt động",
+        "inactive": "Không hoạt động",
+        "suspended": "Bị tạm ngưng"
+      },
+      "form": {
+        "firstName": "Tên",
+        "lastName": "Họ",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "role": "Vai trò",
+        "company": "Công ty",
+        "status": "Trạng thái",
+        "firstNamePlaceholder": "Nguyễn",
+        "lastNamePlaceholder": "Văn A",
+        "emailPlaceholder": "john.doe@example.com",
+        "passwordPlaceholder": "••••••••",
+        "selectRole": "Chọn vai trò",
+        "selectCompany": "Chọn công ty",
+        "selectStatus": "Chọn trạng thái"
+      },
+      "actions": {
+        "view": "Xem",
+        "edit": "Chỉnh sửa",
+        "delete": "Xóa",
+        "suspend": "Tạm ngưng",
+        "activate": "Kích hoạt"
+      },
+      "validation": {
+        "firstNameRequired": "Tên là bắt buộc",
+        "lastNameRequired": "Họ là bắt buộc",
+        "emailRequired": "Email là bắt buộc",
+        "emailInvalid": "Vui lòng nhập email hợp lệ",
+        "passwordRequired": "Mật khẩu là bắt buộc",
+        "passwordMinLength": "Mật khẩu phải có ít nhất 6 ký tự",
+        "roleRequired": "Vai trò là bắt buộc"
+      },
+      "toast": {
+        "createSuccess": "Người dùng đã được tạo thành công",
+        "updateSuccess": "Người dùng đã được cập nhật thành công",
+        "deleteSuccess": "Người dùng đã được xóa thành công",
+        "createError": "Không thể tạo người dùng",
+        "updateError": "Không thể cập nhật người dùng",
+        "deleteError": "Không thể xóa người dùng",
+        "loadError": "Không thể tải người dùng"
+      },
+      "confirmDelete": {
+        "title": "Xóa người dùng",
+        "description": "Bạn có chắc muốn xóa người dùng này không? Hành động này không thể hoàn tác.",
+        "confirm": "Xóa",
+        "cancel": "Hủy"
+      }
+    },
+    "companies": {
+      "title": "Công ty",
+      "description": "Quản lý tất cả công ty và cấu hình của họ",
+      "searchPlaceholder": "Tìm kiếm công ty...",
+      "addCompany": "Thêm công ty",
+      "editCompany": "Chỉnh sửa công ty",
+      "createCompany": "Tạo công ty",
+      "companyDetails": "Chi tiết công ty",
+      "totalCompanies": "{{count}} công ty",
+      "viewUsers": "Xem người dùng",
+      "columns": {
+        "name": "Tên",
+        "email": "Email",
+        "website": "Website",
+        "users": "Người dùng",
+        "status": "Trạng thái",
+        "created": "Đã tạo",
+        "actions": "Hành động"
+      },
+      "form": {
+        "name": "Tên công ty",
+        "email": "Email công ty",
+        "website": "Website",
+        "phone": "Số điện thoại",
+        "address": "Địa chỉ",
+        "namePlaceholder": "Acme Corp",
+        "emailPlaceholder": "contact@acme.com",
+        "websitePlaceholder": "https://acme.com",
+        "phonePlaceholder": "+1 (555) 123-4567",
+        "addressPlaceholder": "123 Main St, City, State 12345"
+      },
+      "users": {
+        "title": "Người dùng công ty",
+        "description": "Quản lý người dùng cho {{companyName}}",
+        "addUser": "Thêm người dùng vào công ty",
+        "noUsers": "Không tìm thấy người dùng nào cho công ty này"
+      },
+      "actions": {
+        "view": "Xem",
+        "edit": "Chỉnh sửa",
+        "delete": "Xóa",
+        "viewUsers": "Xem người dùng"
+      },
+      "validation": {
+        "nameRequired": "Tên công ty là bắt buộc",
+        "emailRequired": "Email công ty là bắt buộc",
+        "emailInvalid": "Vui lòng nhập email hợp lệ",
+        "websiteInvalid": "Vui lòng nhập URL website hợp lệ"
+      },
+      "toast": {
+        "createSuccess": "Công ty đã được tạo thành công",
+        "updateSuccess": "Công ty đã được cập nhật thành công",
+        "deleteSuccess": "Công ty đã được xóa thành công",
+        "createError": "Không thể tạo công ty",
+        "updateError": "Không thể cập nhật công ty",
+        "deleteError": "Không thể xóa công ty",
+        "loadError": "Không thể tải công ty"
+      },
+      "confirmDelete": {
+        "title": "Xóa công ty",
+        "description": "Bạn có chắc muốn xóa công ty này không? Thao tác này cũng sẽ xóa tất cả người dùng và dữ liệu liên quan. Hành động này không thể hoàn tác.",
+        "confirm": "Xóa",
+        "cancel": "Hủy"
+      }
+    },
+    "config": {
+      "title": "Cấu hình hệ thống",
+      "description": "Cấu hình cài đặt và hành vi toàn hệ thống",
+      "saveChanges": "Lưu thay đổi",
+      "saveAllChanges": "Lưu tất cả thay đổi",
+      "saving": "Đang lưu...",
+      "savingChanges": "Đang lưu thay đổi...",
+      "server": {
+        "title": "Cấu hình máy chủ",
+        "port": "Cổng máy chủ",
+        "environment": "Môi trường",
+        "baseUrl": "URL cơ sở",
+        "frontendUrl": "URL frontend",
+        "logLevel": "Cấp độ log",
+        "portPlaceholder": "3000",
+        "baseUrlPlaceholder": "http://localhost:3000",
+        "frontendUrlPlaceholder": "http://localhost:3001",
+        "environments": {
+          "development": "Phát triển",
+          "staging": "Staging",
+          "production": "Production"
+        },
+        "logLevels": {
+          "debug": "Debug",
+          "info": "Thông tin",
+          "warn": "Cảnh báo",
+          "error": "Lỗi"
+        }
+      },
+      "database": {
+        "title": "Trạng thái cơ sở dữ liệu & bảo mật",
+        "connection": "Kết nối cơ sở dữ liệu",
+        "redis": "Kết nối Redis",
+        "configured": "Đã cấu hình",
+        "notConfigured": "Chưa cấu hình",
+        "description": "Vì lý do bảo mật, cấu hình cơ sở dữ liệu và bảo mật được quản lý thông qua biến môi trường."
+      },
+      "email": {
+        "title": "Cấu hình email",
+        "provider": "Nhà cung cấp email",
+        "from": "Địa chỉ gửi",
+        "host": "SMTP Host",
+        "port": "Cổng SMTP",
+        "username": "Tên người dùng SMTP",
+        "password": "Mật khẩu SMTP",
+        "fromPlaceholder": "noreply@example.com",
+        "hostPlaceholder": "smtp.gmail.com",
+        "portPlaceholder": "587",
+        "usernamePlaceholder": "username@gmail.com",
+        "passwordPlaceholder": "Nhập mật khẩu mới để thay đổi",
+        "providers": {
+          "gomail": "GoMail",
+          "smtp": "SMTP"
+        }
+      },
+      "application": {
+        "title": "Cài đặt ứng dụng",
+        "name": "Tên ứng dụng",
+        "defaultLanguage": "Ngôn ngữ mặc định",
+        "supportedLanguages": "Ngôn ngữ hỗ trợ (phân tách bằng dấu phẩy)",
+        "enableRegistration": "Bật đăng ký",
+        "namePlaceholder": "TalkDeskly",
+        "defaultLanguagePlaceholder": "en",
+        "supportedLanguagesPlaceholder": "vi, en, zh",
+        "supportedLanguagesDescription": "Nhập mã ngôn ngữ, phân tách bằng dấu phẩy (ví dụ: vi, en, zh)",
+        "registrationDescription": "Bật hoặc tắt đăng ký người dùng. Tùy chọn này phù hợp khi bạn không muốn người khác tự đăng ký tài khoản và tạo công ty riêng."
+      },
+      "toast": {
+        "updateSuccess": "Cấu hình đã được cập nhật thành công",
+        "updateError": "Không thể cập nhật cấu hình. Vui lòng thử lại.",
+        "loadError": "Không thể tải cấu hình. Vui lòng thử lại."
+      },
+      "notFound": {
+        "title": "Không tìm thấy cấu hình",
+        "description": "Không thể tải cấu hình hệ thống.",
+        "retry": "Thử lại"
+      }
+    },
+    "system": {
+      "title": "Tình trạng hệ thống",
+      "description": "Theo dõi hiệu năng hệ thống và các chỉ số sức khỏe",
+      "refresh": "Làm mới",
+      "systemStatus": "Trạng thái hệ thống",
+      "version": "Phiên bản",
+      "lastUpdated": "Cập nhật lần cuối",
+      "overview": {
+        "title": "Tổng quan hệ thống",
+        "uptime": "Thời gian hoạt động hệ thống",
+        "version": "Phiên bản hệ thống",
+        "environment": "Môi trường",
+        "lastRestart": "Khởi động lại lần cuối"
+      },
+      "performance": {
+        "title": "Chỉ số hiệu năng",
+        "cpu": "Mức sử dụng CPU",
+        "memory": "Mức sử dụng bộ nhớ",
+        "disk": "Mức sử dụng ổ đĩa",
+        "network": "I/O mạng",
+        "responseTime": "Thời gian phản hồi trung bình"
+      },
+      "services": {
+        "title": "Trạng thái dịch vụ",
+        "database": "Cơ sở dữ liệu",
+        "redis": "Redis",
+        "email": "Dịch vụ email",
+        "storage": "Lưu trữ tệp",
+        "websocket": "WebSocket"
+      },
+      "logs": {
+        "title": "Log hệ thống",
+        "recent": "Log gần đây",
+        "level": "Cấp độ",
+        "message": "Tin nhắn",
+        "timestamp": "Thời gian",
+        "context": "Ngữ cảnh",
+        "viewAll": "Xem tất cả log",
+        "export": "Xuất",
+        "search": "Tìm kiếm log",
+        "searchPlaceholder": "Tìm trong tin nhắn hoặc ngữ cảnh...",
+        "logLevel": "Cấp độ log",
+        "allLevels": "Tất cả cấp độ",
+        "clear": "Xóa",
+        "noLogsFound": "Không tìm thấy log",
+        "noLogsDescription": "Hãy thử điều chỉnh bộ lọc tìm kiếm",
+        "levels": {
+          "all": "Tất cả cấp độ",
+          "debug": "Debug",
+          "info": "Thông tin",
+          "warn": "Cảnh báo",
+          "error": "Lỗi"
+        }
+      },
+      "health": {
+        "healthy": "Khỏe mạnh",
+        "warning": "Cảnh báo",
+        "critical": "Nghiêm trọng",
+        "unknown": "Không xác định"
+      },
+      "toast": {
+        "loadError": "Không thể tải dữ liệu tình trạng hệ thống"
+      }
+    },
+    "common": {
+      "loading": "Đang tải...",
+      "error": "Lỗi",
+      "success": "Thành công",
+      "cancel": "Hủy",
+      "save": "Lưu",
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa",
+      "view": "Xem",
+      "create": "Tạo",
+      "update": "Cập nhật",
+      "actions": "Hành động",
+      "status": "Trạng thái",
+      "search": "Tìm kiếm",
+      "filter": "Lọc",
+      "refresh": "Làm mới",
+      "export": "Xuất",
+      "import": "Nhập",
+      "settings": "Cài đặt",
+      "back": "Quay lại",
+      "next": "Tiếp theo",
+      "previous": "Trước đó",
+      "confirm": "Xác nhận",
+      "tryAgain": "Thử lại"
+    }
+  },
+  "analytics": {
+    "title": "Bảng phân tích",
+    "subtitle": "Phân tích cho {{range}}",
+    "empty": "Không có dữ liệu phân tích",
+    "errors": {
+      "title": "Lỗi",
+      "unexpectedData": "Định dạng dữ liệu nhận được không hợp lệ",
+      "fetchFailed": "Không thể tải dữ liệu phân tích",
+      "invalidDateRange": "Khoảng ngày không hợp lệ",
+      "selectBothDates": "Vui lòng chọn cả ngày bắt đầu và ngày kết thúc"
+    },
+    "dateRange": {
+      "lastDays": "{{count}} ngày qua",
+      "to": "{{start}} đến {{end}}",
+      "selectTimeRange": "Chọn khoảng thời gian",
+      "last7Days": "7 ngày qua",
+      "last14Days": "14 ngày qua",
+      "last30Days": "30 ngày qua",
+      "customRange": "Khoảng tùy chỉnh",
+      "startDate": "Ngày bắt đầu",
+      "endDate": "Ngày kết thúc",
+      "pickDate": "Chọn ngày",
+      "apply": "Áp dụng"
+    },
+    "metrics": {
+      "totalConversations": "Tổng cuộc trò chuyện",
+      "newConversations": "{{count}} cuộc trò chuyện mới",
+      "totalMessages": "Tổng tin nhắn",
+      "averagePerConversation": "Trung bình {{count}} mỗi cuộc trò chuyện",
+      "agentMessages": "Tin nhắn của nhân viên",
+      "fromContacts": "{{count}} từ liên hệ",
+      "activeConversations": "Cuộc trò chuyện đang hoạt động",
+      "pending": "{{count}} đang chờ"
+    },
+    "status": {
+      "title": "Phân bổ trạng thái cuộc trò chuyện",
+      "description": "Phân bổ các trạng thái cuộc trò chuyện",
+      "active": "Đang hoạt động",
+      "pending": "Đang chờ",
+      "resolved": "Đã giải quyết",
+      "closed": "Đã đóng"
+    },
+    "agents": {
+      "title": "Hiệu suất nhân viên",
+      "description": "Cuộc trò chuyện được phân công theo nhân viên",
+      "empty": "Không có dữ liệu nhân viên",
+      "assignments": "{{count}} phân công"
+    }
+  }
+}

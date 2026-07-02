@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { TeamMember } from "@/lib/interfaces";
 import { TeamMemberActions } from "./team-member-actions";
+import { useTranslation } from "react-i18next";
 
 interface TeamMemberRowProps {
   member: TeamMember;
@@ -16,6 +17,8 @@ export function TeamMemberRow({
   onResendInvite,
   onUpdateRole,
 }: TeamMemberRowProps) {
+  const { t } = useTranslation();
+
   return (
     <tr>
       <td className="py-4 px-4">
@@ -32,21 +35,23 @@ export function TeamMemberRow({
           </div>
         </div>
       </td>
-      <td className="py-4 px-4 capitalize">{member.role}</td>
+      <td className="py-4 px-4">
+        {t(`team.roles.${member.role}`, { defaultValue: member.role })}
+      </td>
       <td className="py-4 px-4">
         {member.status === "Invited" ? (
           <Badge
             variant="outline"
             className="bg-yellow-50 text-yellow-700 border-yellow-200"
           >
-            Invited
+            {t("team.invited")}
           </Badge>
         ) : (
           <Badge
             variant="outline"
             className="bg-green-50 text-green-700 border-green-200"
           >
-            Active
+            {t("team.active")}
           </Badge>
         )}
       </td>

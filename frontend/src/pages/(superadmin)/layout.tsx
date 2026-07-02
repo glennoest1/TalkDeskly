@@ -21,6 +21,7 @@ import { useIsMobile } from "@/context/use-is-mobile";
 import { useAuthStore } from "@/stores/auth";
 import { ThemeToggle } from "@/components/superadmin/theme-toggle";
 import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 interface SuperAdminNavItem {
   titleKey: string;
@@ -150,6 +151,7 @@ function SuperAdminLayout() {
           </h1>
         </div>
         <div className="flex items-center gap-2">
+          <LanguageSwitcher showLabel={false} />
           <ThemeToggle />
           <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
             <SheetTrigger asChild>
@@ -194,7 +196,10 @@ function SuperAdminLayout() {
                   </p>
                 </div>
               </div>
-              <ThemeToggle />
+              <div className="flex items-center gap-1">
+                <LanguageSwitcher showLabel={false} />
+                <ThemeToggle />
+              </div>
             </div>
           </div>
           <nav className="p-4">

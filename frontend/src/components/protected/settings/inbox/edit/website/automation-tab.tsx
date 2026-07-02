@@ -267,7 +267,11 @@ export function AutomationTab() {
                               form.setValue("workingHours", newWorkingHours);
                             }}
                           />
-                          <span className="capitalize">{day}</span>
+                          <span>
+                            {t(
+                              `inbox.edit.tabs.automation.form.workingHours.days.${day}`
+                            )}
+                          </span>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
@@ -307,7 +311,9 @@ export function AutomationTab() {
                             ))}
                           </SelectContent>
                         </Select>
-                        <span>to</span>
+                        <span>
+                          {t("inbox.edit.tabs.automation.form.workingHours.to")}
+                        </span>
                         <Select
                           value={config.endTime}
                           onValueChange={(value) => {

@@ -18,6 +18,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { useTranslation } from "react-i18next";
 
 export type OptionType = {
   label: string;
@@ -36,10 +37,11 @@ export function MultiSelectDropdown({
   options,
   selected,
   onChange,
-  placeholder = "Select options",
+  placeholder,
   className,
 }: MultiSelectProps) {
   const [open, setOpen] = React.useState(false);
+  const { t } = useTranslation();
 
   // Update the handleSelect function to prevent form submission
   const handleSelect = (value: string) => {
@@ -111,16 +113,18 @@ export function MultiSelectDropdown({
               })}
             </div>
           ) : (
-            <span className="text-muted-foreground">{placeholder}</span>
+            <span className="text-muted-foreground">
+              {placeholder ?? t("ui.common.selectOptions")}
+            </span>
           )}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
         <Command>
-          <CommandInput placeholder="Search..." />
+          <CommandInput placeholder={t("ui.common.search")} />
           <CommandList>
-            <CommandEmpty>No options found.</CommandEmpty>
+            <CommandEmpty>{t("ui.common.noOptionsFound")}</CommandEmpty>
             <CommandGroup className="max-h-64 overflow-auto">
               {options.map((option) => (
                 // Update the CommandItem to prevent form submission

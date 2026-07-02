@@ -1,16 +1,18 @@
 import { MessageSquare } from "lucide-react";
 import SettingsContent from "@/components/protected/settings/settings-content";
+import { useTranslation } from "react-i18next";
 
 interface ChannelSelectProps {
   onSelect: (channel: string) => void;
 }
 
 export function ChannelSelect({ onSelect }: ChannelSelectProps) {
+  const { t } = useTranslation();
+
   return (
     <SettingsContent
-      title="    Choose a channel"
-      description="Choose a channel to integrate with your inbox. Currently, we only
-          support website live-chat widget."
+      title={t("inbox.wizard.channelSelect.title")}
+      description={t("inbox.wizard.channelSelect.description")}
       showBackButton={false}
     >
       <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-3">
@@ -22,9 +24,11 @@ export function ChannelSelect({ onSelect }: ChannelSelectProps) {
             <MessageSquare className="h-6 sm:h-8 w-6 sm:w-8 text-blue-600" />
           </div>
           <div className="text-center">
-            <h3 className="font-semibold mb-1">Website</h3>
+            <h3 className="font-semibold mb-1">
+              {t("inbox.wizard.channelSelect.website.title")}
+            </h3>
             <p className="text-sm text-muted-foreground">
-              Add live chat to your website
+              {t("inbox.wizard.channelSelect.website.description")}
             </p>
           </div>
         </button>

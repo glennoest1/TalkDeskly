@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Crown, Shield, User } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface UserRoleBadgeProps {
   role: string;
@@ -44,11 +45,17 @@ export function UserRoleBadge({
   variant = "secondary",
   size = "md",
 }: UserRoleBadgeProps) {
+  const { t } = useTranslation();
+  const normalizedRole = role.toLowerCase();
+  const roleLabel = t(`ui.userRoles.${normalizedRole}`, {
+    defaultValue: role,
+  });
+
   return (
     <Badge variant={variant} className={getRoleBadgeColor(role)}>
       <div className="flex items-center gap-1">
         {getRoleIcon(role, size)}
-        <span className="capitalize">{role}</span>
+        <span>{roleLabel}</span>
       </div>
     </Badge>
   );

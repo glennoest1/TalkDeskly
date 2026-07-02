@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Inbox } from "@/lib/interfaces";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface InboxSidebarProps {
   inboxes: Inbox[];
@@ -38,6 +39,7 @@ export default function InboxSidebar({
   onInboxChange,
   onClose,
 }: InboxSidebarProps) {
+  const { t } = useTranslation();
   const [isTeamInboxesOpen, setIsTeamInboxesOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -52,13 +54,15 @@ export default function InboxSidebar({
     <div className={cn("flex flex-col h-full bg-muted/60 w-100 md:w-60")}>
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b">
-        <h2 className="font-semibold text-lg">Inboxes</h2>
+        <h2 className="font-semibold text-lg">
+          {t("liveChat.inboxSidebar.title")}
+        </h2>
       </div>
 
       {/* Search and Quick Filters */}
       <div className="p-4 space-y-4">
         <h3 className="font-semibold flex items-center justify-between">
-          Inbox
+          {t("liveChat.inboxSidebar.sectionTitle")}
           <Link to="/portal/settings/inboxes/new">
             <Button variant="ghost" size="icon" className="h-8 w-8">
               <Plus className="h-4 w-4" />
@@ -69,7 +73,7 @@ export default function InboxSidebar({
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search inboxes..."
+            placeholder={t("liveChat.inboxSidebar.searchPlaceholder")}
             className="pl-8 h-9 bg-background"
             value={searchQuery}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -87,7 +91,7 @@ export default function InboxSidebar({
             onClick={() => onInboxChange("my-inbox")}
           >
             <InboxIcon className="h-4 w-4 mr-2" />
-            My inbox
+            {t("liveChat.inboxSidebar.myInbox")}
           </Button>
           <Button
             variant="ghost"
@@ -98,7 +102,7 @@ export default function InboxSidebar({
             onClick={() => onInboxChange("unassigned")}
           >
             <Users className="h-4 w-4 mr-2" />
-            Unassigned
+            {t("liveChat.inboxSidebar.unassigned")}
           </Button>
           <Button
             variant="ghost"
@@ -109,7 +113,7 @@ export default function InboxSidebar({
             onClick={() => onInboxChange(null)}
           >
             <Users className="h-4 w-4 mr-2" />
-            All
+            {t("liveChat.inboxSidebar.all")}
           </Button>
         </div>
       </div>
@@ -125,7 +129,7 @@ export default function InboxSidebar({
               variant="ghost"
               className="w-full justify-between h-9 px-2 font-medium text-sm"
             >
-              Team inboxes
+              {t("liveChat.inboxSidebar.teamInboxes")}
               <ChevronDown
                 className={cn(
                   "h-4 w-4 transition-transform",
@@ -160,7 +164,7 @@ export default function InboxSidebar({
               ))
             ) : (
               <div className="py-2 px-2 text-sm text-muted-foreground">
-                No inboxes found
+                {t("liveChat.inboxSidebar.empty")}
               </div>
             )}
           </CollapsibleContent>

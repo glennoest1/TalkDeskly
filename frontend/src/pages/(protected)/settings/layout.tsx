@@ -16,9 +16,10 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/context/use-is-mobile";
 import { useAuthStore } from "@/stores/auth";
+import { useTranslation } from "react-i18next";
 
 interface SettingsNavItem {
-  title: string;
+  titleKey: string;
   href: string;
   icon: React.ElementType;
   roles: string[];
@@ -26,37 +27,37 @@ interface SettingsNavItem {
 
 const settingsNavItems: SettingsNavItem[] = [
   {
-    title: "Account",
+    titleKey: "settings.navigation.account",
     href: "account",
     icon: User,
     roles: ["admin", "agent", "superadmin"],
   },
   {
-    title: "Inboxes",
+    titleKey: "settings.navigation.inboxes",
     href: "inboxes",
     icon: Inbox,
     roles: ["admin", "superadmin"],
   },
   {
-    title: "Team Members",
+    titleKey: "settings.navigation.team",
     href: "team",
     icon: Users,
     roles: ["admin", "superadmin"],
   },
   {
-    title: "Canned Responses",
+    titleKey: "settings.navigation.cannedResponses",
     href: "canned-responses",
     icon: FileText,
     roles: ["agent", "admin", "superadmin"],
   },
   {
-    title: "Analytics",
+    titleKey: "settings.navigation.analytics",
     href: "analytics",
     icon: BarChart3,
     roles: ["admin", "superadmin"],
   },
   {
-    title: "Company",
+    titleKey: "settings.navigation.company",
     href: "company",
     icon: Building,
     roles: ["admin", "superadmin"],
@@ -64,6 +65,7 @@ const settingsNavItems: SettingsNavItem[] = [
 ];
 
 export default function SettingsLayout() {
+  const { t } = useTranslation();
   const pathname = useLocation().pathname;
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -96,7 +98,7 @@ export default function SettingsLayout() {
               onClick={() => isMobile && setSidebarOpen(false)}
             >
               <item.icon className="h-4 w-4" />
-              {item.title}
+              {t(item.titleKey)}
             </Link>
           );
         })}
@@ -108,7 +110,7 @@ export default function SettingsLayout() {
     <div className="h-full">
       {/* Mobile header with menu */}
       <div className="md:hidden border-b flex items-center justify-between p-2 pl-4">
-        <h1 className="text-xl font-semibold">Settings</h1>
+        <h1 className="text-xl font-semibold">{t("settings.title")}</h1>
         <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">
@@ -118,10 +120,12 @@ export default function SettingsLayout() {
           <SheetContent side="left" className="w-64 p-0">
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <h1 className="text-xl font-semibold">Settings</h1>
+                <h1 className="text-xl font-semibold">
+                  {t("settings.title")}
+                </h1>
               </div>
               <p className="text-sm text-muted-foreground mb-6">
-                Manage your account and workspace
+                {t("settings.description")}
               </p>
               <SettingsNav />
             </div>
@@ -134,7 +138,7 @@ export default function SettingsLayout() {
         {/* Sidebar - hidden on mobile */}
         <div className="hidden bg-muted/60 md:block w-60 border-r overflow-y-auto">
           <div className="p-4">
-            <h1 className="text-xl font-semibold ">Settings</h1>
+            <h1 className="text-xl font-semibold ">{t("settings.title")}</h1>
           </div>
           <nav className="px-2 pb-4">
             <SettingsNav />
