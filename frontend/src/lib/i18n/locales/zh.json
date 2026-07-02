@@ -154,6 +154,7 @@
       "delete": "删除"
     },
     "create": {
+      "addContact": "创建联系人",
       "description": "创建新联系人。完成后点击保存。",
       "title": "创建联系人",
       "save": "保存联系人"

@@ -154,6 +154,7 @@
       "delete": "Delete"
     },
     "create": {
+      "addContact": "Create Contact",
       "description": "Create a new contact. Click save when you're done.",
       "title": "Create Contact",
       "save": "Save Contact"

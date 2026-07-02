@@ -154,6 +154,7 @@
       "delete": "Xóa"
     },
     "create": {
+      "addContact": "Tạo liên hệ",
       "description": "Tạo liên hệ mới. Nhấn lưu khi hoàn tất.",
       "title": "Tạo liên hệ",
       "save": "Lưu liên hệ"

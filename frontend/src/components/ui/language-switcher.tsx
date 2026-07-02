@@ -49,7 +49,7 @@ export function LanguageSwitcher({
           className={cn("h-9 gap-2 px-2", className)}
           aria-label={t("common.language")}
         >
-          <Languages className="h-4 w-4" />
+          <Languages className="h-4 w-4 mr-2" />
           {showLabel && (
             <span className="hidden sm:inline text-sm">
               {languageLabels[currentLanguage] ?? languageLabels.vi}

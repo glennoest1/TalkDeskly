@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import {
   MessageSquare,
   Users,
-  HelpCircle,
   Bell,
   Settings,
   Moon,
@@ -121,20 +120,13 @@ export function AppSidebar() {
               onClick={toggleTheme}
               collapsed={sidebarCollapsed}
             />
-            <div
+            <LanguageSwitcher
               className={cn(
-                "flex px-1",
-                sidebarCollapsed ? "justify-center" : "justify-start"
+                "h-auto w-full justify-start px-3 py-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+                sidebarCollapsed && "justify-center px-0"
               )}
-            >
-              <LanguageSwitcher
-                className={cn(
-                  "w-full justify-start text-muted-foreground hover:text-foreground",
-                  sidebarCollapsed && "w-10 justify-center px-0"
-                )}
-                showLabel={!sidebarCollapsed}
-              />
-            </div>
+              showLabel={!sidebarCollapsed}
+            />
           </nav>
         </div>
 
