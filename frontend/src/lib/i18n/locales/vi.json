@@ -505,6 +505,21 @@
     "emptyChatState": {
       "description": "Chọn một cuộc trò chuyện để bắt đầu chat",
       "viewConversations": "Xem cuộc trò chuyện"
+    },
+    "chatPortal": {
+      "tabs": {
+        "customer": "Khách hàng",
+        "private": "Ghi chú riêng"
+      },
+      "visibility": {
+        "customer": "Khách hàng có thể thấy",
+        "private": "Chỉ nhân viên hỗ trợ có thể thấy"
+      },
+      "input": {
+        "customerPlaceholder": "Nhập tin nhắn của bạn...",
+        "privatePlaceholder": "Thêm ghi chú riêng... Dùng @ để nhắc đến nhân viên hỗ trợ",
+        "send": "Gửi"
+      }
     }
   },
   "settings": {

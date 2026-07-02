@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ChatInput from "@/components/protected/live-chat/chat/input/chat-input";
 import { Conversation, Agent } from "@/lib/interfaces";
@@ -16,6 +17,7 @@ export default function ChatPortal({
   conversation,
 }: ChatPortalProps) {
   const [activeTab, setActiveTab] = useState("customer");
+  const { t } = useTranslation();
   const { wsService } = useWebSocket();
   const { user } = useAuthStore();
   const [assignableAgents, setAssignableAgents] = useState<Agent[]>([]);
@@ -71,22 +73,22 @@ export default function ChatPortal({
               value="customer"
               className="data-[state=active]:bg-blue-600 data-[state=active]:text-white"
             >
-              Customer
+              {t("liveChat.chatPortal.tabs.customer")}
             </TabsTrigger>
             <TabsTrigger
               value="private"
               className="data-[state=active]:bg-orange-600 data-[state=active]:text-white"
             >
-              Private Notes
+              {t("liveChat.chatPortal.tabs.private")}
             </TabsTrigger>
           </TabsList>
           <div className="ml-2 text-xs text-gray-400">
             {/* Indicator of who will see the message */}
             <span className={activeTab === "customer" ? "block" : "hidden"}>
-              Visible to customer
+              {t("liveChat.chatPortal.visibility.customer")}
             </span>
             <span className={activeTab === "private" ? "block" : "hidden"}>
-              Only visible to agents
+              {t("liveChat.chatPortal.visibility.private")}
             </span>
           </div>
         </div>
@@ -95,8 +97,8 @@ export default function ChatPortal({
           <ChatInput
             onSendMessage={handleSendCustomerMessage}
             disabled={conversation?.status === "closed"}
-            placeholder="Type your message..."
-            buttonText="Send"
+            placeholder={t("liveChat.chatPortal.input.customerPlaceholder")}
+            buttonText={t("liveChat.chatPortal.input.send")}
             buttonColor="bg-blue-600 hover:bg-blue-700"
             agents={[]} // No @mentions for customer messages
           />
@@ -106,8 +108,8 @@ export default function ChatPortal({
           <ChatInput
             onSendMessage={handleSendPrivateNote}
             disabled={conversation?.status === "closed"}
-            placeholder="Add a private note... Use @ to mention agents"
-            buttonText="Send"
+            placeholder={t("liveChat.chatPortal.input.privatePlaceholder")}
+            buttonText={t("liveChat.chatPortal.input.send")}
             buttonColor="bg-orange-600 hover:bg-orange-700"
             borderColor="border-orange-600"
             agents={assignableAgents}

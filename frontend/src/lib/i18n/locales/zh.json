@@ -505,6 +505,21 @@
     "emptyChatState": {
       "description": "选择一个对话开始聊天",
       "viewConversations": "查看对话"
+    },
+    "chatPortal": {
+      "tabs": {
+        "customer": "客户",
+        "private": "私密备注"
+      },
+      "visibility": {
+        "customer": "客户可见",
+        "private": "仅客服人员可见"
+      },
+      "input": {
+        "customerPlaceholder": "输入你的消息...",
+        "privatePlaceholder": "添加私密备注... 使用 @ 提及客服人员",
+        "send": "发送"
+      }
     }
   },
   "settings": {

@@ -505,6 +505,21 @@
     "emptyChatState": {
       "description": "Select a conversation to start chatting",
       "viewConversations": "View Conversations"
+    },
+    "chatPortal": {
+      "tabs": {
+        "customer": "Customer",
+        "private": "Private Notes"
+      },
+      "visibility": {
+        "customer": "Visible to customer",
+        "private": "Only visible to agents"
+      },
+      "input": {
+        "customerPlaceholder": "Type your message...",
+        "privatePlaceholder": "Add a private note... Use @ to mention agents",
+        "send": "Send"
+      }
     }
   },
   "settings": {
