@@ -1,6 +1,9 @@
 services:
   backend:
-    image: liamash/talkdeskly:latest
+    build:
+      context: ./backend
+      dockerfile: docker/Dockerfile.prod
+    image: talkdeskly:prod
     ports:
       - "8080:8080"
     environment:
