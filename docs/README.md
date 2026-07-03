@@ -68,12 +68,11 @@ Script layout:
 | File | Role |
 | --- | --- |
 | `Makefile` | Primary command interface for deployment |
-| `scripts/deploy-dispatcher.ps1` | Internal mode dispatcher called by Makefile |
-| `scripts/deploy-local.ps1` | Internal local host-run deployment actions |
-| `scripts/deploy-dev.ps1` | Internal Docker development deployment actions |
-| `scripts/deploy-prod.ps1` | Internal production deployment actions |
-| `scripts/deploy-common.ps1` | Internal shared module loader |
-| `scripts/modules/*.ps1` | Internal helper modules for core actions, HTTP, npm, Compose, local processes, and prod assets |
+| `scripts/deploy-dispatcher.sh` | Bash dispatcher called by Makefile; validates mode/action/options |
+| `scripts/deploy-common.sh` | Shared Bash helpers for command checks, Compose, HTTP, npm, seeding decisions, and action dispatch |
+| `scripts/deploy-local.sh` | Local host-run deployment actions |
+| `scripts/deploy-dev.sh` | Docker development deployment actions |
+| `scripts/deploy-prod.sh` | Production-style deployment actions |
 
 See [Deployment Scripts](deployment-scripts.md) for a full file-by-file explanation.
 

@@ -1,8 +1,4 @@
-ifeq ($(OS),Windows_NT)
-DEPLOY := powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\deploy-dispatcher.ps1
-else
-DEPLOY := pwsh -NoProfile -ExecutionPolicy Bypass -File ./scripts/deploy-dispatcher.ps1
-endif
+DEPLOY := bash ./scripts/deploy-dispatcher.sh
 
 MODE ?= dev
 ACTION ?= start
@@ -33,37 +29,37 @@ FLAGS += -Tail $(TAIL)
 	logs seed build status stop restart
 
 help:
-	@echo TalkDeskly deployment targets
-	@echo.
-	@echo   make local                 Start host-run local mode
-	@echo   make dev                   Start Docker development mode
-	@echo   make prod                  Start production mode
-	@echo.
-	@echo   make local-status          Check local mode
-	@echo   make dev-status            Check Docker development mode
-	@echo   make prod-status           Check production mode
-	@echo.
-	@echo   make local-logs            Show local logs
-	@echo   make dev-logs              Show Docker development logs
-	@echo   make prod-logs             Show production logs
-	@echo.
-	@echo   make local-seed            Seed local demo data
-	@echo   make dev-seed              Seed Docker development demo data
-	@echo   make prod-seed             Seed production demo data
-	@echo.
-	@echo   make local-build           Install local frontend/widget deps
-	@echo   make dev-build             Build Docker development images
-	@echo   make prod-build            Build frontend/widget assets and production image
-	@echo.
-	@echo   make local-stop            Stop local host processes
-	@echo   make dev-stop              Stop Docker development mode
-	@echo   make prod-stop             Stop production mode
-	@echo.
-	@echo   make deploy MODE=dev ACTION=restart
-	@echo   make deploy MODE=dev ACTION=logs FOLLOW=1 TAIL=200
-	@echo   make dev NO_SEED=1
-	@echo   make prod SEED=1
-	@echo   make local INSTALL_DEPS=1
+	@printf '%s\n' 'TalkDeskly deployment targets'
+	@printf '%s\n' ''
+	@printf '%s\n' '  make local                 Start host-run local mode'
+	@printf '%s\n' '  make dev                   Start Docker development mode'
+	@printf '%s\n' '  make prod                  Start production mode'
+	@printf '%s\n' ''
+	@printf '%s\n' '  make local-status          Check local mode'
+	@printf '%s\n' '  make dev-status            Check Docker development mode'
+	@printf '%s\n' '  make prod-status           Check production mode'
+	@printf '%s\n' ''
+	@printf '%s\n' '  make local-logs            Show local logs'
+	@printf '%s\n' '  make dev-logs              Show Docker development logs'
+	@printf '%s\n' '  make prod-logs             Show production logs'
+	@printf '%s\n' ''
+	@printf '%s\n' '  make local-seed            Seed local demo data'
+	@printf '%s\n' '  make dev-seed              Seed Docker development demo data'
+	@printf '%s\n' '  make prod-seed             Seed production demo data'
+	@printf '%s\n' ''
+	@printf '%s\n' '  make local-build           Install local frontend/widget deps'
+	@printf '%s\n' '  make dev-build             Build Docker development images'
+	@printf '%s\n' '  make prod-build            Build frontend/widget assets and production image'
+	@printf '%s\n' ''
+	@printf '%s\n' '  make local-stop            Stop local host processes'
+	@printf '%s\n' '  make dev-stop              Stop Docker development mode'
+	@printf '%s\n' '  make prod-stop             Stop production mode'
+	@printf '%s\n' ''
+	@printf '%s\n' '  make deploy MODE=dev ACTION=restart'
+	@printf '%s\n' '  make deploy MODE=dev ACTION=logs FOLLOW=1 TAIL=200'
+	@printf '%s\n' '  make dev NO_SEED=1'
+	@printf '%s\n' '  make prod SEED=1'
+	@printf '%s\n' '  make local INSTALL_DEPS=1'
 
 deploy:
 	$(DEPLOY) $(MODE) $(ACTION) $(FLAGS)

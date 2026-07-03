@@ -51,7 +51,7 @@ Start with [docs/README.md](docs/README.md) if you are not sure which mode to us
 | [Development deployment](docs/dev/development-deployment.md) | Docker Compose development setup and chat widget test flow. |
 | [Production deployment](docs/prod/production-deployment.md) | Production-style Compose setup, build flow, config requirements, and validation. |
 
-The Makefile calls `scripts/deploy-dispatcher.ps1`, which routes to `scripts/deploy-local.ps1`, `scripts/deploy-dev.ps1`, or `scripts/deploy-prod.ps1` depending on the selected mode.
+The Makefile calls `scripts/deploy-dispatcher.sh`, which routes to the Bash mode scripts in `scripts/deploy-local.sh`, `scripts/deploy-dev.sh`, and `scripts/deploy-prod.sh`.
 
 ## Features
 
