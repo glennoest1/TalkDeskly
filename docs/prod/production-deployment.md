@@ -234,6 +234,13 @@ Expected result: each command prints a version and exits without error.
 
 Then create a `.env` file in the repository root. Docker Compose reads it automatically when you run `build` and `up` from the repository root.
 
+You can start from the checked-in template:
+
+```bash
+cp env/prod.env.example .env
+# edit .env
+```
+
 Linux/macOS/Git Bash:
 
 ```bash

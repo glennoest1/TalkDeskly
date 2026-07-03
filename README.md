@@ -47,6 +47,7 @@ Start with [docs/README.md](docs/README.md) if you are not sure which mode to us
 | --- | --- |
 | [Deployment overview](docs/README.md) | Mode comparison, communication architecture, quick commands, and first-run paths. |
 | [Deployment scripts](docs/deployment-scripts.md) | Direct script commands, script modules, supported options, E2E checks, and troubleshooting. |
+| [Startup environment](docs/startup-environment.md) | Required startup environment variables and example files for local, dev, and prod. |
 | [Local deployment](docs/local/local-deployment.md) | Host-run local setup and testing flow. |
 | [Development deployment](docs/dev/development-deployment.md) | Docker Compose development setup and chat widget test flow. |
 | [Production deployment](docs/prod/production-deployment.md) | Production-style Compose setup, build flow, config requirements, and validation. |

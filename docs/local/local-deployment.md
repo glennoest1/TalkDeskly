@@ -71,6 +71,8 @@ How local mode compares to the other modes:
 
 The frontend and widget development code hard-codes `http://localhost:6721` as the backend URL. In local mode this works without any alias because `backend/.env` sets `PORT=6721`, so the host backend listens on `6721` directly.
 
+The local startup env is organized in [Startup Environment Variables](../startup-environment.md). If `backend/.env` needs to be recreated, copy `env/local.env.example` to `backend/.env`.
+
 ### Local Architecture
 
 Who talks to whom in local mode:

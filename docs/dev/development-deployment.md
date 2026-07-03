@@ -240,6 +240,8 @@ In Compose development mode, the backend listens on the internal backend contain
 
 The repository also has `backend/.env` for non-Compose/local backend runs. That host-run port does not win inside the Compose backend container because Compose sets `PORT` as a container environment variable before the Go app calls `godotenv.Load()`.
 
+Development startup env is organized in [Startup Environment Variables](../startup-environment.md). `docker-compose.dev.yml` is the runtime source of truth; `env/dev.compose.env.example` is a reference copy for DevOps review.
+
 The backend service therefore publishes two host ports:
 
 ```yaml

@@ -24,6 +24,8 @@ DevOps should run one of these three mode scripts from the repository root:
 
 On Windows, run from Git Bash, WSL, MSYS2, or another Bash-capable shell with Docker access.
 
+Before first startup, review [Startup Environment Variables](startup-environment.md). It lists the required env source for each mode and points to the example files in `env/`.
+
 ## Actions
 
 | Action | Purpose |
@@ -140,6 +142,13 @@ Production requires a repository-root `.env` with these variable names:
 | `EMAIL_FROM` | Sender email address. |
 
 The Compose project name is `talkdeskly-prod`.
+
+Create production env from the template:
+
+```bash
+cp env/prod.env.example .env
+# edit .env before starting
+```
 
 ## Script Layout
 

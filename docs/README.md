@@ -16,6 +16,7 @@ Each guide begins with an architecture diagram and a connection table showing ex
 
 - [Quick Choice](#quick-choice)
 - [Deploy Scripts](#deploy-scripts)
+- [Startup Environment](#startup-environment)
 - [Communication Architecture At A Glance](#communication-architecture-at-a-glance)
 - [Important Differences](#important-differences)
 - [First-Time Docker Development](#first-time-docker-development)
@@ -105,6 +106,16 @@ By default, `local` and `dev` seed demo data after startup. Use `NO_SEED=1` to s
 Production mode requires a repository-root `.env` before running the script. See [Production deployment](prod/production-deployment.md#step-0-verify-prerequisites-and-configure-variables).
 
 The script uses separate Docker Compose project names per mode: `talkdeskly-local`, `talkdeskly-dev`, and `talkdeskly-prod`. This keeps containers and volumes from different modes from being mixed in `docker compose ps`.
+
+## Startup Environment
+
+Use [Startup Environment Variables](startup-environment.md) before first startup or when moving values between modes.
+
+| Mode | Startup env source | Example file |
+| --- | --- | --- |
+| Local | `backend/.env` | `env/local.env.example` |
+| Development | `docker-compose.dev.yml` inline env | `env/dev.compose.env.example` |
+| Production | root `.env` | `env/prod.env.example` |
 
 ## Communication Architecture At A Glance
 

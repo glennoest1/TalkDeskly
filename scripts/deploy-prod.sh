@@ -4,6 +4,8 @@ set -euo pipefail
 SCRIPT_ENTRYPOINT="scripts/deploy-prod.sh"
 DEFAULT_START_COMMAND="scripts/deploy-prod.sh"
 SUPPORTED_SERVICES="backend, postgres, redis"
+PROD_REQUIRED_ENV="POSTGRES_PASSWORD JWT_SECRET BASE_URL EMAIL_HOST EMAIL_PORT EMAIL_FROM"
+PROD_OPTIONAL_ENV="EMAIL_USERNAME EMAIL_PASSWORD"
 
 . "$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/deploy-common.sh"
 
@@ -15,9 +17,16 @@ assert_prod_env() {
     echo "Production mode requires .env at the repository root. See docs/prod/production-deployment.md Step 0." >&2
     exit 1
   fi
-  for name in POSTGRES_PASSWORD JWT_SECRET BASE_URL EMAIL_HOST EMAIL_PORT EMAIL_FROM; do
+  for name in $PROD_REQUIRED_ENV; do
     if ! grep -Eq "^${name}[[:space:]]*=" "$env_file"; then
       echo "Missing required production variable in .env: $name" >&2
+      exit 1
+    fi
+  done
+  for name in $PROD_OPTIONAL_ENV; do
+    if ! grep -Eq "^${name}[[:space:]]*=" "$env_file"; then
+      echo "Missing optional production variable in .env: $name" >&2
+      echo "Set it to an empty value if your SMTP provider does not require it." >&2
       exit 1
     fi
   done
