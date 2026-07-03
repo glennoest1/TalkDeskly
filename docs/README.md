@@ -15,7 +15,7 @@ Each guide begins with an architecture diagram and a connection table showing ex
 ## Table Of Contents
 
 - [Quick Choice](#quick-choice)
-- [Makefile Deployment](#makefile-deployment)
+- [Deploy Scripts](#deploy-scripts)
 - [Communication Architecture At A Glance](#communication-architecture-at-a-glance)
 - [Important Differences](#important-differences)
 - [First-Time Docker Development](#first-time-docker-development)
@@ -28,7 +28,7 @@ Each guide begins with an architecture diagram and a connection table showing ex
 Use development mode when you want separate containers for backend, frontend, chat widget, Postgres, Redis, and MailHog:
 
 ```bash
-make dev
+./scripts/deploy-dev.sh start
 ```
 
 Development mode exposes the backend on both `http://localhost:8080` and `http://localhost:6721`. The backend container still listens on `8080`; `6721` is a host-port compatibility alias for the current frontend and chat widget development code.
@@ -36,40 +36,38 @@ Development mode exposes the backend on both `http://localhost:8080` and `http:/
 Use production mode when you want one backend container serving the compiled admin frontend, widget SDK, REST API, and WebSocket routes:
 
 ```bash
-make prod
+./scripts/deploy-prod.sh start
 ```
 
 Use local mode when you want the backend, frontend, and chat widget as host processes - fastest reload and native IDE debugging - with only the infrastructure in Docker:
 
 ```bash
-make local
+./scripts/deploy-local.sh start
 ```
 
 Then open the URLs printed by the script.
 
-## Makefile Deployment
+## Deploy Scripts
 
-Use the `Makefile` commands from the repository root:
+Use the standalone Bash deploy scripts from the repository root:
 
 ```bash
-make local
-make dev
-make prod
-make local-status
-make dev-stop
-make prod-restart
-make dev-reset SERVICE=backend
-make dev-logs
-make local-seed
-make prod-build
+./scripts/deploy-local.sh start
+./scripts/deploy-dev.sh start
+./scripts/deploy-prod.sh start
+./scripts/deploy-local.sh status
+./scripts/deploy-dev.sh stop
+./scripts/deploy-prod.sh restart
+./scripts/deploy-dev.sh reset --service backend
+./scripts/deploy-dev.sh logs --tail 100
+./scripts/deploy-local.sh seed
+./scripts/deploy-prod.sh build
 ```
 
 Script layout:
 
 | File | Role |
 | --- | --- |
-| `Makefile` | Primary command interface for deployment |
-| `scripts/deploy-dispatcher.sh` | Bash dispatcher called by Makefile; validates mode/action/options |
 | `scripts/deploy-common.sh` | Shared Bash helpers for command checks, Compose, HTTP, npm, seeding decisions, and action dispatch |
 | `scripts/deploy-local.sh` | Local host-run deployment actions |
 | `scripts/deploy-dev.sh` | Docker development deployment actions |
@@ -81,25 +79,25 @@ Examples:
 
 | Command | What it does |
 | --- | --- |
-| `make local` | Starts Postgres, Redis, and MailHog in Docker, then starts backend, frontend, and chat widget as host processes |
-| `make dev` | Builds and starts the full Docker development stack |
-| `make prod` | Builds frontend and widget assets, copies them into `backend/public`, then builds and starts the production Compose stack |
-| `make dev-stop` | Stops the Docker development stack |
-| `make dev-reset SERVICE=backend` | Recreates one Docker development service without resetting named volumes |
-| `make local-status` | Shows local process status and checks HTTP endpoints |
-| `make dev-logs` | Shows Docker development logs |
-| `make local-seed` | Seeds local demo data |
-| `make prod-build` | Builds production frontend/widget assets and Docker image |
+| `./scripts/deploy-local.sh start` | Starts Postgres, Redis, and MailHog in Docker, then starts backend, frontend, and chat widget as host processes |
+| `./scripts/deploy-dev.sh start` | Builds and starts the full Docker development stack |
+| `./scripts/deploy-prod.sh start` | Builds frontend and widget assets, copies them into `backend/public`, then builds and starts the production Compose stack |
+| `./scripts/deploy-dev.sh stop` | Stops the Docker development stack |
+| `./scripts/deploy-dev.sh reset --service backend` | Recreates one Docker development service without resetting named volumes |
+| `./scripts/deploy-local.sh status` | Shows local process status and checks HTTP endpoints |
+| `./scripts/deploy-dev.sh logs --tail 100` | Shows Docker development logs |
+| `./scripts/deploy-local.sh seed` | Seeds local demo data |
+| `./scripts/deploy-prod.sh build` | Builds production frontend/widget assets and Docker image |
 
-Make targets call the deployment script internally. Use Make variables for options:
+Use script options for seed, dependency, log, and reset behavior:
 
 ```bash
-make dev NO_SEED=1
-make prod SEED=1
-make local INSTALL_DEPS=1
-make deploy MODE=dev ACTION=restart
-make deploy MODE=dev ACTION=reset SERVICE=backend
-make deploy MODE=dev ACTION=logs FOLLOW=1 TAIL=200
+./scripts/deploy-dev.sh start --no-seed
+./scripts/deploy-prod.sh start --seed
+./scripts/deploy-local.sh start --install-deps
+./scripts/deploy-dev.sh restart
+./scripts/deploy-dev.sh reset --service backend
+./scripts/deploy-dev.sh logs --follow --tail 200
 ```
 
 By default, `local` and `dev` seed demo data after startup. Use `NO_SEED=1` to skip it or `SEED=1` to seed production mode explicitly.

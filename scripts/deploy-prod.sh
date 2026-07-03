@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_ENTRYPOINT="scripts/deploy-prod.sh"
+DEFAULT_START_COMMAND="scripts/deploy-prod.sh"
+SUPPORTED_SERVICES="backend, postgres, redis"
+
 . "$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/deploy-common.sh"
+
+parse_deploy_cli "$@"
 
 assert_prod_env() {
   local env_file="$REPO_ROOT/.env"
@@ -92,7 +98,7 @@ status_mode() {
   assert_prod_env
   write_step "Production status"
   compose "talkdeskly-prod" "docker-compose.prod.yml" ps
-  assert_compose_running "talkdeskly-prod" "docker-compose.prod.yml" "make prod"
+  assert_compose_running "talkdeskly-prod" "docker-compose.prod.yml" "./scripts/deploy-prod.sh start"
   test_http "http://localhost:8080/health"
   test_http "http://localhost:8080/"
   test_http "http://localhost:8080/sdk/sdk.iife.js"
@@ -101,7 +107,7 @@ status_mode() {
 logs_mode() {
   assert_prod_env
   write_step "Production logs"
-  assert_compose_running "talkdeskly-prod" "docker-compose.prod.yml" "make prod"
+  assert_compose_running "talkdeskly-prod" "docker-compose.prod.yml" "./scripts/deploy-prod.sh start"
   compose_logs "talkdeskly-prod" "docker-compose.prod.yml"
 }
 

@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_ENTRYPOINT="scripts/deploy-dev.sh"
+DEFAULT_START_COMMAND="scripts/deploy-dev.sh"
+SUPPORTED_SERVICES="chat-bubble, backend, frontend, postgres, redis, mailhog"
+
 . "$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/deploy-common.sh"
+
+parse_deploy_cli "$@"
 
 seed_mode() {
   write_step "Seeding Docker development demo data"
@@ -37,7 +43,7 @@ stop_mode() {
 status_mode() {
   write_step "Docker development status"
   compose "talkdeskly-dev" "docker-compose.dev.yml" ps
-  assert_compose_running "talkdeskly-dev" "docker-compose.dev.yml" "make dev"
+  assert_compose_running "talkdeskly-dev" "docker-compose.dev.yml" "./scripts/deploy-dev.sh start"
   test_http "http://localhost:6721/health"
   test_http "http://localhost:3001/"
   test_http "http://localhost:3000/"
@@ -46,7 +52,7 @@ status_mode() {
 
 logs_mode() {
   write_step "Docker development logs"
-  assert_compose_running "talkdeskly-dev" "docker-compose.dev.yml" "make dev"
+  assert_compose_running "talkdeskly-dev" "docker-compose.dev.yml" "./scripts/deploy-dev.sh start"
   compose_logs "talkdeskly-dev" "docker-compose.dev.yml"
 }
 

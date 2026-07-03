@@ -13,6 +13,10 @@ INSTALL_DEPS="${INSTALL_DEPS:-0}"
 FOLLOW="${FOLLOW:-0}"
 TAIL="${TAIL:-100}"
 DEPLOY_SERVICE="${DEPLOY_SERVICE:-}"
+SCRIPT_ENTRYPOINT="${SCRIPT_ENTRYPOINT:-deploy script}"
+DEFAULT_START_COMMAND="${DEFAULT_START_COMMAND:-this script}"
+SUPPORTED_SERVICES="${SUPPORTED_SERVICES:-}"
+CLI_PARSED="${CLI_PARSED:-0}"
 
 write_step() {
   printf '\n==> %s\n' "$1"
@@ -20,6 +24,112 @@ write_step() {
 
 write_info() {
   printf '    %s\n' "$1"
+}
+
+print_common_usage() {
+  cat <<EOF
+Usage:
+  $SCRIPT_ENTRYPOINT [action] [options]
+
+Actions:
+  start      Start this deployment mode. This is the default action.
+  stop       Stop this deployment mode.
+  restart    Stop and start this deployment mode.
+  status     Show runtime status and probe HTTP endpoints.
+  logs       Show logs.
+  seed       Seed demo data.
+  build      Build dependencies, assets, or images for this mode.
+  reset      Reset one service. Requires --service <name>.
+
+Options:
+  --seed, -s              Force demo data seeding when start/restart runs.
+  --no-seed              Skip automatic demo data seeding.
+  --install-deps         Force npm install where this mode uses npm packages.
+  --follow, -f           Follow logs.
+  --tail <n>             Number of log lines to print. Default: 100.
+  --service <name>       Service name for reset.
+  --help, -h             Show this help.
+
+EOF
+
+  if [ -n "$SUPPORTED_SERVICES" ]; then
+    cat <<EOF
+
+Reset services:
+  $SUPPORTED_SERVICES
+EOF
+  fi
+}
+
+parse_deploy_cli() {
+  if [ "$CLI_PARSED" = "1" ]; then
+    return
+  fi
+
+  if [ $# -gt 0 ]; then
+    case "$1" in
+      start|stop|restart|status|logs|seed|build|reset)
+        DEPLOY_ACTION="$1"
+        shift
+        ;;
+      -h|--help|help)
+        print_common_usage
+        exit 0
+        ;;
+      -*)
+        ;;
+      *)
+        echo "Unsupported deployment action: $1" >&2
+        print_common_usage >&2
+        exit 2
+        ;;
+    esac
+  fi
+
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --seed|-s|-SeedDemoData)
+        SEED_DEMO=1
+        ;;
+      --no-seed|-NoSeed)
+        NO_SEED=1
+        ;;
+      --install-deps|-InstallDeps)
+        INSTALL_DEPS=1
+        ;;
+      --follow|-f|-Follow)
+        FOLLOW=1
+        ;;
+      --tail|-Tail)
+        shift
+        if [ $# -eq 0 ] || [ "${1#-}" != "$1" ]; then
+          echo "Missing value for --tail" >&2
+          exit 2
+        fi
+        TAIL="$1"
+        ;;
+      --service|-Service)
+        shift
+        if [ $# -eq 0 ] || [ "${1#-}" != "$1" ]; then
+          echo "Missing value for --service" >&2
+          exit 2
+        fi
+        DEPLOY_SERVICE="$1"
+        ;;
+      --help|-h|help)
+        print_common_usage
+        exit 0
+        ;;
+      *)
+        echo "Unsupported option: $1" >&2
+        print_common_usage >&2
+        exit 2
+        ;;
+    esac
+    shift
+  done
+
+  CLI_PARSED=1
 }
 
 ensure_state_dir() {
@@ -46,11 +156,11 @@ require_command() {
 }
 
 require_curl() {
-  require_command "curl" "Install curl, then rerun the Make target."
+  require_command "curl" "Install curl, then rerun $DEFAULT_START_COMMAND."
 }
 
 require_docker() {
-  require_command "docker" "Install Docker Desktop or Docker Engine with Compose v2, then rerun the Make target."
+  require_command "docker" "Install Docker Desktop or Docker Engine with Compose v2, then rerun $DEFAULT_START_COMMAND."
 }
 
 get_compose_command() {
@@ -65,16 +175,16 @@ get_compose_command() {
   fi
 
   echo "Missing Docker Compose command: neither 'docker compose' nor 'docker-compose' is available." >&2
-  echo "Install Docker Desktop/Engine with Compose support, then rerun the Make target." >&2
+  echo "Install Docker Desktop/Engine with Compose support, then rerun $DEFAULT_START_COMMAND." >&2
   exit 127
 }
 
 require_go() {
-  require_command "go" "Install Go 1.24 or newer, then rerun the Make target."
+  require_command "go" "Install Go 1.24 or newer, then rerun $DEFAULT_START_COMMAND."
 }
 
 require_npm() {
-  require_command "npm" "Install Node.js and npm, then rerun the Make target."
+  require_command "npm" "Install Node.js and npm, then rerun $DEFAULT_START_COMMAND."
 }
 
 compose() {
@@ -104,7 +214,7 @@ compose_logs() {
 
 require_service() {
   if [ -z "$DEPLOY_SERVICE" ]; then
-    echo "SERVICE is required for reset. Example: make dev-reset SERVICE=backend" >&2
+    echo "A service name is required for reset. Example: $DEFAULT_START_COMMAND reset --service backend" >&2
     exit 2
   fi
 }

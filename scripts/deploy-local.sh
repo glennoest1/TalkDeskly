@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_ENTRYPOINT="scripts/deploy-local.sh"
+DEFAULT_START_COMMAND="scripts/deploy-local.sh"
+SUPPORTED_SERVICES="backend, frontend, chat-bubble, postgres, redis, mailhog"
+
 . "$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/deploy-common.sh"
+
+parse_deploy_cli "$@"
 
 start_process() {
   local name="$1"
@@ -171,7 +177,7 @@ logs_mode() {
   ensure_state_dir
   mapfile -t files < <(find "$LOG_DIR" -maxdepth 1 -type f \( -name "*.out.log" -o -name "*.err.log" \) 2>/dev/null | sort)
   if [ "${#files[@]}" -eq 0 ]; then
-    write_info "No local logs found. Run make local first."
+    write_info "No local logs found. Run ./scripts/deploy-local.sh start first."
     return
   fi
   if [ "$FOLLOW" = "1" ]; then

@@ -12,32 +12,31 @@ Visit [talkdeskly.com](https://talkdeskly.com) for more info. Check out the [**L
 
 ## Deploy And Run
 
-Run deployment commands through the root `Makefile`. This is the supported entry point for every mode.
+Run deployment through the standalone Bash scripts. This is the supported entry point for every mode.
 
 ```bash
-make local
-make dev
-make prod
+./scripts/deploy-local.sh start
+./scripts/deploy-dev.sh start
+./scripts/deploy-prod.sh start
 ```
 
 Choose the mode from the deployment guide that matches what you need:
 
 | Mode | Main command | Use when | Guide |
 | --- | --- | --- | --- |
-| Local host-run | `make local` | Backend, frontend, and chat widget run as host processes; dependency services run in Docker. | [Local deployment](docs/local/local-deployment.md) |
-| Docker development | `make dev` | Backend, frontend, chat widget, Postgres, Redis, and MailHog all run in Docker for development. | [Development deployment](docs/dev/development-deployment.md) |
-| Production-style | `make prod` | Frontend and widget assets are built into the backend image and run with production Compose. | [Production deployment](docs/prod/production-deployment.md) |
+| Local host-run | `./scripts/deploy-local.sh start` | Backend, frontend, and chat widget run as host processes; dependency services run in Docker. | [Local deployment](docs/local/local-deployment.md) |
+| Docker development | `./scripts/deploy-dev.sh start` | Backend, frontend, chat widget, Postgres, Redis, and MailHog all run in Docker for development. | [Development deployment](docs/dev/development-deployment.md) |
+| Production-style | `./scripts/deploy-prod.sh start` | Frontend and widget assets are built into the backend image and run with production Compose. | [Production deployment](docs/prod/production-deployment.md) |
 
-Common Makefile commands:
+Common deploy commands:
 
 ```bash
-make local-status
-make dev-logs
-make dev-seed
-make dev-restart
-make dev-reset SERVICE=backend
-make prod-build
-make deploy MODE=dev ACTION=status
+./scripts/deploy-local.sh status
+./scripts/deploy-dev.sh logs --tail 100
+./scripts/deploy-dev.sh seed
+./scripts/deploy-dev.sh restart
+./scripts/deploy-dev.sh reset --service backend
+./scripts/deploy-prod.sh build
 ```
 
 ## Deployment Documentation
@@ -47,12 +46,12 @@ Start with [docs/README.md](docs/README.md) if you are not sure which mode to us
 | Document | What it covers |
 | --- | --- |
 | [Deployment overview](docs/README.md) | Mode comparison, communication architecture, quick commands, and first-run paths. |
-| [Deployment scripts](docs/deployment-scripts.md) | Makefile targets, script modules, supported options, E2E checks, and troubleshooting. |
+| [Deployment scripts](docs/deployment-scripts.md) | Direct script commands, script modules, supported options, E2E checks, and troubleshooting. |
 | [Local deployment](docs/local/local-deployment.md) | Host-run local setup and testing flow. |
 | [Development deployment](docs/dev/development-deployment.md) | Docker Compose development setup and chat widget test flow. |
 | [Production deployment](docs/prod/production-deployment.md) | Production-style Compose setup, build flow, config requirements, and validation. |
 
-The Makefile calls `scripts/deploy-dispatcher.sh`, which routes to the Bash mode scripts in `scripts/deploy-local.sh`, `scripts/deploy-dev.sh`, and `scripts/deploy-prod.sh`.
+The deploy entrypoints are `scripts/deploy-local.sh`, `scripts/deploy-dev.sh`, and `scripts/deploy-prod.sh`. Each script has built-in `--help`.
 
 ## Features
 
