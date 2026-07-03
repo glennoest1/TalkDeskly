@@ -1,4 +1,4 @@
-# TalkDeskly Development Deployment
+﻿# TalkDeskly Development Deployment
 
 This guide explains how to build and run TalkDeskly in development mode with Docker Compose.
 
@@ -11,11 +11,14 @@ The deployment package in this folder contains:
 ## Table Of Contents
 
 - [1. What Development Mode Runs](#1-what-development-mode-runs)
+  - [Development Architecture](#development-architecture)
+    - [Development Communication Checks](#development-communication-checks)
 - [2. Docker Compose Development Build](#2-docker-compose-development-build)
 - [3. Source Mounts And Hot Reload](#3-source-mounts-and-hot-reload)
 - [4. Prerequisites](#4-prerequisites)
 - [5. Published Ports](#5-published-ports)
   - [Backend Port Convention](#backend-port-convention)
+  - [Why The 6721 Alias Exists](#why-the-6721-alias-exists)
 - [6. Runtime Variables](#6-runtime-variables)
   - [Config Name Warning](#config-name-warning)
   - [Frontend API URL Warning](#frontend-api-url-warning)
@@ -82,6 +85,63 @@ Development mode differs from production mode in these important ways:
 | Restart policy | No explicit restart policy | `unless-stopped` for runtime services |
 
 Development mode is for local feature work, debugging, and integration testing. Do not use it for a real production deployment.
+
+### Development Architecture
+
+Who talks to whom in development mode:
+
+```mermaid
+flowchart LR
+    B(["Browser"])
+
+    subgraph Docker["Docker network"]
+        FE["frontend :5173"]
+        CB["chat-bubble :5173"]
+        BE["backend :8080"]
+        PG[("postgres :5432")]
+        RD[("redis :6379")]
+        MH["mailhog :1025 / :8025"]
+    end
+
+    B -->|":3001"| FE
+    B -->|":3000"| CB
+    B -->|":6721 api + ws"| BE
+    B -->|":8025"| MH
+    BE -->|"postgres:5432"| PG
+    BE -->|"redis:6379"| RD
+    BE -->|"mailhog:1025"| MH
+```
+
+Browser edges are published host ports; backend edges are Compose service names inside the Docker network.
+
+Every connection in development mode:
+
+| From | To | Address used | Protocol | Purpose |
+| --- | --- | --- | --- | --- |
+| Browser | `frontend` container | `http://localhost:3001` | HTTP | Load the admin app (Vite dev server) |
+| Browser | `chat-bubble` container | `http://localhost:3000` | HTTP | Load the widget dev page (Vite dev server) |
+| Browser | `backend` container | `http://localhost:6721/api` | HTTP | REST calls made by admin app JS and widget JS |
+| Browser | `backend` container | `ws://localhost:6721/ws` | WebSocket | Realtime events for agents and widget visitors. Widget config still uses HTTP `baseUrl`; the SDK derives the WebSocket route from it. |
+| Browser | `mailhog` container | `http://localhost:8025` | HTTP | Read captured emails |
+| `backend` container | `postgres` container | `postgres:5432` | TCP | Database, via Compose service name |
+| `backend` container | `redis` container | `redis:6379` | TCP | Background jobs and realtime support |
+| `backend` container | `mailhog` container | `mailhog:1025` | SMTP | Outgoing email capture |
+| Host tools (optional) | `postgres` container | `localhost:5433` | TCP | Inspect the database from the host |
+
+Two rules that explain the whole picture:
+
+1. The `frontend` and `chat-bubble` containers never call the backend. They only serve JavaScript. Every API and WebSocket call originates from the browser, which lives on the host, outside the Docker network. That is why the browser-facing addresses use `localhost` plus a published host port (`6721` maps to backend container port `8080`), while container-to-container addresses use Compose service names plus container ports.
+2. Never mix the two address planes. `postgres:5432` works only from inside the Docker network; `localhost:6721` works only from the host and the browser.
+
+#### Development Communication Checks
+
+| Check | Expected result |
+| --- | --- |
+| `docker compose -f docker-compose.dev.yml ps` | Backend publishes both `8080:8080` and `6721:8080` |
+| `curl http://localhost:6721/health` | Browser-facing backend alias works |
+| `curl http://localhost:6721/api/public/inbox/<inbox-id>` | Widget public inbox REST path works |
+| Browser devtools on `http://localhost:3000` | Widget REST uses `http://localhost:6721/api`; contact WebSocket uses the same backend origin plus `/ws` |
+| Backend logs | No `record not found` for the widget inbox ID; `conversation_start` appears after starting a chat |
 
 ## 2. Docker Compose Development Build
 
@@ -176,13 +236,9 @@ The right side is the port inside the container and should usually stay unchange
 
 ### Backend Port Convention
 
-In Compose development mode, the backend runs inside the container with:
+In Compose development mode, the backend listens on the internal backend container port defined by `docker-compose.dev.yml`.
 
-```yaml
-PORT=8080
-```
-
-The repository also has `backend/.env` with `PORT=6721` for non-Compose/local backend runs. That value does not win inside the Compose backend container because Compose sets `PORT=8080` as an environment variable before the Go app calls `godotenv.Load()`.
+The repository also has `backend/.env` for non-Compose/local backend runs. That host-run port does not win inside the Compose backend container because Compose sets `PORT` as a container environment variable before the Go app calls `godotenv.Load()`.
 
 The backend service therefore publishes two host ports:
 
@@ -193,6 +249,26 @@ ports:
 ```
 
 Use `8080` when testing the backend directly. Use `6721` for compatibility with the current frontend and chat widget development code, which hard-codes `http://localhost:6721/api` and `ws://localhost:6721/ws` in development mode.
+
+### Why The 6721 Alias Exists
+
+The alias is a deliberate compatibility fix for configuration drift between this Compose file and the client source code. The history, reconstructed from the git log:
+
+| When | What happened |
+| --- | --- |
+| Initial commit (2025-04) | The project was developed host-run: `backend/.env` set `PORT=6721`, and the clients read `import.meta.env.VITE_API_URL \|\| "http://localhost:6721/api"`  -  environment variable first, `6721` as fallback |
+| 2025-04-14 | `docker-compose.dev.yml` was added with container port `8080` (matching the production image convention) and `VITE_API_URL`/`VITE_WS_URL` pointing at `8080`, relying on the clients reading those variables |
+| 2025-06-07 | A client refactor for production single-origin support changed the clients to `import.meta.env.DEV ? "http://localhost:6721/api" : "/api"`. This removed the `VITE_API_URL` lookup entirely and hard-coded `6721` for development |
+| Result | The Compose file no longer matched the clients: browsers called `localhost:6721`, but Compose only published `8080`, so login and every API call failed in Docker development mode |
+| 2026-07 | The host alias `6721:8080` was added so the hard-coded client URLs reach the backend again, without touching application code |
+
+Why an alias instead of changing the backend container port to `6721`:
+
+1. The browser is the caller, not the containers. The `frontend` and `chat-bubble` containers only serve JavaScript; every API and WebSocket call originates in the browser on the host, so what matters is which host port is published (see [Development Architecture](#development-architecture)).
+2. Container port `8080` is kept for parity with the production image, which builds on `EXPOSE 8080`. The host-port mapping is the flexible layer in Docker; the container port is the stable convention.
+3. `6721` remains the host-run convention from `backend/.env`, and the alias bridges that convention into Compose mode without a code change.
+
+The root fix  -  restoring the `VITE_API_URL`/`VITE_WS_URL` lookup in the four client files  -  is described in [Frontend API URL Warning](#frontend-api-url-warning). Once that is done, the alias can be removed and development mode can publish `8080` only.
 
 ## 6. Runtime Variables
 
@@ -570,6 +646,22 @@ With `baseUrl: "http://localhost:6721"`, the browser-visible endpoints are:
 | `http://localhost:6721/ws/contacts?...` | WebSocket connection created by the widget service |
 
 If `baseUrl` is set to `ws://localhost:6721`, REST calls become invalid because Axios receives a URL like `ws://localhost:6721/api`. The widget can then open visually but stay stuck at `Connecting...`.
+
+Why the value must be HTTP and not WS: `baseUrl` is an origin from which the widget derives both channels, and the two channels tolerate schemes differently:
+
+| Channel | Derived URL | Scheme requirement |
+| --- | --- | --- |
+| REST | `baseUrl + "/api"` -> Axios | Only `http://`/`https://`. With a `ws://` origin every request fails immediately, because XHR/fetch rejects the scheme |
+| WebSocket | `baseUrl + "/ws"` -> `new WebSocket(...)` in `chat-bubble/app/lib/services/websocket/connection-manager.ts` | Accepts `ws://`/`wss://`, and modern browsers also accept `http://`/`https://` and normalize them to `ws://`/`wss://` |
+
+Two facts make the HTTP origin the correct choice:
+
+1. A WebSocket connection starts life as a plain HTTP request: the browser sends `GET` with an `Upgrade: websocket` header, the server answers `101 Switching Protocols`, and the same TCP connection then carries the WebSocket traffic. Same host, same port, same Fiber server  -  there is no separate WebSocket port, so nothing about the origin needs to be `ws://`.
+2. The failure is asymmetric. An HTTP origin serves both channels. A WS origin kills REST outright  -  and the widget needs REST first (public inbox details, contact and conversation creation) before it ever opens the socket, which is why the symptom is a permanent `Connecting...` state rather than a WebSocket error.
+
+The committed development config in `chat-bubble/app/sdk.tsx` previously set `baseUrl: "ws://localhost:6721"`  -  exactly this failure mode  -  and was corrected to `http://localhost:6721`.
+
+Compatibility note: relying on the browser to normalize `http://` inside the WebSocket constructor is a relatively recent spec behavior (Chrome 125+, Safari 17.4+, and equivalent Firefox releases). If older browsers must be supported, normalize the scheme inside `connection-manager.ts` before calling `new WebSocket(...)`.
 
 This matches the production SDK intent in the codebase:
 

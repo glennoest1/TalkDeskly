@@ -1,4 +1,4 @@
-# TalkDeskly Production Deployment
+﻿# TalkDeskly Production Deployment
 
 This guide explains how to build and run TalkDeskly in production mode with Docker Compose.
 
@@ -12,6 +12,8 @@ The deployment package in this folder contains:
 ## Table Of Contents
 
 - [1. What Production Mode Runs](#1-what-production-mode-runs)
+  - [Production Architecture](#production-architecture)
+    - [Production Communication Checks](#production-communication-checks)
 - [2. Docker Compose Production Build](#2-docker-compose-production-build)
 - [3. Prerequisites](#3-prerequisites)
 - [4. Runtime Variables](#4-runtime-variables)
@@ -61,6 +63,63 @@ The backend serves:
 | `/sdk/sdk.iife.js` | `./public/sdk` | Embeddable chat widget SDK |
 | `/api/*` | Go backend routes | HTTP API |
 | `/ws/*` | Go backend routes | WebSocket API |
+
+### Production Architecture
+
+Who talks to whom in production mode. `BASE_URL` is the public backend URL, for example `https://chat.example.com`, or `http://localhost:8080` for local production-mode testing:
+
+```mermaid
+flowchart LR
+    A(["Admin browser"])
+    V(["Visitor browser"])
+
+    subgraph Docker["Docker network"]
+        BE["backend :8080"]
+        PG[("postgres :5432")]
+        RD[("redis :6379")]
+    end
+
+    SMTP["SMTP provider"]
+
+    A -->|"/ , /api , /ws"| BE
+    V -->|"/sdk , /api , /ws"| BE
+    BE -->|"postgres:5432"| PG
+    BE -->|"redis:6379"| RD
+    BE -->|"EMAIL_HOST"| SMTP
+```
+
+Browser edges are routes under `BASE_URL`; backend edges are Compose service names, plus the external SMTP host.
+
+Every connection in production mode:
+
+| From | To | Address used | Protocol | Purpose |
+| --- | --- | --- | --- | --- |
+| Admin/agent browser | `backend` container | `BASE_URL/` | HTTP | Load the compiled admin app static files |
+| Admin/agent browser | `backend` container | `BASE_URL/api` | HTTP | REST calls made by the admin app JS |
+| Admin/agent browser | `backend` container | `BASE_URL/ws` | WebSocket | Realtime agent events. `BASE_URL` remains an HTTP/HTTPS origin; the browser performs the WebSocket upgrade on `/ws`. |
+| Visitor browser | `backend` container | `BASE_URL/sdk/sdk.iife.js` | HTTP | Load the widget SDK from any embedding website |
+| Visitor browser | `backend` container | `BASE_URL/api` and `BASE_URL/ws` | HTTP + WebSocket | Widget conversations and realtime messages. The install script passes one HTTP/HTTPS `baseUrl`; the SDK derives REST and WebSocket routes from it. |
+| `backend` container | `postgres` container | `postgres:5432` | TCP | Database, via Compose service name |
+| `backend` container | `redis` container | `redis:6379` | TCP | Background jobs and realtime support |
+| `backend` container | SMTP provider | `EMAIL_HOST:EMAIL_PORT` | SMTP | Outgoing email (invites, resets, notifications) |
+
+Two rules that explain the whole picture:
+
+1. Production is a single-origin design: one backend container serves the admin app, the widget SDK, the REST API, and the WebSocket routes from the same `BASE_URL`. There are no frontend or chat-bubble containers, and no cross-origin configuration is needed for the admin app.
+2. Browsers always connect through the published host port (`8080`) or whatever reverse proxy fronts it; only the backend uses the internal Docker network, addressing `postgres` and `redis` by service name.
+
+#### Production Communication Checks
+
+| Check | Expected result |
+| --- | --- |
+| `curl <public-backend-url>/health` | Backend health responds through the public entrypoint |
+| `curl -I <public-backend-url>/` | Admin app static entrypoint responds |
+| `curl -I <public-backend-url>/sdk/sdk.iife.js` | Widget SDK asset responds |
+| Browser devtools on admin app | REST and WebSocket calls stay under the same public backend origin |
+| Browser devtools on embedded widget | SDK, REST, and WebSocket all use the same `BASE_URL` |
+| Backend logs | No database, Redis, or SMTP connection errors |
+
+Reverse proxy note: if a load balancer or reverse proxy sits in front of the backend, it must forward normal HTTP routes and WebSocket upgrade requests for `/ws/*` to the backend container. It must also preserve the public origin used as `BASE_URL`; mixed HTTP/HTTPS origins will break the widget in browsers.
 
 ## 2. Docker Compose Production Build
 
@@ -181,12 +240,12 @@ Linux/macOS/Git Bash:
 cat > .env <<'EOF'
 POSTGRES_PASSWORD=<strong-random-password>
 JWT_SECRET=<long-random-string>
-BASE_URL=http://localhost:8080
+BASE_URL=<public-backend-url>
 EMAIL_HOST=<smtp-host-reachable-from-backend-container>
 EMAIL_PORT=<smtp-port>
-EMAIL_USERNAME=
-EMAIL_PASSWORD=
-EMAIL_FROM=noreply@example.com
+EMAIL_USERNAME=<smtp-username-or-empty>
+EMAIL_PASSWORD=<smtp-password-or-empty>
+EMAIL_FROM=<sender-email-address>
 EOF
 ```
 
@@ -196,12 +255,12 @@ Windows PowerShell:
 @'
 POSTGRES_PASSWORD=<strong-random-password>
 JWT_SECRET=<long-random-string>
-BASE_URL=http://localhost:8080
+BASE_URL=<public-backend-url>
 EMAIL_HOST=<smtp-host-reachable-from-backend-container>
 EMAIL_PORT=<smtp-port>
-EMAIL_USERNAME=
-EMAIL_PASSWORD=
-EMAIL_FROM=noreply@example.com
+EMAIL_USERNAME=<smtp-username-or-empty>
+EMAIL_PASSWORD=<smtp-password-or-empty>
+EMAIL_FROM=<sender-email-address>
 '@ | Out-File -FilePath .env -Encoding ascii
 ```
 
@@ -211,9 +270,10 @@ Replace every `<placeholder>` before continuing:
 | --- | --- |
 | `<strong-random-password>` | Generate a random password, for example `openssl rand -hex 24` |
 | `<long-random-string>` | Generate a random secret, for example `openssl rand -hex 32` |
-| `BASE_URL` | Keep `http://localhost:8080` for local testing. For a real deployment, use the public backend URL, for example `https://chat.example.com` |
+| `<public-backend-url>` | Use the public backend origin. For local production-mode testing this is the backend host port; for a real deployment this is the HTTPS origin behind the reverse proxy |
 | `<smtp-host-reachable-from-backend-container>` | Follow [section 5](#5-smtp-host-rule). Never `localhost` |
 | `<smtp-port>` | Your SMTP provider port, commonly `587` or `465`; `1025` for a local MailHog |
+| `<sender-email-address>` | Email address shown as the sender for backend email |
 
 For local production-mode testing without a real SMTP provider, run a disposable MailHog on the host and point the backend at it:
 
@@ -221,7 +281,7 @@ For local production-mode testing without a real SMTP provider, run a disposable
 docker run -d --name mailhog-local -p 1025:1025 -p 8025:8025 mailhog/mailhog
 ```
 
-Then set `EMAIL_HOST=host.docker.internal` and `EMAIL_PORT=1025` (Docker Desktop on Windows/macOS), and read captured mail at `http://localhost:8025`.
+Then set the SMTP host to `host.docker.internal` and the SMTP port to the MailHog SMTP port (Docker Desktop on Windows/macOS), and read captured mail at `http://localhost:8025`.
 
 Never commit `.env`. Verify it is ignored:
 
@@ -548,6 +608,14 @@ Generated values:
 | `baseUrl` | `window.location.origin` in the admin browser tab |
 
 In production, the script must point to the public backend URL that serves both the admin app and `/sdk/sdk.iife.js`.
+
+`baseUrl` is the same public backend origin used to load the SDK. It is not a WebSocket-only URL. The SDK derives:
+
+| Derived URL | Purpose |
+| --- | --- |
+| `BASE_URL + "/sdk/sdk.iife.js"` | Load the widget SDK |
+| `BASE_URL + "/api"` | REST calls for inbox details, contacts, and conversations |
+| `BASE_URL + "/ws"` | WebSocket connection for realtime chat |
 
 Example production script:
 
