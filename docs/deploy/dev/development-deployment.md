@@ -108,6 +108,7 @@ Development mode publishes these ports to the host:
 | `3000` | `chat-bubble:5173` | Chat widget Vite development server |
 | `3001` | `frontend:5173` | Admin/agent frontend Vite development server |
 | `8080` | `backend:8080` | Backend REST API and WebSocket server |
+| `6721` | `backend:8080` | Compatibility alias for current frontend and chat-bubble development URLs |
 | `2345` | `backend:2345` | Delve debugger endpoint configured by Air |
 | `5433` | `postgres:5432` | PostgreSQL access from host tools |
 | `6379` | `redis:6379` | Redis access from host tools |
@@ -124,6 +125,26 @@ ports:
 ```
 
 The right side is the port inside the container and should usually stay unchanged.
+
+### Backend Port Convention
+
+In Compose development mode, the backend runs inside the container with:
+
+```yaml
+PORT=8080
+```
+
+The repository also has `backend/.env` with `PORT=6721` for non-Compose/local backend runs. That value does not win inside the Compose backend container because Compose sets `PORT=8080` as an environment variable before the Go app calls `godotenv.Load()`.
+
+The backend service therefore publishes two host ports:
+
+```yaml
+ports:
+  - "8080:8080"
+  - "6721:8080"
+```
+
+Use `8080` when testing the backend directly. Use `6721` for compatibility with the current frontend and chat widget development code, which hard-codes `http://localhost:6721/api` and `ws://localhost:6721/ws` in development mode.
 
 ## 6. Runtime Variables
 
@@ -176,7 +197,23 @@ The current frontend and chat-bubble source code hard-codes development API and 
 
 Because of that, the `VITE_API_URL` and `VITE_WS_URL` values in `docker-compose.dev.yml` are not currently consumed by those clients.
 
-Before relying on the Compose-published backend URL, either:
+The current Compose development stack handles this by publishing backend container port `8080` on host port `6721` as well:
+
+```yaml
+backend:
+  ports:
+    - "8080:8080"
+    - "6721:8080"
+```
+
+That means these browser-visible URLs reach the same backend:
+
+| URL | Use case |
+| --- | --- |
+| `http://localhost:8080` | Direct backend checks and documentation examples |
+| `http://localhost:6721` | Current frontend and chat-bubble development clients |
+
+If this compatibility alias is removed, then before relying on the Compose-published backend URL, either:
 
 1. Update the frontend and widget clients to read `import.meta.env.VITE_API_URL` and `import.meta.env.VITE_WS_URL`.
 2. Or align the backend host port with the hard-coded development URLs.
@@ -282,6 +319,7 @@ If Compose uses a different project name, the container prefix may differ.
 
 ```bash
 curl http://localhost:8080/health
+curl http://localhost:6721/health
 curl -I http://localhost:3001/
 curl -I http://localhost:3000/
 curl -I http://localhost:8025/
@@ -292,6 +330,7 @@ Expected result:
 | URL | Expected result |
 | --- | --- |
 | `http://localhost:8080/health` | HTTP `200` with health JSON |
+| `http://localhost:6721/health` | HTTP `200` with the same backend health JSON |
 | `http://localhost:3001/` | HTTP `200`, admin frontend Vite app |
 | `http://localhost:3000/` | HTTP `200`, chat widget Vite app |
 | `http://localhost:8025/` | HTTP `200`, MailHog web UI |
@@ -324,6 +363,8 @@ Use it to log in at the admin frontend:
 ```text
 http://localhost:3001
 ```
+
+The admin frontend currently sends development API requests to `http://localhost:6721/api`, so the backend `6721:8080` port mapping must be present for browser login to work in Compose development mode.
 
 The seed command also creates sample companies, agents, inboxes, contacts, conversations, and messages.
 
@@ -423,6 +464,46 @@ http://localhost:3000
 
 The widget auto-initializes in development from `chat-bubble/app/sdk.tsx`.
 
+### Widget URL Model
+
+In `chat-bubble/app/sdk.tsx`, the development config uses a single `baseUrl` value.
+
+That value must be an HTTP origin, not a WebSocket URL:
+
+```tsx
+baseUrl: "http://localhost:6721"
+```
+
+Do not set it to `ws://localhost:6721`.
+
+The widget uses `baseUrl` for both REST and WebSocket setup:
+
+```tsx
+apiClient.defaults.baseURL = config.baseUrl + "/api";
+wsService.connect(config.baseUrl + "/ws", contactId, config.inboxId);
+```
+
+With `baseUrl: "http://localhost:6721"`, the browser-visible endpoints are:
+
+| Derived endpoint | Purpose |
+| --- | --- |
+| `http://localhost:6721/api` | REST API calls, including public inbox details |
+| `http://localhost:6721/ws/contacts?...` | WebSocket connection created by the widget service |
+
+If `baseUrl` is set to `ws://localhost:6721`, REST calls become invalid because Axios receives a URL like `ws://localhost:6721/api`. The widget can then open visually but stay stuck at `Connecting...`.
+
+This matches the production SDK intent in the codebase:
+
+| File | Evidence |
+| --- | --- |
+| `frontend/src/components/protected/settings/inbox/edit/website/widget-customization.tsx` | Generated install script sets `baseUrl` to `window.location.origin` |
+| `frontend/src/components/protected/settings/inbox/wizard/website/complete.tsx` | Wizard install script also sets `baseUrl` to `window.location.origin` |
+| `docs/deploy/prod/sample.html` | Production sample passes `BASE_URL = "http://localhost:8080"` as `baseUrl` |
+| `docs/deploy/prod/production-deployment.md` | Documents `baseUrl` as the public backend URL, not a WebSocket URL |
+| `chat-bubble/app/stores/config-context.tsx` | Default SDK config uses `https://talkdeskly.com` as `baseUrl` |
+
+So `baseUrl` should be treated as the public backend origin that serves REST, WebSocket routes, and SDK assets. It is not a dedicated WebSocket endpoint.
+
 ### Test Any Inbox In Chat-Bubble Dev Mode
 
 The development widget does not currently let you choose an inbox from the browser UI. It auto-starts with hard-coded config in:
@@ -435,12 +516,13 @@ To test the widget against any web chat inbox:
 
 1. Start the development stack.
 2. Seed demo data or create a web chat inbox from the admin frontend.
-3. Copy the target inbox ID.
+3. Copy the target web chat inbox ID.
 4. Open `chat-bubble/app/sdk.tsx`.
 5. Replace the hard-coded `inboxId` in the `import.meta.env.DEV` block.
-6. Make sure `baseUrl` points to the backend URL that the widget can reach from the browser.
+6. Set `baseUrl` to the backend HTTP origin reachable from the browser, usually `http://localhost:6721` in Compose development mode.
 7. Save the file and let the `chat-bubble` Vite container reload.
-8. Open or refresh the widget dev page.
+8. Open or refresh the widget dev page at `http://localhost:3000`.
+9. If the browser has stale widget state, clear local storage for `localhost:3000` and refresh.
 
 The development block looks like this:
 
@@ -451,7 +533,7 @@ if (import.meta.env.DEV) {
     position: "bottom-right",
     primaryColor: "#dc0462",
     zIndex: 9999,
-    baseUrl: "<backend-url-reachable-from-browser>",
+    baseUrl: "http://localhost:6721",
   });
 }
 ```
@@ -461,12 +543,99 @@ Fields to change when testing a different inbox:
 | Field | Required change | Notes |
 | --- | --- | --- |
 | `inboxId` | yes | Use the ID of the web chat inbox you want to test |
-| `baseUrl` | often | Must match the backend URL reachable from the browser |
+| `baseUrl` | often | Must be an HTTP origin reachable from the browser, not a `ws://` URL |
 | `position` | optional | Use when checking widget placement |
 | `primaryColor` | optional | Use when checking widget theme |
 | `zIndex` | optional | Use when checking overlay behavior on a host page |
 
 If the widget opens but cannot load inbox data or create conversations, check that the selected inbox exists, is a web chat inbox, and the hard-coded `baseUrl` matches the backend port being used by the current dev stack.
+
+### Find A Test Inbox ID
+
+You can get a web chat inbox ID from the admin frontend:
+
+1. Open `http://localhost:3001`.
+2. Log in with a seeded admin account.
+3. Open the inbox settings or inbox list.
+4. Choose an inbox with type `web_chat`.
+5. Copy the inbox ID from the UI, URL, API response, or browser devtools.
+
+You can also query Postgres from the Compose stack:
+
+```bash
+docker compose -f docker-compose.dev.yml exec postgres \
+  psql -U postgres -d talkdeskly \
+  -c "select id, name, type from inboxes where type = 'web_chat' and deleted_at is null order by created_at desc;"
+```
+
+Use one of those `id` values as `inboxId` in `chat-bubble/app/sdk.tsx`.
+
+### Verify The Selected Inbox
+
+Before debugging the widget UI, verify the backend can see the inbox:
+
+```bash
+curl http://localhost:6721/api/public/inbox/<inbox-id>
+```
+
+Expected result:
+
+| Check | Expected result |
+| --- | --- |
+| HTTP status | `200` |
+| Response data | Inbox details for the selected web chat inbox |
+| Backend logs | No `record not found` for that inbox ID |
+
+If this endpoint fails, the widget will not connect correctly. Pick an existing `web_chat` inbox ID or create one from the admin frontend.
+
+### End-To-End Widget Test
+
+After `inboxId` and `baseUrl` are correct:
+
+1. Open `http://localhost:3000`.
+2. Clear local storage for `localhost:3000` if you previously tested with a different inbox.
+3. Refresh the page.
+4. Click the chat bubble.
+5. Confirm the welcome panel changes from `Connecting...` to an enabled `Start Conversation` button.
+6. Click `Start Conversation`.
+7. Confirm the chat window opens or a conversation is created.
+8. Check backend logs for `conversation_start` and no `record not found`.
+
+Backend log check:
+
+```bash
+docker compose -f docker-compose.dev.yml logs --tail=100 backend
+```
+
+Database check:
+
+```bash
+docker compose -f docker-compose.dev.yml exec postgres \
+  psql -U postgres -d talkdeskly \
+  -c "select id, inbox_id, contact_id, status, created_at from conversations order by created_at desc limit 5;"
+```
+
+Expected result:
+
+| Check | Expected result |
+| --- | --- |
+| Widget welcome button | `Start Conversation`, enabled |
+| Backend log | `conversation_start` after clicking the button |
+| Database | New conversation row with the selected `inbox_id` |
+
+### Reset Browser Widget State
+
+The widget persists contact and conversation state in browser local storage. If you change `inboxId` or reuse the same browser after a broken run, clear this state before retesting.
+
+In browser devtools console on `http://localhost:3000`:
+
+```js
+localStorage.removeItem("contact-storage");
+localStorage.removeItem("chat-storage");
+location.reload();
+```
+
+Or clear all local storage for `localhost:3000` from the browser application/storage panel.
 
 For a realistic end-to-end test:
 
@@ -475,7 +644,8 @@ For a realistic end-to-end test:
 3. Open the admin frontend.
 4. Create or inspect a web chat inbox.
 5. Put that inbox ID into the `import.meta.env.DEV` block in `chat-bubble/app/sdk.tsx`.
-6. Confirm REST and WebSocket calls reach the backend.
+6. Keep `baseUrl` as an HTTP origin such as `http://localhost:6721`.
+7. Confirm REST and WebSocket calls reach the backend.
 
 Important: production widget testing is different. Production serves the built SDK from:
 
@@ -599,6 +769,8 @@ Check browser devtools and compare the requested API URL with the backend port e
 
 The current source hard-codes development API and WebSocket URLs. If the browser requests a different port than Compose publishes, either update the source to use Vite environment variables or align the Compose port mapping.
 
+For the current development stack, browser API calls to `http://localhost:6721/api` should work because `docker-compose.dev.yml` maps host `6721` to backend container `8080`.
+
 Relevant files:
 
 | File | Check |
@@ -607,6 +779,28 @@ Relevant files:
 | `frontend/src/context/websocket-context.tsx` | Admin frontend WebSocket URL |
 | `chat-bubble/app/lib/api/client.ts` | Widget API base URL |
 | `chat-bubble/app/sdk.tsx` | Widget development auto-init base URL |
+
+### Chat-Bubble Stays On Connecting
+
+If the widget page loads but the opened chat window stays on `Connecting...`, check these items in order:
+
+| Check | Command or location | Expected result |
+| --- | --- | --- |
+| Backend alias port | `curl http://localhost:6721/health` | HTTP `200` |
+| Public inbox endpoint | `curl http://localhost:6721/api/public/inbox/<inbox-id>` | HTTP `200` |
+| Widget `baseUrl` | `chat-bubble/app/sdk.tsx` | `http://localhost:6721`, not `ws://localhost:6721` |
+| Widget `inboxId` | `chat-bubble/app/sdk.tsx` | Existing `web_chat` inbox ID |
+| Backend logs | `docker compose -f docker-compose.dev.yml logs --tail=100 backend` | No `record not found` for the inbox ID |
+| Browser storage | Devtools application/storage panel | Clear `contact-storage` and `chat-storage` after changing inboxes |
+
+Typical causes:
+
+| Symptom | Likely cause | Fix |
+| --- | --- | --- |
+| `record not found` in backend logs for an inbox ID | `sdk.tsx` points to a deleted or non-existent inbox | Replace `inboxId` with an existing `web_chat` inbox ID |
+| Widget stays on `Connecting...` and REST calls do not appear valid | `baseUrl` starts with `ws://` | Set `baseUrl` to `http://localhost:6721` |
+| Backend health works on `8080` but widget cannot connect | Host port `6721` is not published | Ensure `docker-compose.dev.yml` contains `6721:8080` and recreate backend |
+| Widget still uses old contact/conversation after config changes | Browser local storage kept stale state | Clear `contact-storage` and `chat-storage`, then refresh |
 
 ### Frontend Or Chat-Bubble Container Exits
 
