@@ -12,9 +12,11 @@ import {
 } from "@/components/protected/settings/inbox/agents-dropdown";
 import { useEffect, useState } from "react";
 import { userService } from "@/lib/api/services/user";
+import { useTranslation } from "react-i18next";
 
 export function TeamTab() {
   const { inbox, updateTeamMembers } = useEditInbox();
+  const { t } = useTranslation();
   const [availableAgents, setAvailableAgents] = useState<AgentOption[]>([]);
   const [agentsAlreadyAdded, setAgentsAlreadyAdded] = useState<AgentOption[]>(
     []
@@ -58,8 +60,10 @@ export function TeamTab() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Team Members</CardTitle>
-          <CardDescription>Manage who has access to this inbox</CardDescription>
+          <CardTitle>{t("inbox.edit.tabs.team.title")}</CardTitle>
+          <CardDescription>
+            {t("inbox.edit.tabs.team.description")}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <AgentsDropdown

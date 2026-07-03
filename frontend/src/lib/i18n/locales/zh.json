@@ -1,0 +1,1245 @@
+{
+  "validation": {
+    "required": "此字段为必填项",
+    "min": "必须至少为 {{param}}",
+    "max": "必须小于 {{param}}",
+    "email": "请输入有效的电子邮件地址",
+    "emailAlreadyTaken": "邮箱已被使用",
+    "confirmPassword": {
+      "mismatch": "两次输入的密码不一致"
+    },
+    "invalidType": "类型无效",
+    "companyAlreadyExists": "公司已存在",
+    "passwordMatch": "两次输入的密码不一致",
+    "url": "请输入有效的 URL"
+  },
+  "auth": {
+    "leftColumn": {
+      "brandName": "TalkDeskly",
+      "tagline": "连接。协作。沟通。",
+      "heroTitle": "团队在这里",
+      "heroTitleAccent": "连接",
+      "description": "一个现代化的开源聊天平台，旨在简化沟通、提升效率，并让团队无论身在何处都保持连接。",
+      "features": {
+        "realTimeMessaging": {
+          "title": "实时消息",
+          "description": "极速送达，即时沟通"
+        },
+        "teamCollaboration": {
+          "title": "团队协作",
+          "description": "通过频道和群组组织对话"
+        },
+        "openSource": {
+          "title": "开源",
+          "description": "完全透明的代码库，可放心使用并自定义"
+        },
+        "easyIntegration": {
+          "title": "轻松集成",
+          "description": "适合任何团队规模的简单设置与部署"
+        }
+      },
+      "trustBadge": "100% 开源，永久免费"
+    },
+    "login": {
+      "success": "登录成功",
+      "successDescription": "你已成功登录",
+      "error": "登录失败",
+      "errorDescription": "邮箱或密码无效",
+      "email": "邮箱",
+      "password": "密码",
+      "forgotPassword": "忘记密码？",
+      "rememberMe": "记住我",
+      "loading": "正在登录...",
+      "submit": "登录",
+      "noAccount": "还没有账号？",
+      "signUp": "注册"
+    },
+    "forgotPassword": {
+      "title": "重置密码",
+      "description": "输入你的电子邮件地址，我们会发送一个重置密码的链接。",
+      "emailLabel": "电子邮件地址",
+      "emailPlaceholder": "输入你的电子邮件地址",
+      "submit": "发送重置链接",
+      "sending": "正在发送...",
+      "backToLogin": "返回登录",
+      "success": "重置链接已发送",
+      "successDescription": "如果该邮箱对应的账号存在，我们已发送密码重置链接。",
+      "error": "发送重置链接失败",
+      "errorDescription": "出现问题。请重试。",
+      "emailSent": "请检查你的邮箱",
+      "checkEmail": "我们已向你的邮箱发送密码重置链接。",
+      "emailInstructions": "重要说明：",
+      "checkSpam": "如果没有看到邮件，请检查垃圾邮件文件夹",
+      "linkExpiry": "重置链接将在 1 小时后过期",
+      "requestNew": "如有需要，你可以请求新的链接",
+      "sendAgain": "再发送一封邮件"
+    },
+    "resetPassword": {
+      "title": "设置新密码",
+      "description": "在下方输入新密码。请确保密码强度足够且安全。",
+      "newPassword": "新密码",
+      "newPasswordPlaceholder": "输入新密码",
+      "confirmPassword": "确认新密码",
+      "confirmPasswordPlaceholder": "确认你的新密码",
+      "submit": "更新密码",
+      "updating": "正在更新...",
+      "backToLogin": "返回登录",
+      "success": "密码已更新",
+      "successDescription": "你的密码已成功更新。",
+      "error": "重置密码失败",
+      "errorDescription": "重置链接可能无效或已过期。请重试。",
+      "invalidToken": "重置链接无效",
+      "invalidTokenDescription": "密码重置链接无效或缺失。请重新请求。",
+      "passwordChanged": "密码修改成功",
+      "passwordChangedDescription": "你的密码已更新。现在可以使用新密码登录。",
+      "redirectingToLogin": "3 秒后跳转到登录页面...",
+      "goToLogin": "前往登录",
+      "passwordRequirements": "密码要求",
+      "minLength": "至少 8 个字符",
+      "strongPassword": "包含字母、数字和符号以提高安全性"
+    },
+    "onboarding": {
+      "loading": "正在加载...",
+      "next": "下一步",
+      "haveAccount": "已有账号？",
+      "login": "登录",
+      "continue": "继续",
+      "user": {
+        "firstName": "名",
+        "lastName": "姓",
+        "email": "邮箱",
+        "password": "密码",
+        "confirmPassword": "确认密码"
+      },
+      "company": {
+        "name": "公司名称",
+        "email": "公司邮箱",
+        "website": "网站",
+        "phone": "电话号码",
+        "address": "地址"
+      },
+      "invite": {
+        "somethingWentWrong": "哎呀！出现问题",
+        "inviteNotFound": "未找到邀请",
+        "inviteNotFoundDescription": "你提供的邀请链接无效。请检查链接后重试。",
+        "returnToHome": "返回首页",
+        "inviteFound": "你已被邀请加入 {{companyName}}",
+        "inviteFoundDescription": "你已被邀请加入 {{companyName}}。请输入你的信息以继续。"
+      },
+      "title": "创建账号",
+      "personalDescription": "输入你的个人信息",
+      "companyDescription": "告诉我们你的公司信息",
+      "personalInfo": "个人信息",
+      "companyInfo": "公司信息"
+    },
+    "registration": {
+      "disabled": {
+        "title": "注册不可用",
+        "description": "当前已禁用新账号注册。请联系管理员获取访问权限，或稍后再试。",
+        "helpTitle": "需要账号？",
+        "helpDescription": "请联系支持团队协助创建账号。",
+        "backToLogin": "返回登录"
+      }
+    }
+  },
+  "contacts": {
+    "title": "联系人",
+    "name": "姓名",
+    "email": "邮箱",
+    "phone": "电话",
+    "company": "公司",
+    "actions": {
+      "label": "操作",
+      "edit": "编辑",
+      "delete": "删除"
+    },
+    "create": {
+      "addContact": "创建联系人",
+      "description": "创建新联系人。完成后点击保存。",
+      "title": "创建联系人",
+      "save": "保存联系人"
+    },
+    "delete": {
+      "title": "确定吗？",
+      "description": "这将永久删除 {{name}} 的联系人信息。此操作无法撤销。"
+    },
+    "searchContacts": "搜索联系人...",
+    "notes": {
+      "placeholder": "在此输入备注...",
+      "addNote": "添加备注",
+      "noNotes": "暂无备注",
+      "noteAdded": "备注添加成功",
+      "noteAddedFailed": "添加备注失败",
+      "cancel": "取消",
+      "save": "保存"
+    },
+    "previous": {
+      "title": "历史对话",
+      "noConversations": "没有历史对话"
+    }
+  },
+  "company": {
+    "title": "公司",
+    "description": "管理你的公司信息和设置",
+    "contactInformation": "联系信息",
+    "updateSuccess": "公司已更新",
+    "updateSuccessDescription": "你的公司信息已成功更新",
+    "form": {
+      "name": "公司名称",
+      "email": "公司邮箱",
+      "website": "网站",
+      "phone": "电话号码",
+      "address": "地址"
+    }
+  },
+  "team": {
+    "title": "团队成员",
+    "description": "管理团队成员及其访问权限",
+    "searchPlaceholder": "搜索成员...",
+    "invite": "邀请",
+    "allMembers": "所有成员",
+    "invited": "已邀请",
+    "active": "活跃",
+    "empty": "未找到团队成员",
+    "columns": {
+      "name": "姓名",
+      "role": "角色",
+      "status": "状态",
+      "actions": "操作"
+    },
+    "actions": {
+      "label": "操作",
+      "changeRole": "更改角色",
+      "resendInvite": "重新发送邀请",
+      "remove": "移除"
+    },
+    "remove": {
+      "title": "确定吗？",
+      "description": "这将从你的团队中永久移除 {{name}}。此操作无法撤销。",
+      "success": "成员已移除",
+      "successDescription": "{{name}} 已从你的团队中移除。",
+      "fallbackName": "团队成员"
+    },
+    "member": {
+      "added": "成员已添加",
+      "added.description": "团队成员已成功添加",
+      "firstName": "名",
+      "lastName": "姓",
+      "email": "邮箱",
+      "role": "角色",
+      "adding": "正在添加...",
+      "add": "添加成员",
+      "firstNamePlaceholder": "张",
+      "lastNamePlaceholder": "三",
+      "emailPlaceholder": "john@example.com",
+      "selectRole": "选择角色",
+      "roleDescription": "管理员可以管理所有设置，客服人员可以回复对话"
+    },
+    "addMember": {
+      "title": "添加团队成员",
+      "description": "向你的工作区添加新成员。他们将根据角色获得访问权限。"
+    },
+    "roles": {
+      "admin": "管理员",
+      "agent": "客服人员"
+    }
+  },
+  "invite": {
+    "title": "邀请团队成员",
+    "description": "通过电子邮件邀请团队成员。他们会收到加入你工作区的邀请。",
+    "placeholder": "输入邮箱地址，使用逗号或空格分隔",
+    "send": "发送邀请",
+    "emails": "电子邮件地址",
+    "inviteHelperText": "团队成员默认将以客服人员角色被邀请。你可以稍后更改他们的角色。",
+    "errors": {
+      "noEmails": {
+        "title": "未提供邮箱",
+        "description": "请至少输入一个邮箱地址来发送邀请。"
+      },
+      "invalidEmails": {
+        "title": "邮箱格式无效",
+        "description": "以下邮箱无效：{{emails}}"
+      },
+      "inviteFailed": {
+        "title": "邀请团队成员失败",
+        "description": "请重试。"
+      }
+    },
+    "success": {
+      "title": "邀请已发送",
+      "description": "邀请已发送给以下团队成员：{{emails}}"
+    },
+    "resend": {
+      "title": "邀请已重新发送",
+      "description": "新的邀请已发送给所选成员。"
+    }
+  },
+  "inbox": {
+    "wizard": {
+      "website": {
+        "title": "创建收件箱",
+        "description": "设置你的网站收件箱并自定义欢迎消息。",
+        "steps": {
+          "create": {
+            "name": "创建收件箱",
+            "description": "设置你的网站收件箱并自定义欢迎消息。"
+          },
+          "addAgents": {
+            "name": "添加客服人员",
+            "description": "向已创建的收件箱添加客服人员。"
+          },
+          "complete": {
+            "name": "完成！",
+            "description": "一切准备就绪！",
+            "content": {
+              "title": "你的收件箱已准备好！",
+              "description": "你已成功创建网站渠道。复制下面显示的代码并粘贴到你的网站。下次客户使用在线聊天时，对话将自动出现在你的收件箱中。"
+            },
+            "button": "带我过去"
+          }
+        },
+        "inboxTitle": "网站收件箱"
+      },
+      "createInbox": {
+        "title": "创建收件箱",
+        "description": "设置你的网站收件箱并自定义欢迎消息。",
+        "form": {
+          "inboxName": "收件箱名称",
+          "inboxNamePlaceholder": "例如：网站支持",
+          "welcomeMessage": "欢迎消息",
+          "welcomeMessagePlaceholder": "输入访客打开聊天时会看到的消息",
+          "welcomeMessageDefault": "👋 你好！今天我们能帮你什么？"
+        }
+      },
+      "base": {
+        "description": "创建你的新收件箱"
+      },
+      "channelSelect": {
+        "title": "选择渠道",
+        "description": "选择要与你的收件箱集成的渠道。目前我们仅支持网站在线聊天小组件。",
+        "website": {
+          "title": "网站",
+          "description": "将在线聊天添加到你的网站"
+        }
+      }
+    },
+    "edit": {
+      "title": "编辑收件箱",
+      "description": "编辑此收件箱的详细信息",
+      "notFound": {
+        "title": "未找到收件箱",
+        "description": "你要查找的收件箱不存在，或你没有访问权限。",
+        "back": "返回收件箱"
+      },
+      "inboxUpdated": "收件箱更新成功",
+      "inboxUpdateFailed": "更新收件箱失败",
+      "inboxUpdateFailedDescription": "请检查表单错误后重试。",
+      "tabs": {
+        "general": {
+          "title": "常规",
+          "description": "此收件箱的基本信息",
+          "form": {
+            "inboxName": "收件箱名称",
+            "inboxNamePlaceholder": "为此收件箱输入名称",
+            "description": "描述",
+            "descriptionPlaceholder": "输入此收件箱的描述",
+            "inboxStatus": "收件箱状态",
+            "welcomeMessage": "欢迎消息",
+            "welcomeMessageDescription": "访客打开聊天时将显示此消息",
+            "welcomeMessagePlaceholder": "输入访客打开聊天时会看到的消息",
+            "welcomeMessageDefault": "👋 你好！今天我们能帮你什么？",
+            "inboxIcon": "收件箱图标"
+          }
+        },
+        "automation": {
+          "title": "自动化",
+          "description": "配置此收件箱的自动化设置。",
+          "form": {
+            "autoAssignmentEnabled": {
+              "label": "自动分配",
+              "description": "自动将对话分配给可用客服人员"
+            },
+            "maxAutoAssignments": {
+              "label": "最大自动分配数",
+              "description": "一次可分配给一个客服人员的最大对话数量",
+              "placeholder": "输入一次可分配给一个客服人员的最大对话数量"
+            },
+            "autoResponderEnabled": {
+              "label": "自动回复",
+              "description": "自动回复新对话"
+            },
+            "autoResponderMessage": {
+              "label": "自动回复消息",
+              "description": "访客打开聊天时将发送的消息",
+              "placeholder": "输入访客打开聊天时将发送的消息"
+            },
+            "outsideHoursMessage": {
+              "label": "非工作时间消息",
+              "description": "当收件箱不可用时发送给访客的消息",
+              "placeholder": "输入当收件箱不可用时发送给访客的消息"
+            },
+            "workingHours": {
+              "label": "工作时间",
+              "description": "设置工作时间以及非工作时间的自动回复",
+              "startTime": "开始时间",
+              "endTime": "结束时间",
+              "to": "至",
+              "days": {
+                "monday": "星期一",
+                "tuesday": "星期二",
+                "wednesday": "星期三",
+                "thursday": "星期四",
+                "friday": "星期五",
+                "saturday": "星期六",
+                "sunday": "星期日"
+              }
+            }
+          }
+        },
+        "widgetCustomization": {
+          "shortTitle": "小组件",
+          "title": "小组件自定义",
+          "description": "自定义聊天小组件的外观",
+          "form": {
+            "widgetColor": "小组件颜色",
+            "installationCode": "安装代码",
+            "widgetPosition": {
+              "label": "小组件位置",
+              "bottomRight": "右下角",
+              "bottomLeft": "左下角",
+              "topRight": "右上角",
+              "topLeft": "左上角"
+            }
+          }
+        },
+        "team": {
+          "title": "团队成员",
+          "description": "管理谁可以访问此收件箱"
+        },
+        "preChatForm": {
+          "title": "聊天前表单",
+          "description": "配置访客在开始聊天前填写的表单",
+          "enable": "启用聊天前表单",
+          "formTitle": "表单标题",
+          "formTitlePlaceholder": "输入表单标题",
+          "formDescription": "表单描述",
+          "formDescriptionPlaceholder": "输入表单描述",
+          "fields": "表单字段",
+          "addField": "添加字段",
+          "noFields": {
+            "title": "未添加字段",
+            "description": "请至少向聊天前表单添加一个字段。"
+          },
+          "fieldType": "字段类型",
+          "selectType": "选择类型",
+          "types": {
+            "text": "文本",
+            "email": "邮箱",
+            "phone": "电话",
+            "select": "下拉菜单",
+            "textarea": "文本区域"
+          },
+          "label": "标签",
+          "placeholder": "占位符",
+          "mapsToContactProperty": "映射到联系人属性",
+          "selectContactProperty": "选择联系人属性",
+          "none": "无",
+          "mappingDescription": "提交表单时，此字段将用于填充联系人属性。",
+          "options": "选项",
+          "optionPlaceholder": "选项 {{number}}",
+          "addOption": "添加选项",
+          "requiredField": "必填字段",
+          "saveSettings": "保存表单设置",
+          "saved": "已保存",
+          "preview": {
+            "title": "表单预览",
+            "description": "这是访客看到的聊天前表单效果",
+            "startChat": "开始聊天",
+            "disabled": "启用聊天前表单以查看预览"
+          },
+          "defaults": {
+            "title": "聊天前...",
+            "description": "请填写这个简短表单，以便我们更好地为你服务。",
+            "name": "姓名",
+            "namePlaceholder": "输入你的姓名",
+            "newField": "新字段",
+            "enterValue": "输入值",
+            "newOption": "新选项"
+          }
+        }
+      }
+    },
+    "list": {
+      "title": "收件箱",
+      "description": "创建并管理用于客户支持渠道的收件箱。",
+      "newInbox": "新建收件箱",
+      "emptyTitle": "暂无收件箱",
+      "emptyDescription": "创建你的第一个收件箱，开始管理客户对话",
+      "created": "创建于 {{date}}",
+      "members": "{{count}} 名成员",
+      "missingId": "未提供 id",
+      "allInboxes": "所有收件箱"
+    }
+  },
+  "liveChat": {
+    "inboxSidebar": {
+      "title": "收件箱",
+      "sectionTitle": "收件箱",
+      "searchPlaceholder": "搜索收件箱...",
+      "myInbox": "我的收件箱",
+      "unassigned": "未分配",
+      "all": "全部",
+      "teamInboxes": "团队收件箱",
+      "empty": "未找到收件箱"
+    },
+    "filter": {
+      "searchPlaceholder": "搜索对话...",
+      "tabs": {
+        "all": "全部",
+        "unassigned": "未分配",
+        "active": "进行中",
+        "closed": "已关闭"
+      },
+      "title": "对话"
+    },
+    "emptyChatState": {
+      "description": "选择一个对话开始聊天",
+      "viewConversations": "查看对话"
+    },
+    "chatPortal": {
+      "tabs": {
+        "customer": "客户",
+        "private": "私密备注"
+      },
+      "visibility": {
+        "customer": "客户可见",
+        "private": "仅客服人员可见"
+      },
+      "input": {
+        "customerPlaceholder": "输入你的消息...",
+        "privatePlaceholder": "添加私密备注... 使用 @ 提及客服人员",
+        "send": "发送"
+      }
+    }
+  },
+  "settings": {
+    "title": "设置",
+    "description": "管理你的账号和工作区",
+    "navigation": {
+      "account": "账号",
+      "inboxes": "收件箱",
+      "team": "团队成员",
+      "cannedResponses": "快捷回复",
+      "analytics": "分析",
+      "company": "公司"
+    }
+  },
+  "agents": {
+    "title": "添加客服人员",
+    "description": "添加将在此收件箱中回复对话的团队成员。",
+    "select": {
+      "label": "选择客服人员",
+      "placeholder": "搜索并选择客服人员...",
+      "help": "所选客服人员将可访问此收件箱，并接收新对话通知。"
+    },
+    "selected": {
+      "title": "已选择客服人员（{{count}}）"
+    },
+    "submit": "完成设置"
+  },
+  "profile": {
+    "title": "个人资料",
+    "description": "更新你的个人信息和头像",
+    "updateSuccess": "个人资料更新成功",
+    "updateSuccessDescription": "你的个人资料已成功更新",
+    "form": {
+      "firstName": "名",
+      "lastName": "姓",
+      "email": "邮箱",
+      "role": "角色",
+      "roleDescription": "你的角色决定你在系统中的权限",
+      "avatarHint": "JPG、GIF 或 PNG。最大 {{maxSize}}MB"
+    },
+    "notifications": {
+      "title": "通知",
+      "description": "配置你接收通知的方式",
+      "emailNotifications": "邮件通知",
+      "newConversation": "新对话",
+      "newConversationDescription": "当新对话分配给你时接收通知",
+      "newMessage": "新消息",
+      "newMessageDescription": "当你的对话中收到新消息时接收通知",
+      "mentions": "提及",
+      "mentionsDescription": "当有人在对话中提及你时接收通知",
+      "browserNotifications": "浏览器通知",
+      "browserEnabled": "启用浏览器通知",
+      "browserEnabledDescription": "在线时直接在浏览器中接收通知"
+    },
+    "accountSettings": {
+      "title": "账号设置",
+      "description": "管理你的账号设置和偏好",
+      "tabs": {
+        "profile": "个人资料",
+        "password": "密码",
+        "notifications": "通知"
+      }
+    },
+    "password": {
+      "title": "密码",
+      "description": "更改你的密码",
+      "currentPassword": "当前密码",
+      "newPassword": "新密码",
+      "confirmNewPassword": "确认新密码"
+    }
+  },
+  "common": {
+    "cancel": "取消",
+    "save": "保存",
+    "saveChanges": "保存更改",
+    "saving": "正在保存...",
+    "error": "错误",
+    "success": "成功",
+    "language": "语言"
+  },
+  "ui": {
+    "common": {
+      "close": "关闭",
+      "more": "更多",
+      "morePages": "更多页面",
+      "previous": "上一页",
+      "next": "下一页",
+      "copy": "复制",
+      "copied": "已复制！",
+      "loading": "正在加载...",
+      "noResults": "没有结果。",
+      "search": "搜索...",
+      "noOptionsFound": "未找到选项。",
+      "selectOptions": "选择选项",
+      "selectItems": "选择项目...",
+      "selectField": "选择{{field}}",
+      "toggleSidebar": "切换侧边栏"
+    },
+    "pagination": {
+      "navigation": "分页",
+      "goToPreviousPage": "转到上一页",
+      "goToNextPage": "转到下一页",
+      "first": "首页",
+      "last": "末页",
+      "page": "页面",
+      "of": "共 {{total}} 页",
+      "show": "显示：",
+      "showingItems": "显示第 {{from}} 到 {{to}} 项，共 {{total}} 项"
+    },
+    "carousel": {
+      "previousSlide": "上一张幻灯片",
+      "nextSlide": "下一张幻灯片"
+    },
+    "uploadAvatar": {
+      "trigger": "上传图片",
+      "title": "上传并编辑图片",
+      "description": "上传、裁剪并调整图片大小",
+      "tabs": {
+        "upload": "上传",
+        "edit": "编辑",
+        "preview": "预览"
+      },
+      "dropzone": {
+        "clickToUpload": "点击上传",
+        "orDragAndDrop": "或拖放",
+        "fileHint": "JPG、PNG、GIF（最大 {{maxSize}}MB）"
+      },
+      "errors": {
+        "fileTooLarge": "文件太大。最大大小为 {{maxSize}}MB",
+        "invalidFileType": "文件类型无效。请上传图片文件。"
+      },
+      "controls": {
+        "zoom": "缩放",
+        "rotation": "旋转",
+        "cropImage": "裁剪图片",
+        "reset": "重置",
+        "saveChanges": "保存更改",
+        "croppedPreviewAlt": "裁剪预览"
+      }
+    },
+    "userRoles": {
+      "superadmin": "超级管理员",
+      "admin": "管理员",
+      "agent": "客服人员",
+      "user": "用户"
+    }
+  },
+  "errors": {
+    "413": {
+      "title": "文件太大",
+      "description": "你尝试上传的文件太大。请使用较小的文件重试。"
+    },
+    "unknown": "哎呀！出现问题。请稍后再试。",
+    "toast": {
+      "error": {
+        "title": "错误"
+      }
+    }
+  },
+  "cannedResponses": {
+    "title": "快捷回复",
+    "description": "创建和管理预写消息，用于快速回复常见问题",
+    "search": "搜索快捷回复...",
+    "addResponse": "添加回复",
+    "createResponse": "创建快捷回复",
+    "copied": "已复制",
+    "updated": "已更新 {{time}}",
+    "empty": {
+      "title": "未找到快捷回复",
+      "description": "你尚未创建任何快捷回复。创建第一个即可开始。",
+      "searchDescription": "没有回复匹配你的搜索。请尝试其他关键词或清空搜索。"
+    },
+    "copy": {
+      "title": "已复制到剪贴板",
+      "description": "快捷回复已复制到剪贴板。"
+    },
+    "create": {
+      "success": "快捷回复创建成功",
+      "error": "创建快捷回复失败"
+    },
+    "update": {
+      "success": "快捷回复更新成功",
+      "error": "更新快捷回复失败"
+    },
+    "delete": {
+      "success": "快捷回复删除成功",
+      "error": "删除快捷回复失败",
+      "confirmTitle": "你确定吗？",
+      "confirmDescription": "这将永久删除此快捷回复。此操作无法撤销。"
+    },
+    "errors": {
+      "loadFailed": "加载快捷回复失败"
+    },
+    "modal": {
+      "createTitle": "创建快捷回复",
+      "editTitle": "编辑快捷回复",
+      "createDescription": "创建一条可在对话中快速插入的预写消息。",
+      "editDescription": "更新你的预写消息以便快速回复。",
+      "createButton": "创建回复",
+      "saveButton": "保存更改"
+    },
+    "form": {
+      "title": "标题",
+      "titlePlaceholder": "例如：问候、感谢、跟进",
+      "message": "消息",
+      "messagePlaceholder": "在此输入你的预写消息...",
+      "tag": "标签",
+      "tagPlaceholder": "例如：问候、支持、技术"
+    },
+    "actions": {
+      "copy": "复制",
+      "edit": "编辑",
+      "delete": "删除"
+    }
+  },
+  "sidebar": {
+    "conversations": "对话",
+    "contacts": "联系人",
+    "notifications": "通知",
+    "settings": "设置",
+    "lightMode": "浅色模式",
+    "darkMode": "深色模式",
+    "myAccount": "我的账号",
+    "accountSettings": "账号设置",
+    "logOut": "退出登录",
+    "online": "在线",
+    "expandSidebar": "展开侧边栏",
+    "collapseSidebar": "折叠侧边栏",
+    "superAdmin": "超级管理员"
+  },
+  "notifications": {
+    "title": "通知",
+    "description": "随时了解消息、提醒和系统通知",
+    "filter": "筛选",
+    "markAllAsRead": "全部标记为已读",
+    "clearAll": "清除所有通知",
+    "tabs": {
+      "all": "全部",
+      "unread": "未读",
+      "messages": "消息",
+      "assignments": "分配",
+      "mentions": "提及"
+    },
+    "empty": {
+      "title": "没有通知",
+      "all": "你还没有任何通知",
+      "unread": "你没有未读通知",
+      "new_message": "你没有消息通知",
+      "assigned_conversation": "你没有分配通知",
+      "mention": "你没有提及通知"
+    },
+    "error": {
+      "title": "加载通知时出错",
+      "tryAgain": "重试"
+    },
+    "actions": {
+      "markAsRead": "标记为已读",
+      "delete": "删除"
+    },
+    "footer": {
+      "showing": "显示 {{count}} / {{total}} 条通知",
+      "markAllAsRead": "全部标记为已读"
+    },
+    "toast": {
+      "markedAsRead": "通知已标记为已读",
+      "allMarkedAsRead": "所有通知已标记为已读",
+      "deleted": "通知已删除",
+      "allCleared": "所有通知已清除",
+      "markAsReadFailed": "标记通知为已读失败",
+      "markAllAsReadFailed": "全部标记为已读失败",
+      "deleteFailed": "删除通知失败",
+      "clearAllFailed": "清除所有通知失败",
+      "loadFailed": "获取通知失败"
+    },
+    "types": {
+      "assigned_conversation": "有新对话分配给你",
+      "new_message": "你的对话中有新消息",
+      "mention": "有人在对话中提到了你"
+    },
+    "badges": {
+      "new_message": "消息",
+      "assigned_conversation": "分配",
+      "mention": "提及"
+    },
+    "time": {
+      "justNow": "刚刚",
+      "minutesAgo": "{{count}} 分钟前",
+      "hoursAgo": "{{count}} 小时前",
+      "daysAgo": "{{count}} 天前"
+    }
+  },
+  "superadmin": {
+    "title": "SuperAdmin",
+    "systemManagement": "系统管理",
+    "navigation": {
+      "backToPortal": "返回门户",
+      "backToPortalDescription": "返回主应用",
+      "dashboard": "仪表盘",
+      "dashboardDescription": "系统概览和统计",
+      "users": "用户",
+      "usersDescription": "管理所有系统用户",
+      "companies": "公司",
+      "companiesDescription": "管理所有公司",
+      "configuration": "配置",
+      "configurationDescription": "系统配置设置",
+      "systemHealth": "系统健康",
+      "systemHealthDescription": "监控系统性能"
+    },
+    "dashboard": {
+      "title": "分析仪表盘",
+      "description": "深入了解你的 TalkDeskly 平台",
+      "metrics": {
+        "totalUsers": "用户总数",
+        "companies": "公司",
+        "activeUsers": "活跃用户",
+        "totalConversations": "对话总数",
+        "userGrowthRate": "本周 +{{rate}}%",
+        "companyGrowthRate": "本月 +{{rate}}%",
+        "activeUsersDescription": "过去 24 小时内有 {{count}} 名用户活跃",
+        "conversationGrowthRate": "本月 +{{rate}}%",
+        "averageResponseTime": "平均响应时间",
+        "responseTimeValue": "{{time}} 分钟",
+        "responseTimeImprovement": "比上周快 {{percent}}%",
+        "customerSatisfaction": "客户满意度",
+        "satisfactionScore": "{{score}}/5",
+        "satisfactionTrend": "较上月 +{{percent}}%"
+      },
+      "charts": {
+        "userGrowth": "用户增长",
+        "companyGrowth": "公司增长",
+        "conversationVolume": "对话量",
+        "systemHealth": "系统健康",
+        "userDistribution": "按角色划分的用户分布",
+        "companySize": "公司规模分布"
+      },
+      "systemHealth": {
+        "title": "系统健康",
+        "cpu": "CPU 使用率",
+        "memory": "内存使用率",
+        "disk": "磁盘使用率",
+        "database": "数据库",
+        "redis": "Redis",
+        "healthy": "正常",
+        "warning": "警告",
+        "critical": "严重",
+        "uptime": "系统运行时间",
+        "uptimeValue": "{{days}} 天，{{hours}} 小时"
+      },
+      "recentActivity": {
+        "title": "最近活动",
+        "userRegistered": "新用户已注册",
+        "companyCreated": "新公司已创建",
+        "conversationStarted": "对话已开始",
+        "userUpdated": "用户资料已更新",
+        "systemConfigChanged": "系统配置已更改"
+      },
+      "errors": {
+        "loadFailed": "加载仪表盘统计失败",
+        "error": "错误"
+      }
+    },
+    "users": {
+      "title": "用户",
+      "description": "管理所有公司中的所有系统用户",
+      "searchPlaceholder": "搜索用户...",
+      "addUser": "添加用户",
+      "editUser": "编辑用户",
+      "createUser": "创建用户",
+      "userDetails": "用户详情",
+      "totalUsers": "{{count}} 名用户",
+      "columns": {
+        "name": "姓名",
+        "email": "邮箱",
+        "role": "角色",
+        "company": "公司",
+        "status": "状态",
+        "lastActive": "最后活跃",
+        "actions": "操作"
+      },
+      "roles": {
+        "superadmin": "超级管理员",
+        "admin": "管理员",
+        "agent": "客服人员",
+        "superadminDescription": "拥有完整系统访问权限，可在整个平台管理所有用户、公司和系统设置。",
+        "adminDescription": "公司级管理员，可管理组织内的用户、设置和对话。",
+        "agentDescription": "客服人员，可处理客户对话并访问公司内的基础功能。"
+      },
+      "status": {
+        "active": "活跃",
+        "inactive": "未激活",
+        "suspended": "已暂停"
+      },
+      "form": {
+        "firstName": "名",
+        "lastName": "姓",
+        "email": "邮箱",
+        "password": "密码",
+        "role": "角色",
+        "company": "公司",
+        "status": "状态",
+        "firstNamePlaceholder": "张",
+        "lastNamePlaceholder": "三",
+        "emailPlaceholder": "john.doe@example.com",
+        "passwordPlaceholder": "••••••••",
+        "selectRole": "选择角色",
+        "selectCompany": "选择公司",
+        "selectStatus": "选择状态"
+      },
+      "actions": {
+        "view": "查看",
+        "edit": "编辑",
+        "delete": "删除",
+        "suspend": "暂停",
+        "activate": "激活"
+      },
+      "validation": {
+        "firstNameRequired": "名为必填项",
+        "lastNameRequired": "姓为必填项",
+        "emailRequired": "邮箱为必填项",
+        "emailInvalid": "请输入有效邮箱",
+        "passwordRequired": "密码为必填项",
+        "passwordMinLength": "密码至少需要 6 个字符",
+        "roleRequired": "角色为必填项"
+      },
+      "toast": {
+        "createSuccess": "用户创建成功",
+        "updateSuccess": "用户更新成功",
+        "deleteSuccess": "用户删除成功",
+        "createError": "创建用户失败",
+        "updateError": "更新用户失败",
+        "deleteError": "删除用户失败",
+        "loadError": "加载用户失败"
+      },
+      "confirmDelete": {
+        "title": "删除用户",
+        "description": "确定要删除此用户吗？此操作无法撤销。",
+        "confirm": "删除",
+        "cancel": "取消"
+      }
+    },
+    "companies": {
+      "title": "公司",
+      "description": "管理所有公司及其配置",
+      "searchPlaceholder": "搜索公司...",
+      "addCompany": "添加公司",
+      "editCompany": "编辑公司",
+      "createCompany": "创建公司",
+      "companyDetails": "公司详情",
+      "totalCompanies": "{{count}} 家公司",
+      "viewUsers": "查看用户",
+      "columns": {
+        "name": "姓名",
+        "email": "邮箱",
+        "website": "网站",
+        "users": "用户",
+        "status": "状态",
+        "created": "已创建",
+        "actions": "操作"
+      },
+      "form": {
+        "name": "公司名称",
+        "email": "公司邮箱",
+        "website": "网站",
+        "phone": "电话号码",
+        "address": "地址",
+        "namePlaceholder": "Acme Corp",
+        "emailPlaceholder": "contact@acme.com",
+        "websitePlaceholder": "https://acme.com",
+        "phonePlaceholder": "+1 (555) 123-4567",
+        "addressPlaceholder": "123 Main St, City, State 12345"
+      },
+      "users": {
+        "title": "公司用户",
+        "description": "管理 {{companyName}} 的用户",
+        "addUser": "向公司添加用户",
+        "noUsers": "未找到此公司的用户"
+      },
+      "actions": {
+        "view": "查看",
+        "edit": "编辑",
+        "delete": "删除",
+        "viewUsers": "查看用户"
+      },
+      "validation": {
+        "nameRequired": "公司名称为必填项",
+        "emailRequired": "公司邮箱为必填项",
+        "emailInvalid": "请输入有效邮箱",
+        "websiteInvalid": "请输入有效的网站 URL"
+      },
+      "toast": {
+        "createSuccess": "公司创建成功",
+        "updateSuccess": "公司更新成功",
+        "deleteSuccess": "公司删除成功",
+        "createError": "创建公司失败",
+        "updateError": "更新公司失败",
+        "deleteError": "删除公司失败",
+        "loadError": "加载公司失败"
+      },
+      "confirmDelete": {
+        "title": "删除公司",
+        "description": "确定要删除此公司吗？这也会删除所有相关用户和数据。此操作无法撤销。",
+        "confirm": "删除",
+        "cancel": "取消"
+      }
+    },
+    "config": {
+      "title": "系统配置",
+      "description": "配置系统范围的设置和行为",
+      "saveChanges": "保存更改",
+      "saveAllChanges": "保存所有更改",
+      "saving": "正在保存...",
+      "savingChanges": "正在保存更改...",
+      "server": {
+        "title": "服务器配置",
+        "port": "服务器端口",
+        "environment": "环境",
+        "baseUrl": "基础 URL",
+        "frontendUrl": "前端 URL",
+        "logLevel": "日志级别",
+        "portPlaceholder": "3000",
+        "baseUrlPlaceholder": "http://localhost:3000",
+        "frontendUrlPlaceholder": "http://localhost:3001",
+        "environments": {
+          "development": "开发",
+          "staging": "预发布",
+          "production": "生产"
+        },
+        "logLevels": {
+          "debug": "调试",
+          "info": "信息",
+          "warn": "警告",
+          "error": "错误"
+        }
+      },
+      "database": {
+        "title": "数据库与安全状态",
+        "connection": "数据库连接",
+        "redis": "Redis 连接",
+        "configured": "已配置",
+        "notConfigured": "未配置",
+        "description": "出于安全原因，数据库和安全配置通过环境变量进行管理。"
+      },
+      "email": {
+        "title": "邮件配置",
+        "provider": "邮件提供商",
+        "from": "发件地址",
+        "host": "SMTP 主机",
+        "port": "SMTP 端口",
+        "username": "SMTP 用户名",
+        "password": "SMTP 密码",
+        "fromPlaceholder": "noreply@example.com",
+        "hostPlaceholder": "smtp.gmail.com",
+        "portPlaceholder": "587",
+        "usernamePlaceholder": "username@gmail.com",
+        "passwordPlaceholder": "输入新密码以更改",
+        "providers": {
+          "gomail": "GoMail",
+          "smtp": "SMTP"
+        }
+      },
+      "application": {
+        "title": "应用设置",
+        "name": "应用名称",
+        "defaultLanguage": "默认语言",
+        "supportedLanguages": "支持的语言（用逗号分隔）",
+        "enableRegistration": "启用注册",
+        "namePlaceholder": "TalkDeskly",
+        "defaultLanguagePlaceholder": "en",
+        "supportedLanguagesPlaceholder": "vi, en, zh",
+        "supportedLanguagesDescription": "输入语言代码，用逗号分隔（例如：vi, en, zh）",
+        "registrationDescription": "启用或禁用用户注册。当你不希望用户自行注册账号并创建公司时，这很适合。"
+      },
+      "toast": {
+        "updateSuccess": "配置更新成功",
+        "updateError": "更新配置失败。请重试。",
+        "loadError": "加载配置失败。请重试。"
+      },
+      "notFound": {
+        "title": "未找到配置",
+        "description": "无法加载系统配置。",
+        "retry": "重试"
+      }
+    },
+    "system": {
+      "title": "系统健康",
+      "description": "监控系统性能和健康指标",
+      "refresh": "刷新",
+      "systemStatus": "系统状态",
+      "version": "版本",
+      "lastUpdated": "最后更新",
+      "overview": {
+        "title": "系统概览",
+        "uptime": "系统运行时间",
+        "version": "系统版本",
+        "environment": "环境",
+        "lastRestart": "上次重启"
+      },
+      "performance": {
+        "title": "性能指标",
+        "cpu": "CPU 使用率",
+        "memory": "内存使用率",
+        "disk": "磁盘使用率",
+        "network": "网络 I/O",
+        "responseTime": "平均响应时间"
+      },
+      "services": {
+        "title": "服务状态",
+        "database": "数据库",
+        "redis": "Redis",
+        "email": "邮件服务",
+        "storage": "文件存储",
+        "websocket": "WebSocket"
+      },
+      "logs": {
+        "title": "系统日志",
+        "recent": "最近日志",
+        "level": "级别",
+        "message": "消息",
+        "timestamp": "时间戳",
+        "context": "上下文",
+        "viewAll": "查看所有日志",
+        "export": "导出",
+        "search": "搜索日志",
+        "searchPlaceholder": "在消息或上下文中搜索...",
+        "logLevel": "日志级别",
+        "allLevels": "所有级别",
+        "clear": "清除",
+        "noLogsFound": "未找到日志",
+        "noLogsDescription": "请尝试调整搜索筛选条件",
+        "levels": {
+          "all": "所有级别",
+          "debug": "调试",
+          "info": "信息",
+          "warn": "警告",
+          "error": "错误"
+        }
+      },
+      "health": {
+        "healthy": "正常",
+        "warning": "警告",
+        "critical": "严重",
+        "unknown": "未知"
+      },
+      "toast": {
+        "loadError": "加载系统健康数据失败"
+      }
+    },
+    "common": {
+      "loading": "正在加载...",
+      "error": "错误",
+      "success": "成功",
+      "cancel": "取消",
+      "save": "保存",
+      "edit": "编辑",
+      "delete": "删除",
+      "view": "查看",
+      "create": "创建",
+      "update": "更新",
+      "actions": "操作",
+      "status": "状态",
+      "search": "搜索",
+      "filter": "筛选",
+      "refresh": "刷新",
+      "export": "导出",
+      "import": "导入",
+      "settings": "设置",
+      "back": "返回",
+      "next": "下一步",
+      "previous": "上一步",
+      "confirm": "确认",
+      "tryAgain": "重试"
+    }
+  },
+  "analytics": {
+    "title": "分析仪表板",
+    "subtitle": "{{range}} 的分析",
+    "empty": "暂无分析数据",
+    "errors": {
+      "title": "错误",
+      "unexpectedData": "收到意外的数据格式",
+      "fetchFailed": "获取分析数据失败",
+      "invalidDateRange": "日期范围无效",
+      "selectBothDates": "请选择开始日期和结束日期"
+    },
+    "dateRange": {
+      "lastDays": "最近 {{count}} 天",
+      "to": "{{start}} 至 {{end}}",
+      "selectTimeRange": "选择时间范围",
+      "last7Days": "最近 7 天",
+      "last14Days": "最近 14 天",
+      "last30Days": "最近 30 天",
+      "customRange": "自定义范围",
+      "startDate": "开始日期",
+      "endDate": "结束日期",
+      "pickDate": "选择日期",
+      "apply": "应用"
+    },
+    "metrics": {
+      "totalConversations": "总对话数",
+      "newConversations": "{{count}} 个新对话",
+      "totalMessages": "总消息数",
+      "averagePerConversation": "平均每个对话 {{count}} 条",
+      "agentMessages": "客服消息",
+      "fromContacts": "{{count}} 条来自联系人",
+      "activeConversations": "进行中的对话",
+      "pending": "{{count}} 个待处理"
+    },
+    "status": {
+      "title": "对话状态细分",
+      "description": "对话状态分布",
+      "active": "进行中",
+      "pending": "待处理",
+      "resolved": "已解决",
+      "closed": "已关闭"
+    },
+    "agents": {
+      "title": "客服绩效",
+      "description": "按客服分配的对话",
+      "empty": "暂无客服数据",
+      "assignments": "{{count}} 个总分配"
+    }
+  }
+}

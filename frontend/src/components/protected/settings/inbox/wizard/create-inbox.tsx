@@ -80,7 +80,7 @@ export function CreateInbox({
             className="w-full sm:w-auto"
             disabled={isLoading}
           >
-            Continue
+            {t("auth.onboarding.continue")}
           </Button>
         </form>
       </Form>

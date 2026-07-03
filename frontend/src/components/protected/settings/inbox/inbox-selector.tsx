@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import type { TeamInbox } from "@/types/chat";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface InboxSelectorProps {
   inboxes: TeamInbox[];
@@ -26,6 +27,7 @@ export default function InboxSelector({
   activeInboxId,
   onInboxChange,
 }: InboxSelectorProps) {
+  const { t } = useTranslation();
   const getInboxIcon = (icon: TeamInbox["icon"]) => {
     switch (icon) {
       case "rocket":
@@ -47,12 +49,12 @@ export default function InboxSelector({
     <div className="p-4">
       <div className="flex items-center justify-between mb-3">
         <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">
-          Inboxes
+          {t("inbox.list.title")}
         </h3>
         <Link to="/settings/inboxes">
           <Button variant="ghost" size="sm" className="h-7 w-7 p-0">
             <Plus className="h-4 w-4" />
-            <span className="sr-only">New Inbox</span>
+            <span className="sr-only">{t("inbox.list.newInbox")}</span>
           </Button>
         </Link>
       </div>
@@ -65,7 +67,7 @@ export default function InboxSelector({
         >
           <div className="flex items-center">
             <Inbox className="h-4 w-4 mr-2" />
-            <span>All Inboxes</span>
+            <span>{t("inbox.list.allInboxes")}</span>
           </div>
           <Badge variant="outline" className="ml-auto">
             {inboxes.reduce((total, inbox) => total + inbox.unreadCount, 0)}

@@ -18,8 +18,10 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { useAuthStore } from "@/stores/auth";
+import { useTranslation } from "react-i18next";
 
 export default function AccountSettings() {
+  const { t } = useTranslation();
   const [profile, setProfile] = useState<Profile | null>(null);
   const { updateUser, user } = useAuthStore();
   const [isLoading, setIsLoading] = useState(true);
@@ -75,16 +77,22 @@ export default function AccountSettings() {
 
   return (
     <SettingsContent
-      title="Account Settings"
-      description="Manage your account settings and preferences"
+      title={t("profile.accountSettings.title")}
+      description={t("profile.accountSettings.description")}
       showBackButton={false}
     >
       <Tabs defaultValue="profile" className="space-y-6">
         <div className="overflow-auto">
           <TabsList className="w-full sm:w-auto inline-flex">
-            <TabsTrigger value="profile">Profile</TabsTrigger>
-            <TabsTrigger value="password">Password</TabsTrigger>
-            <TabsTrigger value="notifications">Notifications</TabsTrigger>
+            <TabsTrigger value="profile">
+              {t("profile.accountSettings.tabs.profile")}
+            </TabsTrigger>
+            <TabsTrigger value="password">
+              {t("profile.accountSettings.tabs.password")}
+            </TabsTrigger>
+            <TabsTrigger value="notifications">
+              {t("profile.accountSettings.tabs.notifications")}
+            </TabsTrigger>
           </TabsList>
         </div>
 

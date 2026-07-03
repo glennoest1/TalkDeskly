@@ -77,7 +77,11 @@ export function WebsiteWizard() {
   };
 
   return (
-    <BaseWizard steps={steps} currentStep={currentStep} title="Website Inbox">
+    <BaseWizard
+      steps={steps}
+      currentStep={currentStep}
+      title={t("inbox.wizard.website.inboxTitle")}
+    >
       {renderStepContent()}
     </BaseWizard>
   );

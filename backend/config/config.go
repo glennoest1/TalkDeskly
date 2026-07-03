@@ -14,7 +14,7 @@ const (
 	DefaultPort               = "3000"
 	DefaultDatabaseDSN        = "postgres://postgres:postgres@localhost:5432/postgres"
 	DefaultJwtSecret          = "secret"
-	DefaultBaseURL            = "http://localhost:6721"
+	DefaultBaseURL            = "http://localhost:8080"
 	DefaultFrontendURL        = "http://localhost:3001"
 	DefaultRedisURL           = "redis:6379"
 	DefaultEmailProvider      = "gomail"
