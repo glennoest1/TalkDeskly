@@ -4,10 +4,13 @@ import { CompanyDetailsForm } from "@/components/auth/register/company-details-f
 import { Progress } from "@/components/ui/progress";
 import { useAuthStore } from "@/stores/auth";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 export function Onboarding() {
   const [currentStep, setCurrentStep] = useState(1);
   const { user, token } = useAuthStore();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const totalSteps = 2;
   const progress = (currentStep / totalSteps) * 100;
@@ -28,12 +31,12 @@ export function Onboarding() {
   return (
     <div>
       <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-        Create an account
+        {t("auth.onboarding.title")}
       </h2>
       <p className="text-slate-500">
         {currentStep === 1
-          ? "Enter your personal information"
-          : "Tell us about your company"}
+          ? t("auth.onboarding.personalDescription")
+          : t("auth.onboarding.companyDescription")}
       </p>
 
       {/* Step Indicators */}
@@ -53,7 +56,7 @@ export function Onboarding() {
               currentStep >= 1 ? "text-teal-500" : "text-slate-500"
             }`}
           >
-            Personal Info
+            {t("auth.onboarding.personalInfo")}
           </div>
         </div>
 
@@ -76,7 +79,7 @@ export function Onboarding() {
               currentStep >= 2 ? "text-teal-500" : "text-slate-500"
             }`}
           >
-            Company Info
+            {t("auth.onboarding.companyInfo")}
           </div>
         </div>
       </div>

@@ -34,6 +34,7 @@ import {
   PreChatFieldType,
   WebChatInbox,
 } from "@/lib/interfaces";
+import { useTranslation } from "react-i18next";
 
 // Define the form field types
 type FieldType = "text" | "email" | "phone" | "select" | "textarea";
@@ -49,6 +50,7 @@ interface FormField {
 }
 
 export function PreChatFormTab() {
+  const { t } = useTranslation();
   const { inbox, updateInbox } = useEditInbox();
   const [saveSuccess, setSaveSuccess] = useState(false);
 
@@ -57,19 +59,20 @@ export function PreChatFormTab() {
     (inbox as WebChatInbox)?.preChatForm?.enabled || false
   );
   const [formTitle, setFormTitle] = useState(
-    (inbox as WebChatInbox)?.preChatForm?.title || "Before we chat..."
+    (inbox as WebChatInbox)?.preChatForm?.title ||
+      t("inbox.edit.tabs.preChatForm.defaults.title")
   );
   const [formDescription, setFormDescription] = useState(
     (inbox as WebChatInbox)?.preChatForm?.description ||
-      "Please fill out this short form to help us serve you better."
+      t("inbox.edit.tabs.preChatForm.defaults.description")
   );
   const [formFields, setFormFields] = useState<PreChatFormField[]>(
     (inbox as WebChatInbox)?.preChatForm?.fields || [
       {
         id: "field-" + Date.now(),
         type: "text",
-        label: "Name",
-        placeholder: "Enter your name",
+        label: t("inbox.edit.tabs.preChatForm.defaults.name"),
+        placeholder: t("inbox.edit.tabs.preChatForm.defaults.namePlaceholder"),
         required: true,
       },
     ]
@@ -123,8 +126,8 @@ export function PreChatFormTab() {
     const newField: PreChatFormField = {
       id: "field-" + Date.now(),
       type: "text",
-      label: "New Field",
-      placeholder: "Enter value",
+      label: t("inbox.edit.tabs.preChatForm.defaults.newField"),
+      placeholder: t("inbox.edit.tabs.preChatForm.defaults.enterValue"),
       required: false,
       contactField: "",
     };
@@ -162,7 +165,10 @@ export function PreChatFormTab() {
     const field = formFields.find((f) => f.id === fieldId);
     if (!field) return;
 
-    const options = [...(field.options || []), "New Option"];
+    const options = [
+      ...(field.options || []),
+      t("inbox.edit.tabs.preChatForm.defaults.newOption"),
+    ];
     updateField(fieldId, { options });
   };
 
@@ -189,9 +195,9 @@ export function PreChatFormTab() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Pre-Chat Form</CardTitle>
+          <CardTitle>{t("inbox.edit.tabs.preChatForm.title")}</CardTitle>
           <CardDescription>
-            Configure a form for visitors to fill out before starting a chat
+            {t("inbox.edit.tabs.preChatForm.description")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -201,28 +207,38 @@ export function PreChatFormTab() {
               checked={formEnabled}
               onCheckedChange={handleFormEnabledChange}
             />
-            <Label htmlFor="form-enabled">Enable pre-chat form</Label>
+            <Label htmlFor="form-enabled">
+              {t("inbox.edit.tabs.preChatForm.enable")}
+            </Label>
           </div>
 
           {formEnabled && (
             <>
               <div className="grid gap-6">
                 <div className="grid gap-3">
-                  <Label htmlFor="form-title">Form Title</Label>
+                  <Label htmlFor="form-title">
+                    {t("inbox.edit.tabs.preChatForm.formTitle")}
+                  </Label>
                   <Input
                     id="form-title"
                     value={formTitle}
                     onChange={(e) => setFormTitle(e.target.value)}
-                    placeholder="Enter form title"
+                    placeholder={t(
+                      "inbox.edit.tabs.preChatForm.formTitlePlaceholder"
+                    )}
                   />
                 </div>
                 <div className="grid gap-3">
-                  <Label htmlFor="form-description">Form Description</Label>
+                  <Label htmlFor="form-description">
+                    {t("inbox.edit.tabs.preChatForm.formDescription")}
+                  </Label>
                   <Textarea
                     id="form-description"
                     value={formDescription}
                     onChange={(e) => setFormDescription(e.target.value)}
-                    placeholder="Enter form description"
+                    placeholder={t(
+                      "inbox.edit.tabs.preChatForm.formDescriptionPlaceholder"
+                    )}
                     rows={2}
                   />
                 </div>
@@ -232,19 +248,23 @@ export function PreChatFormTab() {
 
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-medium">Form Fields</h3>
+                  <h3 className="text-lg font-medium">
+                    {t("inbox.edit.tabs.preChatForm.fields")}
+                  </h3>
                   <Button onClick={addField} size="sm">
                     <Plus className="h-4 w-4 mr-2" />
-                    Add Field
+                    {t("inbox.edit.tabs.preChatForm.addField")}
                   </Button>
                 </div>
 
                 {formFields.length === 0 ? (
                   <Alert>
                     <AlertCircle className="h-4 w-4" />
-                    <AlertTitle>No fields added</AlertTitle>
+                    <AlertTitle>
+                      {t("inbox.edit.tabs.preChatForm.noFields.title")}
+                    </AlertTitle>
                     <AlertDescription>
-                      Add at least one field to your pre-chat form.
+                      {t("inbox.edit.tabs.preChatForm.noFields.description")}
                     </AlertDescription>
                   </Alert>
                 ) : (
@@ -281,7 +301,9 @@ export function PreChatFormTab() {
                                           <Label
                                             htmlFor={`field-${field.id}-type`}
                                           >
-                                            Field Type
+                                            {t(
+                                              "inbox.edit.tabs.preChatForm.fieldType"
+                                            )}
                                           </Label>
                                           <Select
                                             value={field.type}
@@ -296,23 +318,37 @@ export function PreChatFormTab() {
                                             <SelectTrigger
                                               id={`field-${field.id}-type`}
                                             >
-                                              <SelectValue placeholder="Select type" />
+                                              <SelectValue
+                                                placeholder={t(
+                                                  "inbox.edit.tabs.preChatForm.selectType"
+                                                )}
+                                              />
                                             </SelectTrigger>
                                             <SelectContent>
                                               <SelectItem value="text">
-                                                Text
+                                                {t(
+                                                  "inbox.edit.tabs.preChatForm.types.text"
+                                                )}
                                               </SelectItem>
                                               <SelectItem value="email">
-                                                Email
+                                                {t(
+                                                  "inbox.edit.tabs.preChatForm.types.email"
+                                                )}
                                               </SelectItem>
                                               <SelectItem value="phone">
-                                                Phone
+                                                {t(
+                                                  "inbox.edit.tabs.preChatForm.types.phone"
+                                                )}
                                               </SelectItem>
                                               <SelectItem value="select">
-                                                Dropdown
+                                                {t(
+                                                  "inbox.edit.tabs.preChatForm.types.select"
+                                                )}
                                               </SelectItem>
                                               <SelectItem value="textarea">
-                                                Text Area
+                                                {t(
+                                                  "inbox.edit.tabs.preChatForm.types.textarea"
+                                                )}
                                               </SelectItem>
                                             </SelectContent>
                                           </Select>
@@ -321,7 +357,9 @@ export function PreChatFormTab() {
                                           <Label
                                             htmlFor={`field-${field.id}-label`}
                                           >
-                                            Label
+                                            {t(
+                                              "inbox.edit.tabs.preChatForm.label"
+                                            )}
                                           </Label>
                                           <Input
                                             id={`field-${field.id}-label`}
@@ -338,7 +376,9 @@ export function PreChatFormTab() {
                                         <Label
                                           htmlFor={`field-${field.id}-placeholder`}
                                         >
-                                          Placeholder
+                                          {t(
+                                            "inbox.edit.tabs.preChatForm.placeholder"
+                                          )}
                                         </Label>
                                         <Input
                                           id={`field-${field.id}-placeholder`}
@@ -355,7 +395,9 @@ export function PreChatFormTab() {
                                         <Label
                                           htmlFor={`field-${field.id}-contact-field`}
                                         >
-                                          Maps to Contact Property
+                                          {t(
+                                            "inbox.edit.tabs.preChatForm.mapsToContactProperty"
+                                          )}
                                         </Label>
                                         <Select
                                           value={field.contactField || "none"}
@@ -371,33 +413,43 @@ export function PreChatFormTab() {
                                           <SelectTrigger
                                             id={`field-${field.id}-contact-field`}
                                           >
-                                            <SelectValue placeholder="Select contact property" />
+                                            <SelectValue
+                                              placeholder={t(
+                                                "inbox.edit.tabs.preChatForm.selectContactProperty"
+                                              )}
+                                            />
                                           </SelectTrigger>
                                           <SelectContent>
                                             <SelectItem value="none">
-                                              None
+                                              {t(
+                                                "inbox.edit.tabs.preChatForm.none"
+                                              )}
                                             </SelectItem>
                                             <SelectItem value="name">
-                                              Name
+                                              {t("contacts.name")}
                                             </SelectItem>
                                             <SelectItem value="email">
-                                              Email
+                                              {t("contacts.email")}
                                             </SelectItem>
                                             <SelectItem value="phone">
-                                              Phone
+                                              {t("contacts.phone")}
                                             </SelectItem>
                                           </SelectContent>
                                         </Select>
                                         <p className="text-sm text-muted-foreground">
-                                          This field will be used to populate
-                                          the contact property when the form is
-                                          submitted.
+                                          {t(
+                                            "inbox.edit.tabs.preChatForm.mappingDescription"
+                                          )}
                                         </p>
                                       </div>
 
                                       {field.type === "select" && (
                                         <div className="mt-2 space-y-3">
-                                          <Label>Options</Label>
+                                          <Label>
+                                            {t(
+                                              "inbox.edit.tabs.preChatForm.options"
+                                            )}
+                                          </Label>
 
                                           {(field.options || []).map(
                                             (option, i) => (
@@ -414,9 +466,10 @@ export function PreChatFormTab() {
                                                       e.target.value
                                                     )
                                                   }
-                                                  placeholder={`Option ${
-                                                    i + 1
-                                                  }`}
+                                                  placeholder={t(
+                                                    "inbox.edit.tabs.preChatForm.optionPlaceholder",
+                                                    { number: i + 1 }
+                                                  )}
                                                 />
                                                 <Button
                                                   variant="ghost"
@@ -437,7 +490,9 @@ export function PreChatFormTab() {
                                             onClick={() => addOption(field.id)}
                                           >
                                             <Plus className="h-4 w-4 mr-2" />
-                                            Add Option
+                                            {t(
+                                              "inbox.edit.tabs.preChatForm.addOption"
+                                            )}
                                           </Button>
                                         </div>
                                       )}
@@ -455,7 +510,9 @@ export function PreChatFormTab() {
                                         <Label
                                           htmlFor={`field-${field.id}-required`}
                                         >
-                                          Required field
+                                          {t(
+                                            "inbox.edit.tabs.preChatForm.requiredField"
+                                          )}
                                         </Label>
                                       </div>
                                     </div>
@@ -481,11 +538,15 @@ export function PreChatFormTab() {
               </div>
 
               <div className="mt-6 flex items-center gap-2">
-                <Button onClick={saveFormSettings}>Save Form Settings</Button>
+                <Button onClick={saveFormSettings}>
+                  {t("inbox.edit.tabs.preChatForm.saveSettings")}
+                </Button>
                 {saveSuccess && (
                   <div className="flex items-center text-green-600 gap-1 animate-in fade-in">
                     <CheckCircle2 className="h-4 w-4" />
-                    <span className="text-sm">Saved</span>
+                    <span className="text-sm">
+                      {t("inbox.edit.tabs.preChatForm.saved")}
+                    </span>
                   </div>
                 )}
               </div>
@@ -496,9 +557,9 @@ export function PreChatFormTab() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Form Preview</CardTitle>
+          <CardTitle>{t("inbox.edit.tabs.preChatForm.preview.title")}</CardTitle>
           <CardDescription>
-            This is how your pre-chat form will appear to visitors
+            {t("inbox.edit.tabs.preChatForm.preview.description")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -557,7 +618,7 @@ export function PreChatFormTab() {
                 </div>
 
                 <Button className="w-full" disabled>
-                  Start Chat
+                  {t("inbox.edit.tabs.preChatForm.preview.startChat")}
                 </Button>
               </div>
             </div>
@@ -565,7 +626,7 @@ export function PreChatFormTab() {
             <div className="text-center py-6">
               <AlertCircle className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
               <p className="text-muted-foreground">
-                Enable the pre-chat form to see a preview
+                {t("inbox.edit.tabs.preChatForm.preview.disabled")}
               </p>
             </div>
           )}

@@ -4,6 +4,7 @@ import { RightColumn } from "../auth/right-column";
 import { useEffect } from "react";
 import { miscService } from "@/lib/api/services/misc";
 import { useMiscStore } from "@/stores/misc";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 export function AuthLayout() {
   const { setAppInformation } = useMiscStore();
@@ -20,6 +21,10 @@ export function AuthLayout() {
 
   return (
     <div className="flex min-h-screen flex-col md:flex-row">
+      <div className="absolute right-4 top-4 z-20">
+        <LanguageSwitcher className="bg-background/80 shadow-sm backdrop-blur" />
+      </div>
+
       {/* Left Column - Slider */}
       <div className="md:w-1/2">
         <LeftColumn />

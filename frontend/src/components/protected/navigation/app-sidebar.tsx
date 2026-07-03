@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import {
   MessageSquare,
   Users,
-  HelpCircle,
   Bell,
   Settings,
   Moon,
@@ -32,6 +31,7 @@ import { useMiscStore } from "@/stores/misc";
 import { useAuthStore } from "@/stores/auth";
 import { authService } from "@/lib/api/services/auth";
 import { useNavigate } from "react-router-dom";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
 
 export function AppSidebar() {
   const { theme, sidebarCollapsed, toggleTheme, toggleSidebar } =
@@ -119,6 +119,13 @@ export function AppSidebar() {
               }
               onClick={toggleTheme}
               collapsed={sidebarCollapsed}
+            />
+            <LanguageSwitcher
+              className={cn(
+                "h-auto w-full justify-start px-3 py-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground",
+                sidebarCollapsed && "justify-center px-0"
+              )}
+              showLabel={!sidebarCollapsed}
             />
           </nav>
         </div>

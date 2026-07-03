@@ -33,8 +33,10 @@ import { useToast } from "@/lib/hooks/use-toast";
 import { analyticsService, type AnalyticsDashboard } from "@/lib/api/services";
 import { format, subDays, startOfDay, endOfDay } from "date-fns";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export default function AnalyticsPage() {
+  const { t } = useTranslation();
   const [dashboard, setDashboard] = useState<AnalyticsDashboard | null>(null);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState("7");
@@ -73,16 +75,16 @@ export default function AnalyticsPage() {
       } else {
         console.error("Unexpected response structure:", response);
         toast({
-          title: "Error",
-          description: "Received unexpected data format",
+          title: t("analytics.errors.title"),
+          description: t("analytics.errors.unexpectedData"),
           variant: "destructive",
         });
       }
     } catch (error) {
       console.error("Error fetching analytics:", error);
       toast({
-        title: "Error",
-        description: "Failed to fetch analytics data",
+        title: t("analytics.errors.title"),
+        description: t("analytics.errors.fetchFailed"),
         variant: "destructive",
       });
     } finally {
@@ -108,8 +110,8 @@ export default function AnalyticsPage() {
       fetchAnalytics();
     } else {
       toast({
-        title: "Invalid Date Range",
-        description: "Please select both start and end dates",
+        title: t("analytics.errors.invalidDateRange"),
+        description: t("analytics.errors.selectBothDates"),
         variant: "destructive",
       });
     }
@@ -134,7 +136,7 @@ export default function AnalyticsPage() {
     return (
       <div className="p-6">
         <div className="text-center">
-          <p className="text-gray-500">No analytics data available</p>
+          <p className="text-gray-500">{t("analytics.empty")}</p>
         </div>
       </div>
     );
@@ -143,27 +145,32 @@ export default function AnalyticsPage() {
   // Format the date range display using date-fns
   const formatDateRange = () => {
     if (isCustomRange && customStartDate && customEndDate) {
-      return `${format(customStartDate, "PPP")} to ${format(
-        customEndDate,
-        "PPP"
-      )}`;
+      return t("analytics.dateRange.to", {
+        start: format(customStartDate, "PPP"),
+        end: format(customEndDate, "PPP"),
+      });
     }
 
     if (dashboard.dateRange.startDate && dashboard.dateRange.endDate) {
       const startDate = new Date(dashboard.dateRange.startDate);
       const endDate = new Date(dashboard.dateRange.endDate);
-      return `${format(startDate, "PPP")} to ${format(endDate, "PPP")}`;
+      return t("analytics.dateRange.to", {
+        start: format(startDate, "PPP"),
+        end: format(endDate, "PPP"),
+      });
     }
 
-    return `Last ${timeRange} days`;
+    return t("analytics.dateRange.lastDays", { count: timeRange });
   };
 
   return (
     <div className="p-6 space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold">Analytics Dashboard</h1>
-          <p className="text-gray-600">Analytics for {formatDateRange()}</p>
+          <h1 className="text-2xl font-bold">{t("analytics.title")}</h1>
+          <p className="text-gray-600">
+            {t("analytics.subtitle", { range: formatDateRange() })}
+          </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-2">
@@ -172,13 +179,13 @@ export default function AnalyticsPage() {
             onValueChange={handleTimeRangeChange}
           >
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select time range" />
+              <SelectValue placeholder={t("analytics.dateRange.selectTimeRange")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="7">Last 7 days</SelectItem>
-              <SelectItem value="14">Last 14 days</SelectItem>
-              <SelectItem value="30">Last 30 days</SelectItem>
-              <SelectItem value="custom">Custom range</SelectItem>
+              <SelectItem value="7">{t("analytics.dateRange.last7Days")}</SelectItem>
+              <SelectItem value="14">{t("analytics.dateRange.last14Days")}</SelectItem>
+              <SelectItem value="30">{t("analytics.dateRange.last30Days")}</SelectItem>
+              <SelectItem value="custom">{t("analytics.dateRange.customRange")}</SelectItem>
             </SelectContent>
           </Select>
 
@@ -186,7 +193,7 @@ export default function AnalyticsPage() {
             <div className="flex gap-2 items-end">
               <div>
                 <Label htmlFor="start-date" className="text-xs">
-                  Start Date
+                  {t("analytics.dateRange.startDate")}
                 </Label>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -200,7 +207,7 @@ export default function AnalyticsPage() {
                       {customStartDate ? (
                         format(customStartDate, "PP")
                       ) : (
-                        <span>Pick a date</span>
+                        <span>{t("analytics.dateRange.pickDate")}</span>
                       )}
                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
@@ -233,7 +240,7 @@ export default function AnalyticsPage() {
               </div>
               <div>
                 <Label htmlFor="end-date" className="text-xs">
-                  End Date
+                  {t("analytics.dateRange.endDate")}
                 </Label>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -247,7 +254,7 @@ export default function AnalyticsPage() {
                       {customEndDate ? (
                         format(customEndDate, "PP")
                       ) : (
-                        <span>Pick a date</span>
+                        <span>{t("analytics.dateRange.pickDate")}</span>
                       )}
                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
@@ -271,7 +278,7 @@ export default function AnalyticsPage() {
                 </Popover>
               </div>
               <Button onClick={handleCustomRangeSubmit} size="sm">
-                Apply
+                {t("analytics.dateRange.apply")}
               </Button>
             </div>
           )}
@@ -283,7 +290,7 @@ export default function AnalyticsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Total Conversations
+              {t("analytics.metrics.totalConversations")}
             </CardTitle>
             <MessageSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -292,7 +299,9 @@ export default function AnalyticsPage() {
               {dashboard.conversationStats.totalConversations}
             </div>
             <p className="text-xs text-muted-foreground">
-              {dashboard.conversationStats.newConversations} new conversations
+              {t("analytics.metrics.newConversations", {
+                count: dashboard.conversationStats.newConversations,
+              })}
             </p>
           </CardContent>
         </Card>
@@ -300,7 +309,7 @@ export default function AnalyticsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Total Messages
+              {t("analytics.metrics.totalMessages")}
             </CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -309,8 +318,9 @@ export default function AnalyticsPage() {
               {dashboard.messageStats.totalMessages}
             </div>
             <p className="text-xs text-muted-foreground">
-              {dashboard.messageStats.averagePerConversation.toFixed(1)} avg per
-              conversation
+              {t("analytics.metrics.averagePerConversation", {
+                count: dashboard.messageStats.averagePerConversation.toFixed(1),
+              })}
             </p>
           </CardContent>
         </Card>
@@ -318,7 +328,7 @@ export default function AnalyticsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Agent Messages
+              {t("analytics.metrics.agentMessages")}
             </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -327,7 +337,9 @@ export default function AnalyticsPage() {
               {dashboard.messageStats.agentMessages}
             </div>
             <p className="text-xs text-muted-foreground">
-              {dashboard.messageStats.contactMessages} from contacts
+              {t("analytics.metrics.fromContacts", {
+                count: dashboard.messageStats.contactMessages,
+              })}
             </p>
           </CardContent>
         </Card>
@@ -335,7 +347,7 @@ export default function AnalyticsPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Active Conversations
+              {t("analytics.metrics.activeConversations")}
             </CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -344,7 +356,9 @@ export default function AnalyticsPage() {
               {dashboard.conversationStatusStats.active}
             </div>
             <p className="text-xs text-muted-foreground">
-              {dashboard.conversationStatusStats.pending} pending
+              {t("analytics.metrics.pending", {
+                count: dashboard.conversationStatusStats.pending,
+              })}
             </p>
           </CardContent>
         </Card>
@@ -353,9 +367,9 @@ export default function AnalyticsPage() {
       {/* Conversation Status Breakdown */}
       <Card>
         <CardHeader>
-          <CardTitle>Conversation Status Breakdown</CardTitle>
+          <CardTitle>{t("analytics.status.title")}</CardTitle>
           <CardDescription>
-            Distribution of conversation statuses
+            {t("analytics.status.description")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -364,25 +378,33 @@ export default function AnalyticsPage() {
               <div className="text-2xl font-bold text-green-600">
                 {dashboard.conversationStatusStats.active}
               </div>
-              <p className="text-sm text-muted-foreground">Active</p>
+              <p className="text-sm text-muted-foreground">
+                {t("analytics.status.active")}
+              </p>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-yellow-600">
                 {dashboard.conversationStatusStats.pending}
               </div>
-              <p className="text-sm text-muted-foreground">Pending</p>
+              <p className="text-sm text-muted-foreground">
+                {t("analytics.status.pending")}
+              </p>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-blue-600">
                 {dashboard.conversationStatusStats.resolved}
               </div>
-              <p className="text-sm text-muted-foreground">Resolved</p>
+              <p className="text-sm text-muted-foreground">
+                {t("analytics.status.resolved")}
+              </p>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-gray-600">
                 {dashboard.conversationStatusStats.closed}
               </div>
-              <p className="text-sm text-muted-foreground">Closed</p>
+              <p className="text-sm text-muted-foreground">
+                {t("analytics.status.closed")}
+              </p>
             </div>
           </div>
         </CardContent>
@@ -391,14 +413,14 @@ export default function AnalyticsPage() {
       {/* Agent Performance */}
       <Card>
         <CardHeader>
-          <CardTitle>Agent Performance</CardTitle>
-          <CardDescription>Conversations assigned by agent</CardDescription>
+          <CardTitle>{t("analytics.agents.title")}</CardTitle>
+          <CardDescription>{t("analytics.agents.description")}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {dashboard.agentStats.length === 0 ? (
               <p className="text-center text-muted-foreground">
-                No agent data available
+                {t("analytics.agents.empty")}
               </p>
             ) : (
               dashboard.agentStats.map((agent) => (
@@ -409,7 +431,9 @@ export default function AnalyticsPage() {
                   <div>
                     <h4 className="font-medium">{agent.agentName}</h4>
                     <p className="text-sm text-muted-foreground">
-                      {agent.totalAssigned} total assignments
+                      {t("analytics.agents.assignments", {
+                        count: agent.totalAssigned,
+                      })}
                     </p>
                   </div>
                   <div className="flex gap-4 text-sm">
@@ -417,13 +441,17 @@ export default function AnalyticsPage() {
                       <div className="font-medium text-green-600">
                         {agent.activeAssigned}
                       </div>
-                      <p className="text-xs text-muted-foreground">Active</p>
+                      <p className="text-xs text-muted-foreground">
+                        {t("analytics.status.active")}
+                      </p>
                     </div>
                     <div className="text-center">
                       <div className="font-medium text-gray-600">
                         {agent.closedAssigned}
                       </div>
-                      <p className="text-xs text-muted-foreground">Closed</p>
+                      <p className="text-xs text-muted-foreground">
+                        {t("analytics.status.closed")}
+                      </p>
                     </div>
                   </div>
                 </div>

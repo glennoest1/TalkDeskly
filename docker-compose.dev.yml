@@ -55,6 +55,8 @@ services:
       - "3001:5173"
     environment:
       - NODE_ENV=development
+      - VITE_API_URL=http://localhost:8080/api
+      - VITE_WS_URL=ws://localhost:8080/ws
 
   postgres:
     image: postgres:16

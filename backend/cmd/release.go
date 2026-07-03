@@ -205,8 +205,8 @@ func runRelease(cmd *cobra.Command, args []string) error {
 	fmt.Println("✅ Build info generated")
 	fmt.Println()
 	fmt.Println("🌐 Access URLs (when backend is running):")
-	fmt.Println("   Frontend App: http://localhost:6721/")
-	fmt.Println("   Chat SDK: http://localhost:6721/sdk")
+	fmt.Println("   Frontend App: http://localhost:8080/")
+	fmt.Println("   Chat SDK: http://localhost:8080/sdk")
 	if !releaseSkipDocker {
 		fmt.Println()
 		fmt.Println("🐳 Docker Usage:")

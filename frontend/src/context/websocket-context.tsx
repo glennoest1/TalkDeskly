@@ -10,7 +10,8 @@ const WebSocketContext = createContext<WebSocketContextType | null>(null);
 
 export function WebSocketProvider({ children }: { children: ReactNode }) {
   const wsService = new WebSocketService(
-    import.meta.env.DEV ? "ws://localhost:6721/ws" : "/ws"
+    import.meta.env.VITE_WS_URL || 
+      (import.meta.env.DEV ? "ws://localhost:8080/ws" : "/ws")
   );
 
   return (

@@ -14,7 +14,7 @@ Make sure you have the following tools installed:
 
 2. **Air** (Live reloading):
    ```bash
-   go install github.com/cosmtrek/air@latest
+   go install github.com/air-verse/air@latest
    ```
 
 ## Debugging Process

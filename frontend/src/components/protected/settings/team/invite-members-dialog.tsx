@@ -58,7 +58,7 @@ export function InviteMembersDialog({
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>
-            {t("invite.cancel")}
+            {t("common.cancel")}
           </Button>
           <Button onClick={handleInvite}>{t("invite.send")}</Button>
         </DialogFooter>

@@ -65,14 +65,15 @@ function EditInboxContent() {
               <ArrowLeft className="h-4 w-4" />
             </Button>
           </Link>
-          <h1 className="text-2xl font-bold">Inbox not found</h1>
+          <h1 className="text-2xl font-bold">
+            {t("inbox.edit.notFound.title")}
+          </h1>
         </div>
         <p className="text-muted-foreground">
-          The inbox you're looking for doesn't exist or you don't have access to
-          it.
+          {t("inbox.edit.notFound.description")}
         </p>
         <Button className="mt-4" asChild>
-          <Link to="/settings/inboxes">Back to Inboxes</Link>
+          <Link to="/settings/inboxes">{t("inbox.edit.notFound.back")}</Link>
         </Button>
       </div>
     );
@@ -120,11 +121,11 @@ function EditInboxContent() {
             className="w-full sm:w-auto"
           >
             {isSaving ? (
-              <>Saving...</>
+              <>{t("common.saving")}</>
             ) : (
               <>
                 <Check className="h-4 w-4 mr-2" />
-                Save Changes
+                {t("common.saveChanges")}
               </>
             )}
           </Button>
@@ -134,11 +135,21 @@ function EditInboxContent() {
       <div className="overflow-x-auto">
         <Tabs defaultValue="general" className="space-y-6">
           <TabsList className="mb-6 w-full sm:w-auto inline-flex">
-            <TabsTrigger value="general">General</TabsTrigger>
-            <TabsTrigger value="team">Team Members</TabsTrigger>
-            <TabsTrigger value="pre-chat-form">Pre-Chat Form</TabsTrigger>
-            <TabsTrigger value="automation">Automation</TabsTrigger>
-            <TabsTrigger value="widget">Widget</TabsTrigger>
+            <TabsTrigger value="general">
+              {t("inbox.edit.tabs.general.title")}
+            </TabsTrigger>
+            <TabsTrigger value="team">
+              {t("inbox.edit.tabs.team.title")}
+            </TabsTrigger>
+            <TabsTrigger value="pre-chat-form">
+              {t("inbox.edit.tabs.preChatForm.title")}
+            </TabsTrigger>
+            <TabsTrigger value="automation">
+              {t("inbox.edit.tabs.automation.title")}
+            </TabsTrigger>
+            <TabsTrigger value="widget">
+              {t("inbox.edit.tabs.widgetCustomization.shortTitle")}
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="general">
