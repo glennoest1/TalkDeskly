@@ -10,6 +10,49 @@ Visit [talkdeskly.com](https://talkdeskly.com) for more info. Check out the [**L
 
 > **CAUTION:** This project is currently in **development**. Features and APIs may change and are not yet fully tested.
 
+## Deploy And Run
+
+Run deployment commands through the root `Makefile`. This is the supported entry point for every mode.
+
+```bash
+make local
+make dev
+make prod
+```
+
+Choose the mode from the deployment guide that matches what you need:
+
+| Mode | Main command | Use when | Guide |
+| --- | --- | --- | --- |
+| Local host-run | `make local` | Backend, frontend, and chat widget run as host processes; dependency services run in Docker. | [Local deployment](docs/local/local-deployment.md) |
+| Docker development | `make dev` | Backend, frontend, chat widget, Postgres, Redis, and MailHog all run in Docker for development. | [Development deployment](docs/dev/development-deployment.md) |
+| Production-style | `make prod` | Frontend and widget assets are built into the backend image and run with production Compose. | [Production deployment](docs/prod/production-deployment.md) |
+
+Common Makefile commands:
+
+```bash
+make local-status
+make dev-logs
+make dev-seed
+make dev-restart
+make prod-build
+make deploy MODE=dev ACTION=status
+```
+
+## Deployment Documentation
+
+Start with [docs/README.md](docs/README.md) if you are not sure which mode to use.
+
+| Document | What it covers |
+| --- | --- |
+| [Deployment overview](docs/README.md) | Mode comparison, communication architecture, quick commands, and first-run paths. |
+| [Deployment scripts](docs/deployment-scripts.md) | Makefile targets, script modules, supported options, E2E checks, and troubleshooting. |
+| [Local deployment](docs/local/local-deployment.md) | Host-run local setup and testing flow. |
+| [Development deployment](docs/dev/development-deployment.md) | Docker Compose development setup and chat widget test flow. |
+| [Production deployment](docs/prod/production-deployment.md) | Production-style Compose setup, build flow, config requirements, and validation. |
+
+The Makefile calls `scripts/deploy-dispatcher.ps1`, which routes to `scripts/deploy-local.ps1`, `scripts/deploy-dev.ps1`, or `scripts/deploy-prod.ps1` depending on the selected mode.
+
 ## Features
 
 - **Multi Channel Support**  

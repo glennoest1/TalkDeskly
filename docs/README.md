@@ -15,6 +15,7 @@ Each guide begins with an architecture diagram and a connection table showing ex
 ## Table Of Contents
 
 - [Quick Choice](#quick-choice)
+- [Makefile Deployment](#makefile-deployment)
 - [Communication Architecture At A Glance](#communication-architecture-at-a-glance)
 - [Important Differences](#important-differences)
 - [First-Time Docker Development](#first-time-docker-development)
@@ -27,7 +28,7 @@ Each guide begins with an architecture diagram and a connection table showing ex
 Use development mode when you want separate containers for backend, frontend, chat widget, Postgres, Redis, and MailHog:
 
 ```bash
-docker compose -f docker-compose.dev.yml up -d --build
+make dev
 ```
 
 Development mode exposes the backend on both `http://localhost:8080` and `http://localhost:6721`. The backend container still listens on `8080`; `6721` is a host-port compatibility alias for the current frontend and chat widget development code.
@@ -35,16 +36,75 @@ Development mode exposes the backend on both `http://localhost:8080` and `http:/
 Use production mode when you want one backend container serving the compiled admin frontend, widget SDK, REST API, and WebSocket routes:
 
 ```bash
-docker compose -f docker-compose.prod.yml up -d --build
+make prod
 ```
 
 Use local mode when you want the backend, frontend, and chat widget as host processes - fastest reload and native IDE debugging - with only the infrastructure in Docker:
 
 ```bash
-docker compose -f docker-compose.dev.yml up -d postgres redis mailhog
+make local
 ```
 
-Then follow [Local deployment](local/local-deployment.md) to start the three host processes.
+Then open the URLs printed by the script.
+
+## Makefile Deployment
+
+Use the `Makefile` commands from the repository root:
+
+```bash
+make local
+make dev
+make prod
+make local-status
+make dev-stop
+make prod-restart
+make dev-logs
+make local-seed
+make prod-build
+```
+
+Script layout:
+
+| File | Role |
+| --- | --- |
+| `Makefile` | Primary command interface for deployment |
+| `scripts/deploy-dispatcher.ps1` | Internal mode dispatcher called by Makefile |
+| `scripts/deploy-local.ps1` | Internal local host-run deployment actions |
+| `scripts/deploy-dev.ps1` | Internal Docker development deployment actions |
+| `scripts/deploy-prod.ps1` | Internal production deployment actions |
+| `scripts/deploy-common.ps1` | Internal shared module loader |
+| `scripts/modules/*.ps1` | Internal helper modules for core actions, HTTP, npm, Compose, local processes, and prod assets |
+
+See [Deployment Scripts](deployment-scripts.md) for a full file-by-file explanation.
+
+Examples:
+
+| Command | What it does |
+| --- | --- |
+| `make local` | Starts Postgres, Redis, and MailHog in Docker, then starts backend, frontend, and chat widget as host processes |
+| `make dev` | Builds and starts the full Docker development stack |
+| `make prod` | Builds frontend and widget assets, copies them into `backend/public`, then builds and starts the production Compose stack |
+| `make dev-stop` | Stops the Docker development stack |
+| `make local-status` | Shows local process status and checks HTTP endpoints |
+| `make dev-logs` | Shows Docker development logs |
+| `make local-seed` | Seeds local demo data |
+| `make prod-build` | Builds production frontend/widget assets and Docker image |
+
+Make targets call the deployment script internally. Use Make variables for options:
+
+```bash
+make dev NO_SEED=1
+make prod SEED=1
+make local INSTALL_DEPS=1
+make deploy MODE=dev ACTION=restart
+make deploy MODE=dev ACTION=logs FOLLOW=1 TAIL=200
+```
+
+By default, `local` and `dev` seed demo data after startup. Use `NO_SEED=1` to skip it or `SEED=1` to seed production mode explicitly.
+
+Production mode requires a repository-root `.env` before running the script. See [Production deployment](prod/production-deployment.md#step-0-verify-prerequisites-and-configure-variables).
+
+The script uses separate Docker Compose project names per mode: `talkdeskly-local`, `talkdeskly-dev`, and `talkdeskly-prod`. This keeps containers and volumes from different modes from being mixed in `docker compose ps`.
 
 ## Communication Architecture At A Glance
 

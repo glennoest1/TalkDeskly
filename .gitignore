@@ -1,0 +1,8 @@
+# Local runtime secrets read by docker compose (see docs/prod/production-deployment.md, Step 0)
+.env
+
+# Local machine-specific compose overrides (see docs/dev/development-deployment.md, section 6)
+docker-compose.override.yml
+
+# One-click local deployment process state and logs
+.deploy/
