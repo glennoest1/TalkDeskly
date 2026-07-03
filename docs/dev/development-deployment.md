@@ -8,6 +8,54 @@ The deployment package in this folder contains:
 | --- | --- |
 | `development-deployment.md` | Step-by-step development deployment guide |
 
+## Table Of Contents
+
+- [1. What Development Mode Runs](#1-what-development-mode-runs)
+- [2. Docker Compose Development Build](#2-docker-compose-development-build)
+- [3. Source Mounts And Hot Reload](#3-source-mounts-and-hot-reload)
+- [4. Prerequisites](#4-prerequisites)
+- [5. Published Ports](#5-published-ports)
+  - [Backend Port Convention](#backend-port-convention)
+- [6. Runtime Variables](#6-runtime-variables)
+  - [Config Name Warning](#config-name-warning)
+  - [Frontend API URL Warning](#frontend-api-url-warning)
+- [7. SMTP Host Rule](#7-smtp-host-rule)
+- [8. Step-By-Step Deploy](#8-step-by-step-deploy)
+  - [Step 0: Verify Prerequisites](#step-0-verify-prerequisites)
+  - [Step 1: Build Development Images](#step-1-build-development-images)
+  - [Step 2: Start The Development Stack](#step-2-start-the-development-stack)
+  - [Step 3: Watch Startup Logs](#step-3-watch-startup-logs)
+  - [Step 4: Check Containers](#step-4-check-containers)
+  - [Step 5: Verify HTTP Routes](#step-5-verify-http-routes)
+  - [Step 6: Seed Demo Data](#step-6-seed-demo-data)
+  - [Step 7: Test Backend CLI Commands](#step-7-test-backend-cli-commands)
+  - [Step 8: Test Email Delivery](#step-8-test-email-delivery)
+- [9. Backend Hot Reload And Debugging](#9-backend-hot-reload-and-debugging)
+- [10. Development Data And Volumes](#10-development-data-and-volumes)
+- [11. Development Widget Behavior](#11-development-widget-behavior)
+  - [Widget URL Model](#widget-url-model)
+  - [Test Any Inbox In Chat-Bubble Dev Mode](#test-any-inbox-in-chat-bubble-dev-mode)
+  - [Find A Test Inbox ID](#find-a-test-inbox-id)
+  - [Verify The Selected Inbox](#verify-the-selected-inbox)
+  - [End-To-End Widget Test](#end-to-end-widget-test)
+  - [Reset Browser Widget State](#reset-browser-widget-state)
+- [12. Running Individual Services](#12-running-individual-services)
+- [13. What The Development Dockerfiles Do](#13-what-the-development-dockerfiles-do)
+  - [Backend Dockerfile](#backend-dockerfile)
+  - [Frontend Dockerfile](#frontend-dockerfile)
+  - [Chat-Bubble Dockerfile](#chat-bubble-dockerfile)
+- [14. Database Initialization](#14-database-initialization)
+- [15. Troubleshooting](#15-troubleshooting)
+  - [Backend Keeps Restarting](#backend-keeps-restarting)
+  - [Frontend Loads But API Calls Fail](#frontend-loads-but-api-calls-fail)
+  - [Chat-Bubble Stays On Connecting](#chat-bubble-stays-on-connecting)
+  - [Frontend Or Chat-Bubble Container Exits](#frontend-or-chat-bubble-container-exits)
+  - [MailHog Is Empty](#mailhog-is-empty)
+  - [Database Port Conflict](#database-port-conflict)
+  - [Dev Data Looks Stale](#dev-data-looks-stale)
+- [16. Stop Development Stack](#16-stop-development-stack)
+- [17. Copy-Paste Quick Start](#17-copy-paste-quick-start)
+
 ## 1. What Development Mode Runs
 
 Development mode runs the backend, admin frontend, chat widget, database, Redis, and a local SMTP test server as separate containers.
@@ -245,6 +293,37 @@ http://localhost:8025
 ## 8. Step-By-Step Deploy
 
 Run these commands from the repository root unless stated otherwise.
+
+### Step 0: Verify Prerequisites
+
+Verify tool availability first:
+
+```bash
+docker --version
+docker compose version
+git --version
+curl --version
+```
+
+Expected result: each command prints a version and exits without error.
+
+Then confirm the required host ports are free: `3000`, `3001`, `8080`, `6721`, `2345`, `5433`, `6379`, `1025`, `8025`.
+
+Linux/macOS:
+
+```bash
+for p in 3000 3001 8080 6721 2345 5433 6379 1025 8025; do lsof -iTCP:$p -sTCP:LISTEN; done
+```
+
+Windows PowerShell:
+
+```powershell
+Get-NetTCPConnection -State Listen | Where-Object { $_.LocalPort -in 3000,3001,8080,6721,2345,5433,6379,1025,8025 }
+```
+
+Expected result: no output means all ports are free. If a port is taken, stop the conflicting process or remap the host side of that port in `docker-compose.dev.yml` as described in [section 5](#5-published-ports). Do not remap `6721` unless you also update the hard-coded development URLs described in [Frontend API URL Warning](#frontend-api-url-warning).
+
+No `.env` file is required for development mode. All runtime variables are defined inside `docker-compose.dev.yml`.
 
 ### Step 1: Build Development Images
 
@@ -498,8 +577,8 @@ This matches the production SDK intent in the codebase:
 | --- | --- |
 | `frontend/src/components/protected/settings/inbox/edit/website/widget-customization.tsx` | Generated install script sets `baseUrl` to `window.location.origin` |
 | `frontend/src/components/protected/settings/inbox/wizard/website/complete.tsx` | Wizard install script also sets `baseUrl` to `window.location.origin` |
-| `docs/deploy/prod/sample.html` | Production sample passes `BASE_URL = "http://localhost:8080"` as `baseUrl` |
-| `docs/deploy/prod/production-deployment.md` | Documents `baseUrl` as the public backend URL, not a WebSocket URL |
+| `docs/prod/sample.html` | Production sample passes `BASE_URL = "http://localhost:8080"` as `baseUrl` |
+| `docs/prod/production-deployment.md` | Documents `baseUrl` as the public backend URL, not a WebSocket URL |
 | `chat-bubble/app/stores/config-context.tsx` | Default SDK config uses `https://talkdeskly.com` as `baseUrl` |
 
 So `baseUrl` should be treated as the public backend origin that serves REST, WebSocket routes, and SDK assets. It is not a dedicated WebSocket endpoint.
@@ -867,3 +946,35 @@ docker compose -f docker-compose.dev.yml down -v
 ```
 
 Do not remove volumes unless a data reset is explicitly intended.
+
+## 17. Copy-Paste Quick Start
+
+The full sequence from a clean checkout to a working development environment. Run [Step 0](#step-0-verify-prerequisites) first to confirm tools and free ports.
+
+```bash
+# Steps 1 and 2: build and start everything
+docker compose -f docker-compose.dev.yml up -d --build
+
+# Step 4: confirm all six containers are up
+docker ps --filter "name=talkdeskly"
+
+# Step 5: verify routes
+curl http://localhost:8080/health
+curl http://localhost:6721/health
+curl -I http://localhost:3001/
+curl -I http://localhost:3000/
+curl -I http://localhost:8025/
+
+# Step 6: seed demo data
+docker compose -f docker-compose.dev.yml exec backend go run . seed run
+```
+
+Then open in the browser:
+
+| URL | What to do |
+| --- | --- |
+| `http://localhost:3001` | Log in with `admin@talkdeskly.com` / `password123` |
+| `http://localhost:3000` | Chat widget dev page; see [section 11](#11-development-widget-behavior) to point it at a real inbox |
+| `http://localhost:8025` | MailHog inbox for captured emails |
+
+On Windows PowerShell, replace `curl` with `curl.exe` so the real curl binary is used instead of the `Invoke-WebRequest` alias.

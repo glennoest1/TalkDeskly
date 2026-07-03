@@ -9,6 +9,14 @@ Start here when you need to run the project with Docker Compose.
 | [Development deployment](dev/development-deployment.md) | Local development, hot reload, debugging, MailHog email testing, and widget testing against local inboxes | `docker-compose.dev.yml` |
 | [Production deployment](prod/production-deployment.md) | Local production-mode testing or preparing a production-style backend image that serves built frontend and SDK assets | `docker-compose.prod.yml` |
 
+## Table Of Contents
+
+- [Quick Choice](#quick-choice)
+- [Important Differences](#important-differences)
+- [First-Time Local Development](#first-time-local-development)
+- [Production-Mode Local Test](#production-mode-local-test)
+- [Safety Notes](#safety-notes)
+
 ## Quick Choice
 
 Use development mode when you want separate containers for backend, frontend, chat widget, Postgres, Redis, and MailHog:

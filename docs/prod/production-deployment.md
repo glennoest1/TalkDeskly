@@ -9,6 +9,38 @@ The deployment package in this folder contains:
 | `production-deployment.md` | Step-by-step production deployment guide |
 | `sample.html` | Standalone page for testing the embeddable chat widget |
 
+## Table Of Contents
+
+- [1. What Production Mode Runs](#1-what-production-mode-runs)
+- [2. Docker Compose Production Build](#2-docker-compose-production-build)
+- [3. Prerequisites](#3-prerequisites)
+- [4. Runtime Variables](#4-runtime-variables)
+- [5. SMTP Host Rule](#5-smtp-host-rule)
+- [6. Step-By-Step Deploy](#6-step-by-step-deploy)
+  - [Step 0: Verify Prerequisites And Configure Variables](#step-0-verify-prerequisites-and-configure-variables)
+  - [Step 1: Build The Admin Frontend](#step-1-build-the-admin-frontend)
+  - [Step 2: Copy Frontend Into Backend Public Directory](#step-2-copy-frontend-into-backend-public-directory)
+  - [Step 3: Build The Chat Widget SDK](#step-3-build-the-chat-widget-sdk)
+  - [Step 4: Copy SDK Into Backend Public Directory](#step-4-copy-sdk-into-backend-public-directory)
+  - [Step 5: Build The Production Image](#step-5-build-the-production-image)
+  - [Step 6: Start Production Stack](#step-6-start-production-stack)
+  - [Step 7: Check Containers](#step-7-check-containers)
+  - [Step 8: Verify HTTP Routes](#step-8-verify-http-routes)
+  - [Step 9: Seed Demo Admin Account](#step-9-seed-demo-admin-account)
+  - [Step 10: Test Widget With sample.html](#step-10-test-widget-with-samplehtml)
+- [7. Backend CLI Build Script](#7-backend-cli-build-script)
+- [8. What The Production Dockerfile Copies](#8-what-the-production-dockerfile-copies)
+- [9. Widget Script Behavior](#9-widget-script-behavior)
+- [10. Database Initialization](#10-database-initialization)
+- [11. Troubleshooting](#11-troubleshooting)
+  - [Backend Keeps Restarting](#backend-keeps-restarting)
+  - [Frontend Container Is Missing](#frontend-container-is-missing)
+  - [Chat-Bubble Container Is Missing](#chat-bubble-container-is-missing)
+  - [Widget Does Not Load](#widget-does-not-load)
+- [12. Stop Production Stack](#12-stop-production-stack)
+- [13. Update And Redeploy](#13-update-and-redeploy)
+- [14. Copy-Paste Command Summary](#14-copy-paste-command-summary)
+
 ## 1. What Production Mode Runs
 
 Production mode does not run separate `frontend` or `chat-bubble` containers.
@@ -94,6 +126,8 @@ Variable reference:
 | `EMAIL_PASSWORD` | depends on SMTP provider | secret | SMTP password |
 | `EMAIL_FROM` | yes | public config | Sender email address |
 
+`docker-compose.prod.yml` also sets `EMAIL_PROVIDER=smtp` directly in the service definition. You do not need to provide it as a runtime variable.
+
 ## 5. SMTP Host Rule
 
 Do not set `EMAIL_HOST` to `localhost` unless the SMTP server runs inside the backend container itself.
@@ -117,6 +151,85 @@ failed to connect to SMTP server
 ## 6. Step-By-Step Deploy
 
 Run these commands from the repository root unless stated otherwise.
+
+Complete Step 0 through Step 8 in order. Step 9 and Step 10 are optional local verification steps.
+
+### Step 0: Verify Prerequisites And Configure Variables
+
+Verify tool availability first:
+
+```bash
+docker --version
+docker compose version
+node --version
+npm --version
+```
+
+Expected result: each command prints a version and exits without error.
+
+| Check | Requirement |
+| --- | --- |
+| Docker | Docker Engine with Compose v2 (`docker compose`, not the legacy `docker-compose`) |
+| Node.js | 18.x or newer; 20.x recommended to match the development images |
+| npm | Included with Node.js |
+
+Then create a `.env` file in the repository root. Docker Compose reads it automatically when you run `build` and `up` from the repository root.
+
+Linux/macOS/Git Bash:
+
+```bash
+cat > .env <<'EOF'
+POSTGRES_PASSWORD=<strong-random-password>
+JWT_SECRET=<long-random-string>
+BASE_URL=http://localhost:8080
+EMAIL_HOST=<smtp-host-reachable-from-backend-container>
+EMAIL_PORT=<smtp-port>
+EMAIL_USERNAME=
+EMAIL_PASSWORD=
+EMAIL_FROM=noreply@example.com
+EOF
+```
+
+Windows PowerShell:
+
+```powershell
+@'
+POSTGRES_PASSWORD=<strong-random-password>
+JWT_SECRET=<long-random-string>
+BASE_URL=http://localhost:8080
+EMAIL_HOST=<smtp-host-reachable-from-backend-container>
+EMAIL_PORT=<smtp-port>
+EMAIL_USERNAME=
+EMAIL_PASSWORD=
+EMAIL_FROM=noreply@example.com
+'@ | Out-File -FilePath .env -Encoding ascii
+```
+
+Replace every `<placeholder>` before continuing:
+
+| Placeholder | How to fill it |
+| --- | --- |
+| `<strong-random-password>` | Generate a random password, for example `openssl rand -hex 24` |
+| `<long-random-string>` | Generate a random secret, for example `openssl rand -hex 32` |
+| `BASE_URL` | Keep `http://localhost:8080` for local testing. For a real deployment, use the public backend URL, for example `https://chat.example.com` |
+| `<smtp-host-reachable-from-backend-container>` | Follow [section 5](#5-smtp-host-rule). Never `localhost` |
+| `<smtp-port>` | Your SMTP provider port, commonly `587` or `465`; `1025` for a local MailHog |
+
+For local production-mode testing without a real SMTP provider, run a disposable MailHog on the host and point the backend at it:
+
+```bash
+docker run -d --name mailhog-local -p 1025:1025 -p 8025:8025 mailhog/mailhog
+```
+
+Then set `EMAIL_HOST=host.docker.internal` and `EMAIL_PORT=1025` (Docker Desktop on Windows/macOS), and read captured mail at `http://localhost:8025`.
+
+Never commit `.env`. Verify it is ignored:
+
+```bash
+git check-ignore .env
+```
+
+Expected result: the command prints `.env`. If it prints nothing, add `.env` to `.gitignore` before continuing.
 
 ### Step 1: Build The Admin Frontend
 
@@ -306,13 +419,13 @@ Do not use seeded demo credentials for a real production deployment.
 Open:
 
 ```text
-docs/deploy/prod/sample.html
+docs/prod/sample.html
 ```
 
 Or serve this deploy folder over HTTP:
 
 ```bash
-cd docs/deploy/prod
+cd docs/prod
 python -m http.server 9000
 ```
 
@@ -532,3 +645,98 @@ docker compose -f docker-compose.prod.yml down -v
 ```
 
 Do not remove production volumes unless a data reset is explicitly intended and backed up.
+
+## 13. Update And Redeploy
+
+When source code changes, repeat only the steps that cover the changed area, then rebuild and restart the backend:
+
+| What changed | Required steps before rebuild |
+| --- | --- |
+| `frontend/` | Step 1 and Step 2 |
+| `chat-bubble/` | Step 3 and Step 4 |
+| `backend/` only | none, the image build compiles the backend |
+| Documentation only | nothing to redeploy |
+
+Rebuild and restart:
+
+```bash
+docker compose -f docker-compose.prod.yml build backend
+docker compose -f docker-compose.prod.yml up -d
+```
+
+`up -d` replaces only the backend container with the new image. Postgres and Redis keep running and their volumes are preserved.
+
+Verify after every redeploy:
+
+```bash
+curl http://localhost:8080/health
+docker ps --filter "name=talkdeskly"
+```
+
+## 14. Copy-Paste Command Summary
+
+The full sequence from a clean checkout to a running production stack. Complete [Step 0](#step-0-verify-prerequisites-and-configure-variables) first: the `.env` file must exist in the repository root before `build` and `up`.
+
+Linux/macOS/Git Bash:
+
+```bash
+# Step 1: build admin frontend
+cd frontend && npm install && npm run build && cd ..
+
+# Step 2: copy frontend into backend
+mkdir -p backend/public/app
+cp -R frontend/dist/* backend/public/app/
+
+# Step 3: build widget SDK
+cd chat-bubble && npm install && npm run build && cd ..
+
+# Step 4: copy SDK into backend
+mkdir -p backend/public/sdk
+cp -R chat-bubble/dist/* backend/public/sdk/
+
+# Step 5: build production image
+docker compose -f docker-compose.prod.yml build backend
+
+# Step 6: start stack
+docker compose -f docker-compose.prod.yml up -d
+
+# Step 7 and Step 8: verify
+docker ps --filter "name=talkdeskly"
+curl http://localhost:8080/health
+curl -I http://localhost:8080/
+curl -I http://localhost:8080/sdk/sdk.iife.js
+
+# Step 9 (optional, local testing only): seed demo data
+docker compose -f docker-compose.prod.yml exec backend ./talkdeskly seed run
+```
+
+Windows PowerShell:
+
+```powershell
+# Step 1: build admin frontend
+Set-Location frontend; npm.cmd install; npm.cmd run build; Set-Location ..
+
+# Step 2: copy frontend into backend
+New-Item -ItemType Directory -Force -Path backend\public\app | Out-Null
+Copy-Item -Path frontend\dist\* -Destination backend\public\app -Recurse -Force
+
+# Step 3: build widget SDK
+Set-Location chat-bubble; npm.cmd install; npm.cmd run build; Set-Location ..
+
+# Step 4: copy SDK into backend
+New-Item -ItemType Directory -Force -Path backend\public\sdk | Out-Null
+Copy-Item -Path chat-bubble\dist\* -Destination backend\public\sdk -Recurse -Force
+
+# Step 5 and Step 6: build image and start stack
+docker compose -f docker-compose.prod.yml build backend
+docker compose -f docker-compose.prod.yml up -d
+
+# Step 7 and Step 8: verify
+docker ps --filter "name=talkdeskly"
+curl.exe http://localhost:8080/health
+curl.exe -I http://localhost:8080/
+curl.exe -I http://localhost:8080/sdk/sdk.iife.js
+
+# Step 9 (optional, local testing only): seed demo data
+docker compose -f docker-compose.prod.yml exec backend ./talkdeskly seed run
+```
