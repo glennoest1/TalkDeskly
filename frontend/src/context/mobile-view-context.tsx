@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
+import i18n from "@/lib/i18n";
 
 type MobileView = "conversations" | "chat" | "contact";
 
@@ -26,7 +27,7 @@ export const MobileViewProvider: React.FC<{ children: ReactNode }> = ({
 export const useMobileView = () => {
   const context = useContext(MobileViewContext);
   if (!context) {
-    throw new Error("errors.mobileViewProvider");
+    throw new Error(i18n.t("errors.mobileViewProvider"));
   }
   return context;
 };
