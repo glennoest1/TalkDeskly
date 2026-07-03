@@ -668,6 +668,7 @@
     }
   },
   "errors": {
+    "mobileViewProvider": "useMobileView phải được sử dụng bên trong MobileViewProvider",
     "413": {
       "title": "Tệp quá lớn",
       "description": "Tệp bạn đang cố tải lên quá lớn. Vui lòng thử lại với tệp nhỏ hơn."

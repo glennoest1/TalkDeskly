@@ -668,6 +668,7 @@
     }
   },
   "errors": {
+    "mobileViewProvider": "useMobileView 必须在 MobileViewProvider 内使用",
     "413": {
       "title": "文件太大",
       "description": "你尝试上传的文件太大。请使用较小的文件重试。"
