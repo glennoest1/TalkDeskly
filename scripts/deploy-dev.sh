@@ -55,4 +55,20 @@ build_mode() {
   compose "talkdeskly-dev" "docker-compose.dev.yml" build
 }
 
+reset_mode() {
+  case "$DEPLOY_SERVICE" in
+    chat-bubble|backend|frontend|postgres|redis|mailhog)
+      compose_reset_service "talkdeskly-dev" "docker-compose.dev.yml"
+      ;;
+    "")
+      require_service
+      ;;
+    *)
+      echo "Unsupported development service: $DEPLOY_SERVICE" >&2
+      echo "Supported development services: chat-bubble, backend, frontend, postgres, redis, mailhog" >&2
+      exit 2
+      ;;
+  esac
+}
+
 dispatch_action

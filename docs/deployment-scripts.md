@@ -51,6 +51,9 @@ On Windows, run these commands from WSL, Git Bash, MSYS2, or another Bash-capabl
 | `make local-restart` | Stop and start local host-run mode. |
 | `make dev-restart` | Stop and start Docker development mode. |
 | `make prod-restart` | Stop and start production mode. |
+| `make local-reset SERVICE=<name>` | Restart one local host process or recreate one local dependency container. |
+| `make dev-reset SERVICE=<name>` | Recreate one Docker development Compose service. |
+| `make prod-reset SERVICE=<name>` | Recreate one production Compose service. Resetting `backend` rebuilds frontend/widget assets first. |
 | `make local-logs` | Print local host-process logs from `.deploy/logs`. |
 | `make dev-logs` | Print Docker development logs. |
 | `make prod-logs` | Validate root `.env`, then print production Compose logs. |
@@ -67,11 +70,12 @@ Generic form:
 make deploy MODE=dev ACTION=status
 make deploy MODE=local ACTION=logs FOLLOW=1 TAIL=200
 make deploy MODE=prod ACTION=build
+make deploy MODE=dev ACTION=reset SERVICE=backend
 ```
 
 Supported modes: `local`, `dev`, `prod`.
 
-Supported actions: `start`, `stop`, `restart`, `status`, `logs`, `seed`, `build`.
+Supported actions: `start`, `stop`, `restart`, `status`, `logs`, `seed`, `build`, `reset`.
 
 ## Options
 
@@ -82,6 +86,7 @@ Supported actions: `start`, `stop`, `restart`, `status`, `logs`, `seed`, `build`
 | `INSTALL_DEPS=1` | `local`, `prod`, `build` | Force `npm install` even when `node_modules` already exists. |
 | `FOLLOW=1` | `logs` | Keep streaming logs instead of printing and exiting. |
 | `TAIL=<n>` | `logs` | Number of log lines to print before exit/follow. Default is `100`. |
+| `SERVICE=<name>` | `reset` | Service to reset for the selected mode. |
 
 Examples:
 
@@ -90,7 +95,44 @@ make dev NO_SEED=1
 make prod SEED=1
 make local INSTALL_DEPS=1
 make dev-logs FOLLOW=1 TAIL=200
+make dev-reset SERVICE=backend
 ```
+
+## Reset One Service
+
+Use reset when only one service needs to be recreated or restarted.
+
+```bash
+make local-reset SERVICE=frontend
+make dev-reset SERVICE=backend
+make prod-reset SERVICE=backend
+```
+
+Generic form:
+
+```bash
+make reset MODE=dev SERVICE=chat-bubble
+make deploy MODE=prod ACTION=reset SERVICE=redis
+```
+
+Supported service names:
+
+| Mode | Services |
+| --- | --- |
+| `local` | `backend`, `frontend`, `chat-bubble`, `postgres`, `redis`, `mailhog` |
+| `dev` | `chat-bubble`, `backend`, `frontend`, `postgres`, `redis`, `mailhog` |
+| `prod` | `backend`, `postgres`, `redis` |
+
+Reset behavior:
+
+| Mode | Behavior |
+| --- | --- |
+| `local` host services | Stops the tracked PID from `.deploy/local-pids.txt`, starts the selected host process again, and waits for its HTTP endpoint. |
+| `local` dependency services | Runs Compose recreate for the selected dependency container from `docker-compose.dev.yml`. |
+| `dev` | Runs Compose recreate for the selected service under project `talkdeskly-dev`. |
+| `prod` | Validates root `.env`, then recreates the selected service under project `talkdeskly-prod`. For `SERVICE=backend`, the script rebuilds and recopies frontend/widget assets before recreating the backend container. |
+
+Reset does not delete named volumes. It is intended for restarting/recreating a service after code, config, or dependency changes, not for wiping data.
 
 ## Script Layout
 
@@ -99,9 +141,9 @@ make dev-logs FOLLOW=1 TAIL=200
 | `Makefile` | Primary command interface. Users should run deployment through `make`. |
 | `scripts/deploy-dispatcher.sh` | Thin Bash dispatcher. Validates mode/action/options, exports options, and routes to the selected mode script. |
 | `scripts/deploy-common.sh` | Shared helpers for command checks, Docker Compose, HTTP readiness/status checks, npm dependencies, seed decisions, and action dispatch. |
-| `scripts/deploy-local.sh` | Local host-run mode: dependency containers, host processes, PID tracking, local logs, local seed/build/status. |
-| `scripts/deploy-dev.sh` | Docker development mode: Compose build/up/down/status/logs and dev seed. |
-| `scripts/deploy-prod.sh` | Production mode: `.env` validation, asset builds/copies, production Compose actions, prod seed/status/logs. |
+| `scripts/deploy-local.sh` | Local host-run mode: dependency containers, host processes, PID tracking, local logs, local seed/build/status/reset. |
+| `scripts/deploy-dev.sh` | Docker development mode: Compose build/up/down/status/logs/reset and dev seed. |
+| `scripts/deploy-prod.sh` | Production mode: `.env` validation, asset builds/copies, production Compose actions, prod seed/status/logs/reset. |
 
 Deploy automation is Bash-only.
 
@@ -226,6 +268,8 @@ bash -n scripts/deploy-dev.sh
 bash -n scripts/deploy-prod.sh
 make help
 make -n dev NO_SEED=1
+make -n dev-reset SERVICE=backend
+make -n local-reset SERVICE=frontend
 make local-status
 make local-logs TAIL=5
 make dev-status

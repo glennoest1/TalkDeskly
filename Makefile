@@ -3,6 +3,7 @@ DEPLOY := bash ./scripts/deploy-dispatcher.sh
 MODE ?= dev
 ACTION ?= start
 TAIL ?= 100
+SERVICE ?=
 
 FLAGS :=
 ifeq ($(NO_SEED),1)
@@ -17,16 +18,20 @@ endif
 ifeq ($(FOLLOW),1)
 FLAGS += -Follow
 endif
+ifneq ($(SERVICE),)
+FLAGS += -Service $(SERVICE)
+endif
 FLAGS += -Tail $(TAIL)
 
 .PHONY: help deploy local dev prod \
 	local-stop dev-stop prod-stop \
 	local-restart dev-restart prod-restart \
+	local-reset dev-reset prod-reset \
 	local-status dev-status prod-status \
 	local-logs dev-logs prod-logs \
 	local-seed dev-seed prod-seed \
 	local-build dev-build prod-build \
-	logs seed build status stop restart
+	logs seed build status stop restart reset
 
 help:
 	@printf '%s\n' 'TalkDeskly deployment targets'
@@ -55,7 +60,12 @@ help:
 	@printf '%s\n' '  make dev-stop              Stop Docker development mode'
 	@printf '%s\n' '  make prod-stop             Stop production mode'
 	@printf '%s\n' ''
+	@printf '%s\n' '  make local-reset SERVICE=frontend'
+	@printf '%s\n' '  make dev-reset SERVICE=backend'
+	@printf '%s\n' '  make prod-reset SERVICE=backend'
+	@printf '%s\n' ''
 	@printf '%s\n' '  make deploy MODE=dev ACTION=restart'
+	@printf '%s\n' '  make deploy MODE=dev ACTION=reset SERVICE=backend'
 	@printf '%s\n' '  make deploy MODE=dev ACTION=logs FOLLOW=1 TAIL=200'
 	@printf '%s\n' '  make dev NO_SEED=1'
 	@printf '%s\n' '  make prod SEED=1'
@@ -90,6 +100,15 @@ dev-restart:
 
 prod-restart:
 	$(DEPLOY) prod restart $(FLAGS)
+
+local-reset:
+	$(DEPLOY) local reset $(FLAGS)
+
+dev-reset:
+	$(DEPLOY) dev reset $(FLAGS)
+
+prod-reset:
+	$(DEPLOY) prod reset $(FLAGS)
 
 local-status:
 	$(DEPLOY) local status
@@ -135,6 +154,9 @@ stop:
 
 restart:
 	$(DEPLOY) $(MODE) restart $(FLAGS)
+
+reset:
+	$(DEPLOY) $(MODE) reset $(FLAGS)
 
 logs:
 	$(DEPLOY) $(MODE) logs $(FLAGS)

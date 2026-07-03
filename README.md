@@ -35,6 +35,7 @@ make local-status
 make dev-logs
 make dev-seed
 make dev-restart
+make dev-reset SERVICE=backend
 make prod-build
 make deploy MODE=dev ACTION=status
 ```

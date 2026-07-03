@@ -112,4 +112,24 @@ build_mode() {
   compose "talkdeskly-prod" "docker-compose.prod.yml" build backend
 }
 
+reset_mode() {
+  assert_prod_env
+  case "$DEPLOY_SERVICE" in
+    backend|postgres|redis)
+      if [ "$DEPLOY_SERVICE" = "backend" ]; then
+        build_prod_assets
+      fi
+      compose_reset_service "talkdeskly-prod" "docker-compose.prod.yml"
+      ;;
+    "")
+      require_service
+      ;;
+    *)
+      echo "Unsupported production service: $DEPLOY_SERVICE" >&2
+      echo "Supported production services: backend, postgres, redis" >&2
+      exit 2
+      ;;
+  esac
+}
+
 dispatch_action

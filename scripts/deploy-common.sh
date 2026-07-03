@@ -12,6 +12,7 @@ NO_SEED="${NO_SEED:-0}"
 INSTALL_DEPS="${INSTALL_DEPS:-0}"
 FOLLOW="${FOLLOW:-0}"
 TAIL="${TAIL:-100}"
+DEPLOY_SERVICE="${DEPLOY_SERVICE:-}"
 
 write_step() {
   printf '\n==> %s\n' "$1"
@@ -99,6 +100,21 @@ compose_logs() {
     args+=(-f)
   fi
   compose "$project" "$file" "${args[@]}"
+}
+
+require_service() {
+  if [ -z "$DEPLOY_SERVICE" ]; then
+    echo "SERVICE is required for reset. Example: make dev-reset SERVICE=backend" >&2
+    exit 2
+  fi
+}
+
+compose_reset_service() {
+  local project="$1"
+  local file="$2"
+  require_service
+  write_step "Resetting service '$DEPLOY_SERVICE'"
+  compose "$project" "$file" up -d --build --force-recreate --no-deps "$DEPLOY_SERVICE"
 }
 
 compose_running_ids() {
@@ -194,6 +210,7 @@ dispatch_action() {
     logs) logs_mode ;;
     seed) seed_mode ;;
     build) build_mode ;;
+    reset) reset_mode ;;
     *)
       echo "Unsupported deployment action: $DEPLOY_ACTION" >&2
       exit 2

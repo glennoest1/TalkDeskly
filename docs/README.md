@@ -58,6 +58,7 @@ make prod
 make local-status
 make dev-stop
 make prod-restart
+make dev-reset SERVICE=backend
 make dev-logs
 make local-seed
 make prod-build
@@ -84,6 +85,7 @@ Examples:
 | `make dev` | Builds and starts the full Docker development stack |
 | `make prod` | Builds frontend and widget assets, copies them into `backend/public`, then builds and starts the production Compose stack |
 | `make dev-stop` | Stops the Docker development stack |
+| `make dev-reset SERVICE=backend` | Recreates one Docker development service without resetting named volumes |
 | `make local-status` | Shows local process status and checks HTTP endpoints |
 | `make dev-logs` | Shows Docker development logs |
 | `make local-seed` | Seeds local demo data |
@@ -96,6 +98,7 @@ make dev NO_SEED=1
 make prod SEED=1
 make local INSTALL_DEPS=1
 make deploy MODE=dev ACTION=restart
+make deploy MODE=dev ACTION=reset SERVICE=backend
 make deploy MODE=dev ACTION=logs FOLLOW=1 TAIL=200
 ```
 
