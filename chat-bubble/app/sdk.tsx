@@ -48,11 +48,11 @@ if (typeof window !== "undefined") {
       : "ws://localhost:8080";
 
     init({
-      inboxId: "c8fdb0f7-c261-4ce6-a77a-fbe64bd21e0d",
+      inboxId: "efcaa615-6a27-4046-9982-8ce08c8733f2",
       position: "bottom-right",
       primaryColor: "#dc0462",
       zIndex: 9999,
-      baseUrl: "http://localhost:8080",
+      baseUrl: "http://localhost:6721",
     });
   }
 }
